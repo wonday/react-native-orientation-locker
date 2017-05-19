@@ -62,16 +62,16 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                         orientationValue = "UNKNOWN";
                     }
                     
-                    if (orientation > 350 || orientation < 10) { 
+                    if (orientation > 315 || orientation < 45) { 
                         orientation = 0;
                         orientationValue = "PORTRAIT";
-                    } else if (orientation > 80 && orientation < 100) { 
+                    } else if (orientation > 45 && orientation < 135) { 
                         orientation = 90;
                         orientationValue = "LANDSCAPE-LEFT";
-                    } else if (orientation > 170 && orientation < 190) { 
+                    } else if (orientation > 135 && orientation < 225) { 
                         orientation = 180;
                         orientationValue = "PORTRAIT-UPSIDEDOWN";
-                    } else if (orientation > 260 && orientation < 280) { 
+                    } else if (orientation > 225 && orientation < 315) { 
                         orientation = 270;
                         orientationValue = "LANDSCAPE-RIGHT";
                     } else {
