@@ -42,6 +42,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     final OrientationEventListener mOrientationListener;
     final ReactApplicationContext ctx;
     private boolean isLocked = false;
+    private String lastOrientationValue = "";
 
     public OrientationModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -81,16 +82,19 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                     orientationValue = getCurrentOrientation();
                 }
 
+                if (!lastOrientationValue.equals(orientationValue)) {
+                    lastOrientationValue = orientationValue;
 
-                WritableMap params = Arguments.createMap();
-                params.putString("orientation", orientationValue);
-                if (ctx.hasActiveCatalystInstance()) {
-                    ctx
-                    .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                    .emit("orientationDidChange", params);
+                    WritableMap params = Arguments.createMap();
+                    params.putString("orientation", orientationValue);
+                    if (ctx.hasActiveCatalystInstance()) {
+                        ctx
+                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("orientationDidChange", params);
+                    }
+
+                    FLog.d(ReactConstants.TAG,"Current Orientation:" + orientationValue);
                 }
-
-                FLog.d(ReactConstants.TAG,"Current Orientation:" + orientationValue);
 
                 return;
             }
@@ -111,15 +115,21 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                 Configuration newConfig = intent.getParcelableExtra("newConfig");
 
                 String orientationValue = getCurrentOrientation();
-                WritableMap params = Arguments.createMap();
-                params.putString("orientation", orientationValue);
-                if (ctx.hasActiveCatalystInstance()) {
-                    ctx
-                    .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                    .emit("orientationDidChange", params);
-                }
 
-                FLog.d(ReactConstants.TAG,"Orientation changed to " + orientationValue);
+                if (!lastOrientationValue.equals(orientationValue)) {
+
+                    lastOrientationValue = orientationValue;
+
+                    WritableMap params = Arguments.createMap();
+                    params.putString("orientation", orientationValue);
+                    if (ctx.hasActiveCatalystInstance()) {
+                        ctx
+                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("orientationDidChange", params);
+                    }
+
+                    FLog.d(ReactConstants.TAG,"Orientation changed to " + orientationValue);
+                }
             }
         };
         ctx.addLifecycleEventListener(this);       
