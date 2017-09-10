@@ -18,7 +18,7 @@ A react-native module that can listen on orientation changing of device, get cur
 
 #### Using CocoaPods (iOS Only)
 
-    pod 'react-native-orientation-locker', :path => 'node_modules/react-native-orientation-locker'
+    pod 'react-native-orientation-locker', :path => '../node_modules/react-native-orientation-locker'
 
 Consult the React Native documentation on how to [install React Native using CocoaPods](https://facebook.github.io/react-native/docs/embedded-app-ios.html#install-react-native-using-cocoapods).
 
