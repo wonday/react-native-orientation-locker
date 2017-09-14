@@ -167,9 +167,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     @ReactMethod
     public void lockToPortrait() {
         final Activity activity = getCurrentActivity();
-        if (activity == null) {
-            return;
-        }
+        if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.isLocked = true;
     }
@@ -177,9 +175,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     @ReactMethod
     public void lockToPortraitUpsideDown() {
         final Activity activity = getCurrentActivity();
-        if (activity == null) {
-            return;
-        }
+        if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
         this.isLocked = true;
     }
@@ -187,9 +183,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     @ReactMethod
     public void lockToLandscapeLeft() {
         final Activity activity = getCurrentActivity();
-        if (activity == null) {
-            return;
-        }
+        if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         this.isLocked = true;
     }
@@ -197,9 +191,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     @ReactMethod
     public void lockToLandscapeRight() {
         final Activity activity = getCurrentActivity();
-        if (activity == null) {
-            return;
-        }
+        if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
         this.isLocked = true;
     }
@@ -207,9 +199,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     @ReactMethod
     public void unlockAllOrientations() {
         final Activity activity = getCurrentActivity();
-        if (activity == null) {
-            return;
-        }
+        if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         this.isLocked = false;
     }
@@ -230,7 +220,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         mOrientationListener.enable();
 
         final Activity activity = getCurrentActivity();
-        assert activity != null;
         if (activity == null) return;
         activity.registerReceiver(receiver, new IntentFilter("onConfigurationChanged"));
     }
@@ -246,7 +235,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
             activity.unregisterReceiver(receiver);
         }
         catch (java.lang.IllegalArgumentException e) {
-            FLog.e(ReactConstants.TAG, "receiver already unregistered", e);
+            FLog.w(ReactConstants.TAG, "receiver already unregistered", e);
         }        
     }
 
@@ -262,7 +251,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
             activity.unregisterReceiver(receiver);
         }
         catch (java.lang.IllegalArgumentException e) {
-            FLog.e(ReactConstants.TAG, "receiver already unregistered", e);
+            FLog.w(ReactConstants.TAG, "receiver already unregistered", e);
         }        
     }
 }
