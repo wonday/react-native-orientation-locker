@@ -3,8 +3,11 @@
 .DS_Store
 
 # Xcode
-#
-build/
+!**/*.xcodeproj
+!**/*.pbxproj
+!**/*.xcworkspacedata
+!**/*.xcsettings
+!**/*.xcscheme
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -22,8 +25,26 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+# Android/IJ
+#
+/build/
+.idea
+.gradle
+local.properties
+
 # node.js
 #
 node_modules/
 npm-debug.log
-*.iml
+yarn.lock
+yarn-error.log
+
+# others
+#
+.npmignore
+.buckconfig
+.flowconfig
+.gitattributes
+.gitignore
+.git
+.watchmanconfig
