@@ -7,7 +7,7 @@
 //
 
 'use strict';
-import React,{ Component, PropTypes } from 'react';
+import React,{ Component } from 'react';
 
 const OrientationNative = require('react-native').NativeModules.Orientation;
 const { NativeEventEmitter, DeviceEventEmitter } = require('react-native');
