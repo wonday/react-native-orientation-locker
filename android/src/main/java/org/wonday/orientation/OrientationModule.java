@@ -181,6 +181,14 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     }
 
     @ReactMethod
+    public void lockToLandscape() {
+        final Activity activity = getCurrentActivity();
+        if (activity == null) return;
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        this.isLocked = true;
+    }
+
+    @ReactMethod
     public void lockToLandscapeLeft() {
         final Activity activity = getCurrentActivity();
         if (activity == null) return;

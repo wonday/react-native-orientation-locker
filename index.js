@@ -54,6 +54,12 @@ export default class Orientation {
 
     };
 
+    static lockToLandscape = () => {
+
+        OrientationNative.lockToLandscape();
+
+    };
+
     static lockToLandscapeRight = () => {
 
         OrientationNative.lockToLandscapeRight();

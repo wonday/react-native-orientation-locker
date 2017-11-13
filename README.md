@@ -120,9 +120,10 @@ orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `POR
 ## Functions
 
 - `lockToPortrait()`
+- `lockToLandscape()`
 - `lockToLandscapeLeft()`
 - `lockToLandscapeRight()`
 - `unlockAllOrientations()`
-- `getOrientation(function(orientation)`
+- `getOrientation(function(orientation))`
 
 orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
