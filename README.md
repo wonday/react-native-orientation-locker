@@ -71,15 +71,19 @@ Whenever you want to use it within React Native code now you can:
 `import Orientation from 'react-native-orientation-locker';`
 
 ```javascript
-  _onOrientationDidChange: function(orientation) {
+
+import Orientation from 'react-native-orientation-locker';
+
+
+  _onOrientationDidChange = (orientation) => {
     if (orientation == 'LANDSCAPE-LEFT') {
       //do something with landscape left layout
     } else {
       //do something with portrait layout
     }
-  },
+  };
 
-  componentWillMount: function() {
+  componentWillMount() {
     //The getOrientation method is async. It happens sometimes that
     //you need the orientation at the moment the js starts running on device.
     //getInitialOrientation returns directly because its a constant set at the
@@ -92,18 +96,23 @@ Whenever you want to use it within React Native code now you can:
     }
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
+
     Orientation.lockToPortrait(); //this will lock the view to Portrait
     //Orientation.lockToLandscapeLeft(); //this will lock the view to Landscape
     //Orientation.unlockAllOrientations(); //this will unlock the view to all Orientations
+
+    //get current orientation
+    /*
+    Orientation.getOrientation((orientation)=> {
+      console.log("Current Device Orientation: ", orientation);
+    });
+    */
 
     Orientation.addOrientationListener(this._onOrientationDidChange);
   },
 
   componentWillUnmount: function() {
-    Orientation.getOrientation((orientation)=> {
-      console.log("Current Device Orientation: ", orientation);
-    });
     Orientation.removeOrientationListener(this._onOrientationDidChange);
   }
 ```
