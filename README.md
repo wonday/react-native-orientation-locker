@@ -136,3 +136,5 @@ orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `POR
 - `getOrientation(function(orientation))`
 
 orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
+
+Notice: PORTRAIT-UPSIDEDOWN not support now
