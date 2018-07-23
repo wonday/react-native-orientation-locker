@@ -9,6 +9,24 @@ A react-native module that can listen on orientation changing of device, get cur
 * listen on orientation changing of device
 * get the current orientation of device
  
+ ### ChangeLog
+v4.0.0 (**break change**)
+1. replace dependence lib ```react-native-fetch-blob``` with ```rn-fetch-blob```
+if you upgrade from an old version, you should 
+```
+react-native unlink react-native-fetch-blob
+npm uninstall react-native-fetch-blob
+
+npm install rn-fetch-blob --save
+react-native link rn-fetch-blob
+```
+
+v1.0.13
+1. fix android lockToLandscapeXXX return error value
+2. fix after lockToXXX still can get changed orientation
+
+[[more]](https://github.com/wonday/react-native-orientation-locker/releases)
+
 ### Installation
 #### Using npm
 
@@ -130,11 +148,17 @@ orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `POR
 
 - `lockToPortrait()`
 - `lockToLandscape()`
-- `lockToLandscapeLeft()`
-- `lockToLandscapeRight()`
+- `lockToLandscapeLeft()`  this will lock to camera left home button right
+- `lockToLandscapeRight()` this will lock to camera right home button left
 - `unlockAllOrientations()`
 - `getOrientation(function(orientation))`
 
-orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
+orientation can return one of:
 
-Notice: PORTRAIT-UPSIDEDOWN not support now
+`PORTRAIT` 
+`LANDSCAPE-LEFT` camera left home button right
+`LANDSCAPE-RIGHT` camera right home button left
+`PORTRAIT-UPSIDEDOWN` 
+`UNKNOWN`
+
+Notice: PORTRAIT-UPSIDEDOWN not support at iOS now
