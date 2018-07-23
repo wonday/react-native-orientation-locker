@@ -148,11 +148,11 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
             case Surface.ROTATION_0:
                 return "PORTRAIT";
             case Surface.ROTATION_90:
-                return "LANDSCAPE-RIGHT";
+                return "LANDSCAPE-LEFT";
             case Surface.ROTATION_180:
                 return "PORTRAIT-UPSIDEDOWN";
             case Surface.ROTATION_270:
-                return "LANDSCAPE-LEFT";
+                return "LANDSCAPE-RIGHT";
         }
         return "UNKNOWN";
     }
