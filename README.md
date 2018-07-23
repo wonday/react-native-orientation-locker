@@ -10,16 +10,6 @@ A react-native module that can listen on orientation changing of device, get cur
 * get the current orientation of device
  
  ### ChangeLog
-v4.0.0 (**break change**)
-1. replace dependence lib ```react-native-fetch-blob``` with ```rn-fetch-blob```
-if you upgrade from an old version, you should 
-```
-react-native unlink react-native-fetch-blob
-npm uninstall react-native-fetch-blob
-
-npm install rn-fetch-blob --save
-react-native link rn-fetch-blob
-```
 
 v1.0.13
 1. fix android lockToLandscapeXXX return error value
