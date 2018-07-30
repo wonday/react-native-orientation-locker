@@ -38,6 +38,7 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAll;
     
     if ((self = [super init])) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+        [self addListener:@"orientationDidChange"];
     }
     return self;
     
@@ -47,6 +48,7 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAll;
 {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeListeners:1];
     
 }
 
