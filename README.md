@@ -11,6 +11,9 @@ A react-native module that can listen on orientation changing of device, get cur
  
  ### ChangeLog
 
+v1.0.14
+1. remove "sending orientationDidChange with no listener" warning
+
 v1.0.13
 1. fix android lockToLandscapeXXX return error value
 2. fix after lockToXXX still can get changed orientation
