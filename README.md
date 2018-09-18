@@ -11,6 +11,9 @@ A react-native module that can listen on orientation changing of device, get cur
  
  ### ChangeLog
 
+v1.0.15
+1. remove s.dependency 'React' from podspec
+
 v1.0.14
 1. remove "sending orientationDidChange with no listener" warning
 
