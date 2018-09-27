@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.author         = package['author']['name']
   s.license        = package['license']
   s.homepage       = package['homepage']
-  s.source         = { :git => 'https://github.com/wonday/react-native-orientation-locker.git', :tag => s.version }
+  s.source         = { :git => 'https://github.com/wonday/react-native-orientation-locker.git', :tag => "v{s.version}" }
   s.requires_arc   = true
   s.platform       = :ios, '8.0'
   s.preserve_paths = 'README.md', 'package.json', 'index.js'
