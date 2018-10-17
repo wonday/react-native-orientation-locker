@@ -50,7 +50,7 @@ Consult the React Native documentation on how to [install React Native using Coc
 Add the following to your project's `AppDelegate.m`:
 
 ```objc
-#import "Orientation.h" // <--- import
+#import "Orientation.h"
 
 @implementation AppDelegate
 
@@ -65,11 +65,11 @@ Add the following to your project's `AppDelegate.m`:
 
 #### Android
 
-Implement onConfigurationChanged method (in MainActivity.java)
+Implement onConfigurationChanged method (in `MainActivity.java`)
 
-```
-    import android.content.Intent; // <--- import
-    import android.content.res.Configuration; // <--- import
+```java
+    import android.content.Intent;
+    import android.content.res.Configuration;
 
     public class MainActivity extends ReactActivity {
       ......
@@ -81,7 +81,7 @@ Implement onConfigurationChanged method (in MainActivity.java)
         this.sendBroadcast(intent);
     }
 
-      ......
+      //......
 
     }
 ```
@@ -91,7 +91,7 @@ Implement onConfigurationChanged method (in MainActivity.java)
 Whenever you want to use it within React Native code now you can:
 `import Orientation from 'react-native-orientation-locker';`
 
-```javascript
+```js
 
 import Orientation from 'react-native-orientation-locker';
 
