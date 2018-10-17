@@ -9,26 +9,6 @@ A react-native module that can listen on orientation changing of device, get cur
 * listen on orientation changing of device
 * get the current orientation of device
  
- ### ChangeLog
-
-v1.0.17
-1. fix podspec
-2. fix "Calling UI code from background thread" error
-
-v1.0.16
-1. restore s.dependency 'React' to podspec
-
-v1.0.15
-1. remove s.dependency 'React' from podspec
-
-v1.0.14
-1. remove "sending orientationDidChange with no listener" warning
-
-v1.0.13
-1. fix android lockToLandscapeXXX return error value
-2. fix after lockToXXX still can get changed orientation
-
-[[more]](https://github.com/wonday/react-native-orientation-locker/releases)
 
 ### Installation
 #### Using npm
@@ -49,41 +29,42 @@ Consult the React Native documentation on how to [install React Native using Coc
 
 Add the following to your project's `AppDelegate.m`:
 
-```objc
-#import "Orientation.h" // <--- import
+```diff
++#import "Orientation.h"
 
 @implementation AppDelegate
 
-  // ...
+// ...
 
-  - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-    return [Orientation getOrientation];
-  }
++- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
++  return [Orientation getOrientation];
++}
 
 @end
 ```
 
 #### Android
 
-Implement onConfigurationChanged method (in MainActivity.java)
+Implement onConfigurationChanged method (in `MainActivity.java`)
 
-```
-    import android.content.Intent; // <--- import
-    import android.content.res.Configuration; // <--- import
+```diff
+// ...
 
-    public class MainActivity extends ReactActivity {
-      ......
-      @Override
-      public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Intent intent = new Intent("onConfigurationChanged");
-        intent.putExtra("newConfig", newConfig);
-        this.sendBroadcast(intent);
-    }
++import android.content.Intent;
++import android.content.res.Configuration;
 
-      ......
+public class MainActivity extends ReactActivity {
+    
++   @Override
++   public void onConfigurationChanged(Configuration newConfig) {
++       super.onConfigurationChanged(newConfig);
++       Intent intent = new Intent("onConfigurationChanged");
++       intent.putExtra("newConfig", newConfig);
++       this.sendBroadcast(intent);
++   }
 
-    }
+    // ......
+}
 ```
 
 ## Usage
@@ -91,8 +72,7 @@ Implement onConfigurationChanged method (in MainActivity.java)
 Whenever you want to use it within React Native code now you can:
 `import Orientation from 'react-native-orientation-locker';`
 
-```javascript
-
+```js
 import Orientation from 'react-native-orientation-locker';
 
 
