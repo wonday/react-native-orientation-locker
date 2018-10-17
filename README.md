@@ -11,6 +11,10 @@ A react-native module that can listen on orientation changing of device, get cur
  
  ### ChangeLog
 
+v1.0.18
+1. update build.gradle for RN 0.57
+2. format some codes and readme
+
 v1.0.17
 1. fix podspec
 2. fix "Calling UI code from background thread" error
