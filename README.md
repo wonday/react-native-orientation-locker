@@ -49,16 +49,16 @@ Consult the React Native documentation on how to [install React Native using Coc
 
 Add the following to your project's `AppDelegate.m`:
 
-```objc
-#import "Orientation.h"
+```diff
++#import "Orientation.h"
 
 @implementation AppDelegate
 
-  // ...
+// ...
 
-  - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-    return [Orientation getOrientation];
-  }
++- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
++  return [Orientation getOrientation];
++}
 
 @end
 ```
@@ -67,23 +67,26 @@ Add the following to your project's `AppDelegate.m`:
 
 Implement onConfigurationChanged method (in `MainActivity.java`)
 
-```java
-    import android.content.Intent;
-    import android.content.res.Configuration;
+Implement onConfigurationChanged method (in `MainActivity.java`)
 
-    public class MainActivity extends ReactActivity {
-      ......
-      @Override
-      public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Intent intent = new Intent("onConfigurationChanged");
-        intent.putExtra("newConfig", newConfig);
-        this.sendBroadcast(intent);
-    }
+```diff
+// ...
 
-      //......
++import android.content.Intent;
++import android.content.res.Configuration;
 
-    }
+public class MainActivity extends ReactActivity {
+    
++   @Override
++   public void onConfigurationChanged(Configuration newConfig) {
++       super.onConfigurationChanged(newConfig);
++       Intent intent = new Intent("onConfigurationChanged");
++       intent.putExtra("newConfig", newConfig);
++       this.sendBroadcast(intent);
++   }
+
+    // ......
+}
 ```
 
 ## Usage
