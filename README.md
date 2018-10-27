@@ -74,8 +74,6 @@ Add the following to your project's `AppDelegate.m`:
 
 Implement onConfigurationChanged method (in `MainActivity.java`)
 
-Implement onConfigurationChanged method (in `MainActivity.java`)
-
 ```diff
 // ...
 
