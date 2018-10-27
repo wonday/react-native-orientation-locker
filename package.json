@@ -1,6 +1,6 @@
 {
     "name": "react-native-orientation-locker",
-    "version": "1.0.18",
+    "version": "1.0.19",
     "summary": "A react-native module that can listen on orientation changing of device",
     "description": "A react-native module that can listen on orientation changing of device, get current orientation, lock to preferred orientation.",
     "homepage": "https://github.com/wonday/react-native-orientation-locker",
@@ -20,7 +20,7 @@
         "name": "Wonday",
         "url": "https://github.com/wonday"
     },
-    "license": " Apache-2.0",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/wonday/react-native-orientation-locker/issues"
     },

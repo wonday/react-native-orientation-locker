@@ -11,6 +11,9 @@ A react-native module that can listen on orientation changing of device, get cur
  
  ### ChangeLog
 
+v1.0.19
+1. change license to MIT
+
 v1.0.18
 1. update build.gradle for RN 0.57
 2. format some codes and readme
