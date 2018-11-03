@@ -11,6 +11,10 @@ A react-native module that can listen on orientation changing of device, get cur
  
  ### ChangeLog
 
+v1.0.20
+1. add getDeviceOrientation()
+2. orientationDidChange return DeviceOrientation
+
 v1.0.19
 1. change license to MIT
 
@@ -133,8 +137,9 @@ import Orientation from 'react-native-orientation-locker';
 
     //get current orientation
     /*
-    Orientation.getOrientation((orientation)=> {
-      console.log("Current Device Orientation: ", orientation);
+    Orientation.getOrientation((orientation,deviceOrientation)=> {
+      console.log("Current UI Orientation: ", orientation);
+      console.log("Current Device Orientation: ", deviceOrientation);
     });
     */
 
@@ -148,11 +153,11 @@ import Orientation from 'react-native-orientation-locker';
 
 ## Events
 
-- `addOrientationListener(function(orientation))`
+- `addOrientationListener(function(orientation,deviceOrientation))`
 
 orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
 
-- `removeOrientationListener(function(orientation))`
+- `removeOrientationListener(function(orientation,deviceOrientation))`
 
 
 ## Functions
@@ -163,6 +168,7 @@ orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `POR
 - `lockToLandscapeRight()` this will lock to camera right home button left
 - `unlockAllOrientations()`
 - `getOrientation(function(orientation))`
+- `getDeviceOrientation(function(orientation))`
 
 orientation can return one of:
 
