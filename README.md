@@ -11,9 +11,12 @@ A react-native module that can listen on orientation changing of device, get cur
  
  ### ChangeLog
 
-v1.0.20
+v1.0.21
 1. add getDeviceOrientation()
 2. orientationDidChange return DeviceOrientation
+
+v1.0.20
+abandon
 
 v1.0.19
 1. change license to MIT
