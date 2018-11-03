@@ -56,8 +56,9 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAll;
 {
     
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    UIInterfaceOrientation deviceOrientation = (UIInterfaceOrientation) [UIDevice currentDevice].orientation;
     
-    [self sendEventWithName:@"orientationDidChange" body:@{@"orientation": [self getOrientationStr:orientation]}];
+    [self sendEventWithName:@"orientationDidChange" body:@{@"orientation": [self getOrientationStr:orientation], @"deviceOrientation":[self getOrientationStr:deviceOrientation]}];
     
 }
 
@@ -97,10 +98,21 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(getOrientation:(RCTResponseSenderBlock)callback)
 {
-    
+
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
         NSString *orientationStr = [self getOrientationStr:orientation];
+        callback(@[orientationStr]);
+    }];
+
+}
+
+RCT_EXPORT_METHOD(getDeviceOrientation:(RCTResponseSenderBlock)callback)
+{
+
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        UIInterfaceOrientation deviceOrientation = (UIInterfaceOrientation) [UIDevice currentDevice].orientation;
+        NSString *orientationStr = [self getOrientationStr:deviceOrientation];
         callback(@[orientationStr]);
     }];
 

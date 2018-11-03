@@ -42,6 +42,14 @@ export default class Orientation {
 
     };
 
+    static getDeviceOrientation = (cb) => {
+
+        OrientationNative.getDeviceOrientation((deviceOrientation) =>{
+            cb(deviceOrientation);
+        });
+
+    };
+
     static lockToPortrait = () => {
 
         OrientationNative.lockToPortrait();
@@ -84,7 +92,7 @@ export default class Orientation {
         listeners[key] = LocalEventEmitter.addListener("orientationDidChange",
             (body) => {
                 setTimeout(()=>{
-                    cb(body.orientation);
+                    cb(body.orientation,body.deviceOrientation);
                 },1000);
             });
 
