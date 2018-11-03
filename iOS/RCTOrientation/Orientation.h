@@ -15,5 +15,4 @@
 @interface Orientation : RCTEventEmitter <RCTBridgeModule>
 + (void)setOrientation: (UIInterfaceOrientationMask)orientation;
 + (UIInterfaceOrientationMask)getOrientation;
-+ (UIInterfaceOrientationMask)getDeviceOrientation;
 @end
