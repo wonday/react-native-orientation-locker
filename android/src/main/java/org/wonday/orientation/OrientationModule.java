@@ -42,6 +42,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     final OrientationEventListener mOrientationListener;
     final ReactApplicationContext ctx;
     private boolean isLocked = false;
+    private String lastOrientationValue = "UNKNOWN";
     private String lastDeviceOrientationValue = "UNKNOWN";
 
     public OrientationModule(ReactApplicationContext reactContext) {
@@ -69,18 +70,16 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                     deviceOrientationValue = "PORTRAIT";
                 } else if (orientation > 45 && orientation < 135) {
                     orientation = 90;
-                    deviceOrientationValue = "LANDSCAPE-LEFT";
+                    deviceOrientationValue = "LANDSCAPE-RIGHT";
                 } else if (orientation > 135 && orientation < 225) {
                     orientation = 180;
                     deviceOrientationValue = "PORTRAIT-UPSIDEDOWN";
                 } else if (orientation > 225 && orientation < 315) {
                     orientation = 270;
-                    deviceOrientationValue = "LANDSCAPE-RIGHT";
+                    deviceOrientationValue = "LANDSCAPE-LEFT";
                 } else {
                     deviceOrientationValue = "UNKNOWN";
                 }
-
-                lastDeviceOrientationValue = deviceOrientationValue;
 
                 if (isLocked) {
                     orientationValue = getCurrentOrientation();
@@ -88,13 +87,20 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                     orientationValue = deviceOrientationValue;
                 }
 
-                WritableMap params = Arguments.createMap();
-                params.putString("orientation", orientationValue);
-                params.putString("deviceOrientation", deviceOrientationValue);
-                if (ctx.hasActiveCatalystInstance()) {
-                    ctx
-                    .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                    .emit("orientationDidChange", params);
+                if (!lastOrientationValue.equals(orientationValue)
+                    ||!lastDeviceOrientationValue.equals(deviceOrientationValue)) {
+
+                    lastOrientationValue = orientationValue;
+                    lastDeviceOrientationValue = deviceOrientationValue;
+
+                    WritableMap params = Arguments.createMap();
+                    params.putString("orientation", orientationValue);
+                    params.putString("deviceOrientation", deviceOrientationValue);
+                    if (ctx.hasActiveCatalystInstance()) {
+                        ctx
+                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("orientationDidChange", params);
+                    }
                 }
 
                 return;
@@ -116,13 +122,18 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
                 String orientationValue = getCurrentOrientation();
 
-                WritableMap params = Arguments.createMap();
-                params.putString("orientation", orientationValue);
-                params.putString("deviceOrientation", lastDeviceOrientationValue);
-                if (ctx.hasActiveCatalystInstance()) {
-                    ctx
-                    .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                    .emit("orientationDidChange", params);
+                if (!lastOrientationValue.equals(orientationValue)) {
+
+                    lastOrientationValue = orientationValue;
+
+                    WritableMap params = Arguments.createMap();
+                    params.putString("orientation", orientationValue);
+                    params.putString("deviceOrientation", lastDeviceOrientationValue);
+                    if (ctx.hasActiveCatalystInstance()) {
+                        ctx
+                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("orientationDidChange", params);
+                    }
                 }
 
             }
