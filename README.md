@@ -8,8 +8,11 @@ A react-native module that can listen on orientation changing of device, get cur
 * lock screen orientation to PORTRAIT|LANDSCAPE-LEFT|PORTRAIT-UPSIDEDOWN|LANDSCAPE-RIGHT.
 * listen on orientation changing of device
 * get the current orientation of device
- 
+
  ### ChangeLog
+
+v1.0.22  
+ 1. add getAutoRotateState()
 
 v1.0.21
 1. add getDeviceOrientation()
@@ -88,7 +91,7 @@ Implement onConfigurationChanged method (in `MainActivity.java`)
 +import android.content.res.Configuration;
 
 public class MainActivity extends ReactActivity {
-    
+
 +   @Override
 +   public void onConfigurationChanged(Configuration newConfig) {
 +       super.onConfigurationChanged(newConfig);
@@ -134,6 +137,9 @@ import Orientation from 'react-native-orientation-locker';
 
   componentDidMount() {
 
+    Orientation.getAutoRotateState((rotationLock) => this.setState({rotationLock}));
+    //this allows to check if the system autolock is enabled or not.
+
     Orientation.lockToPortrait(); //this will lock the view to Portrait
     //Orientation.lockToLandscapeLeft(); //this will lock the view to Landscape
     //Orientation.unlockAllOrientations(); //this will unlock the view to all Orientations
@@ -172,13 +178,14 @@ orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `POR
 - `unlockAllOrientations()`
 - `getOrientation(function(orientation))`
 - `getDeviceOrientation(function(orientation))`
+- `getAutoRotateState(function(state))`
 
 orientation can return one of:
 
-- `PORTRAIT` 
+- `PORTRAIT`
 - `LANDSCAPE-LEFT` camera left home button right
 - `LANDSCAPE-RIGHT` camera right home button left
-- `PORTRAIT-UPSIDEDOWN` 
+- `PORTRAIT-UPSIDEDOWN`
 - `UNKNOWN`
 
 Notice: PORTRAIT-UPSIDEDOWN not support at iOS now
