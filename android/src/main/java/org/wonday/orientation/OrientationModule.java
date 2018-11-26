@@ -1,6 +1,6 @@
 //
 //  react-native-orientation-locker
-//  
+//
 //
 //  Created by Wonday on 17/5/12.
 //  Copyright (c) wonday.org All rights reserved.
@@ -10,6 +10,7 @@ package org.wonday.orientation;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -37,7 +38,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 public class OrientationModule extends ReactContextBaseJavaModule implements LifecycleEventListener{
-    
+
     final BroadcastReceiver receiver;
     final OrientationEventListener mOrientationListener;
     final ReactApplicationContext ctx;
@@ -52,7 +53,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         mOrientationListener = new OrientationEventListener(reactContext) {
 
             @Override
-            public void onOrientationChanged(int orientation) { 
+            public void onOrientationChanged(int orientation) {
 
                 FLog.d(ReactConstants.TAG,"DeviceOrientation changed to " + orientation);
 
@@ -138,7 +139,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
             }
         };
-        ctx.addLifecycleEventListener(this);       
+        ctx.addLifecycleEventListener(this);
     }
 
     @Override
@@ -222,6 +223,15 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         this.isLocked = false;
     }
 
+    @ReactMethod
+    public void getAutoRotateState(Callback callback) {
+      final ContentResolver resolver = ctx.getContentResolver();
+      boolean rotateLock = android.provider.Settings.System.getInt(
+      resolver,
+      android.provider.Settings.System.ACCELEROMETER_ROTATION, 0) == 1;
+      callback.invoke(rotateLock);
+    }
+
     @Override
     public @Nullable Map<String, Object> getConstants() {
         HashMap<String, Object> constants = new HashMap<String, Object>();
@@ -254,7 +264,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         }
         catch (java.lang.IllegalArgumentException e) {
             FLog.w(ReactConstants.TAG, "receiver already unregistered", e);
-        }        
+        }
     }
 
     @Override
@@ -270,6 +280,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         }
         catch (java.lang.IllegalArgumentException e) {
             FLog.w(ReactConstants.TAG, "receiver already unregistered", e);
-        }        
+        }
     }
 }
