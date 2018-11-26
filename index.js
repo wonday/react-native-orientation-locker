@@ -1,6 +1,6 @@
 //
 //  react-native-orientation-locker
-//  
+//
 //
 //  Created by Wonday on 17/5/12.
 //  Copyright (c) wonday.org All rights reserved.
@@ -114,4 +114,11 @@ export default class Orientation {
         return OrientationNative.initialOrientation;
 
     };
+
+    static getAutoRotateState = (cb) => {
+      OrientationNative.getAutoRotateState((state) => {
+        cb(state);
+      });
+
+    }
 };
