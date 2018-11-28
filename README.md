@@ -178,7 +178,7 @@ orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `POR
 - `unlockAllOrientations()`
 - `getOrientation(function(orientation))`
 - `getDeviceOrientation(function(orientation))`
-- `getAutoRotateState(function(state))`
+- `getAutoRotateState(function(state))` (android only)
 
 orientation can return one of:
 
