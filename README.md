@@ -144,10 +144,14 @@ import Orientation from 'react-native-orientation-locker';
     //Orientation.lockToLandscapeLeft(); //this will lock the view to Landscape
     //Orientation.unlockAllOrientations(); //this will unlock the view to all Orientations
 
-    //get current orientation
+    //get current UI orientation
     /*
-    Orientation.getOrientation((orientation,deviceOrientation)=> {
+    Orientation.getOrientation((orientation)=> {
       console.log("Current UI Orientation: ", orientation);
+    });
+
+    //get current device orientation
+    Orientation.getDeviceOrientation((deviceOrientation)=> {
       console.log("Current Device Orientation: ", deviceOrientation);
     });
     */
@@ -177,7 +181,7 @@ orientation can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `POR
 - `lockToLandscapeRight()` this will lock to camera right home button left
 - `unlockAllOrientations()`
 - `getOrientation(function(orientation))`
-- `getDeviceOrientation(function(orientation))`
+- `getDeviceOrientation(function(deviceOrientation))`
 - `getAutoRotateState(function(state))` (android only)
 
 orientation can return one of:
