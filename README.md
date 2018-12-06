@@ -12,7 +12,7 @@ A react-native module that can listen on orientation changing of device, get cur
  ### ChangeLog
 
 v1.0.22  
- 1. add getAutoRotateState()
+ 1. add getAutoRotateState() (android only)
 
 v1.0.21
 1. add getDeviceOrientation()
@@ -56,7 +56,7 @@ v1.0.13
 
 #### Using CocoaPods (iOS Only)
 
-    pod 'react-native-orientation-locker', :path => '../node_modules/react-native-orientation-locker'
+    pod 'react-native-orientation-locker', :path => '../node_modules/react-native-orientation-locker/react-native-orientation-locker.podspec'
 
 Consult the React Native documentation on how to [install React Native using CocoaPods](https://facebook.github.io/react-native/docs/embedded-app-ios.html#install-react-native-using-cocoapods).
 
