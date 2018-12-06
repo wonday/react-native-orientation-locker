@@ -116,9 +116,13 @@ export default class Orientation {
     };
 
     static getAutoRotateState = (cb) => {
-      OrientationNative.getAutoRotateState((state) => {
-        cb(state);
-      });
+        if (Platform.OS === 'android') {
+          OrientationNative.getAutoRotateState((state) => {
+            cb(state);
+          });
+        } else {
+            cb(TRUE); // iOS not implement
+        }
 
     }
 };
