@@ -128,6 +128,8 @@ RCT_EXPORT_METHOD(lockToPortrait)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         [Orientation setOrientation:UIInterfaceOrientationMaskPortrait];
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: UIInterfaceOrientationPortrait] forKey:@"orientation"];
+        
+        [UIViewController attemptRotationToDeviceOrientation];
     }];
     
 }
@@ -149,6 +151,8 @@ RCT_EXPORT_METHOD(lockToLandscape)
             [Orientation setOrientation:UIInterfaceOrientationMaskLandscape];
             [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: UIInterfaceOrientationLandscapeRight] forKey:@"orientation"];
         }
+        
+        [UIViewController attemptRotationToDeviceOrientation];
     }];
     
 }
@@ -163,6 +167,8 @@ RCT_EXPORT_METHOD(lockToLandscapeRight)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         [Orientation setOrientation:UIInterfaceOrientationMaskLandscapeLeft];
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: UIInterfaceOrientationLandscapeLeft] forKey:@"orientation"];
+        
+        [UIViewController attemptRotationToDeviceOrientation];
     }];
     
 }
@@ -179,6 +185,8 @@ RCT_EXPORT_METHOD(lockToLandscapeLeft)
     
         // this seems counter intuitive
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: UIInterfaceOrientationLandscapeRight] forKey:@"orientation"];
+        
+        [UIViewController attemptRotationToDeviceOrientation];
     }];
     
 }
@@ -191,6 +199,7 @@ RCT_EXPORT_METHOD(unlockAllOrientations)
 #endif
     [Orientation setOrientation:UIInterfaceOrientationMaskAll];
     
+    [UIViewController attemptRotationToDeviceOrientation];
 }
 
 - (NSDictionary *)constantsToExport
