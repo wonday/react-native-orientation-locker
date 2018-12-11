@@ -91,9 +91,7 @@ export default class Orientation {
         var key = getKey(cb);
         listeners[key] = LocalEventEmitter.addListener("orientationDidChange",
             (body) => {
-                setTimeout(()=>{
-                    cb(body.orientation,body.deviceOrientation);
-                },1000);
+                cb(body.orientation, body.deviceOrientation);
             });
 
     };
