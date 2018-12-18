@@ -15,6 +15,9 @@ A react-native module that can listen on orientation changing of device, get cur
 v1.1.0 **BREAK CHANGE**  
  1. split ```addOrientationListener(function(orientation, deviceOrientation))``` to ```addOrientationListener(function(orientation))``` and ```addDeviceOrientationListener(function(deviceOrientation))```
  2. make sure when lockToXXX and unlockAllOrientations resend UI orientation event
+ 3. remove setTimout from orientation listener
+ 4. add getAutoRotateState() for android
+ 5. add TypeScript define file
 
 v1.0.22  
  1. add getAutoRotateState() (android only)
