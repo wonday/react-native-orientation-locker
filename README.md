@@ -176,17 +176,18 @@ import Orientation from 'react-native-orientation-locker';
 
 - `addOrientationListener(function(orientation))`
 
-when UI orientation changed, callback function will be called.
-but if lockToXXX is called , callback function will be not called untill unlockAllOrientations.
-it can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
+When UI orientation changed, callback function will be called.
+But if lockToXXX is called , callback function will be not called untill unlockAllOrientations.
+It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
+When lockToXXX/unlockAllOrientations, it will force resend UI orientation changed event.
 
 - `removeOrientationListener(function(orientation))`
 
 - `addDeviceOrientationListener(function(deviceOrientation))`
 
-when device orientation changed, callback function will be called.
-when lockToXXX is called, callback function also can be called.
-it can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
+When device orientation changed, callback function will be called.
+When lockToXXX is called, callback function also can be called.
+It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
 
 - `removeDeviceOrientationListener(function(deviceOrientation))`
 
