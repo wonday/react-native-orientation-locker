@@ -43,8 +43,9 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     final OrientationEventListener mOrientationListener;
     final ReactApplicationContext ctx;
     private boolean isLocked = false;
-    private String lastOrientationValue = "UNKNOWN";
-    private String lastDeviceOrientationValue = "UNKNOWN";
+    private String lastOrientationValue = "";
+    private String lastDeviceOrientationValue = "";
+
 
     public OrientationModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -61,24 +62,16 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                 String deviceOrientationValue = "UNKNOWN";
 
 
-                if (orientation == OrientationEventListener.ORIENTATION_UNKNOWN) {
-                    //on desk, do not known orientation
-                    deviceOrientationValue = "UNKNOWN";
-                }
-
                 if (orientation > 315 || orientation < 45) {
-                    orientation = 0;
                     deviceOrientationValue = "PORTRAIT";
                 } else if (orientation > 45 && orientation < 135) {
-                    orientation = 90;
                     deviceOrientationValue = "LANDSCAPE-RIGHT";
                 } else if (orientation > 135 && orientation < 225) {
-                    orientation = 180;
                     deviceOrientationValue = "PORTRAIT-UPSIDEDOWN";
                 } else if (orientation > 225 && orientation < 315) {
-                    orientation = 270;
                     deviceOrientationValue = "LANDSCAPE-LEFT";
                 } else {
+                    orientationValue = "UNKNOWN";
                     deviceOrientationValue = "UNKNOWN";
                 }
 
@@ -88,15 +81,25 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                     orientationValue = deviceOrientationValue;
                 }
 
-                if (!lastOrientationValue.equals(orientationValue)
-                    ||!lastDeviceOrientationValue.equals(deviceOrientationValue)) {
+                if (!lastDeviceOrientationValue.equals(deviceOrientationValue)) {
 
-                    lastOrientationValue = orientationValue;
                     lastDeviceOrientationValue = deviceOrientationValue;
 
                     WritableMap params = Arguments.createMap();
-                    params.putString("orientation", orientationValue);
                     params.putString("deviceOrientation", deviceOrientationValue);
+                    if (ctx.hasActiveCatalystInstance()) {
+                        ctx
+                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("deviceOrientationDidChange", params);
+                    }
+                }
+
+                if (!lastOrientationValue.equals(orientationValue)) {
+                
+                    lastOrientationValue = orientationValue;
+
+                    WritableMap params = Arguments.createMap();
+                    params.putString("orientation", orientationValue);
                     if (ctx.hasActiveCatalystInstance()) {
                         ctx
                         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
@@ -129,7 +132,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
                     WritableMap params = Arguments.createMap();
                     params.putString("orientation", orientationValue);
-                    params.putString("deviceOrientation", lastDeviceOrientationValue);
                     if (ctx.hasActiveCatalystInstance()) {
                         ctx
                         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
@@ -181,6 +183,16 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.isLocked = true;
+
+        // force send an UI orientation event
+        lastOrientationValue = "PORTRAIT";
+        WritableMap params = Arguments.createMap();
+        params.putString("orientation", lastOrientationValue);
+        if (ctx.hasActiveCatalystInstance()) {
+            ctx
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit("orientationDidChange", params);
+        }
     }
 
     @ReactMethod
@@ -189,6 +201,16 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
         this.isLocked = true;
+
+        // force send an UI orientation event
+        lastOrientationValue = "PORTRAIT-UPSIDEDOWN";
+        WritableMap params = Arguments.createMap();
+        params.putString("orientation", lastOrientationValue);
+        if (ctx.hasActiveCatalystInstance()) {
+            ctx
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit("orientationDidChange", params);
+        }
     }
 
     @ReactMethod
@@ -197,6 +219,16 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         this.isLocked = true;
+
+        // force send an UI orientation event
+        lastOrientationValue = "LANDSCAPE-LEFT";
+        WritableMap params = Arguments.createMap();
+        params.putString("orientation", lastOrientationValue);
+        if (ctx.hasActiveCatalystInstance()) {
+            ctx
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit("orientationDidChange", params);
+        }
     }
 
     @ReactMethod
@@ -205,6 +237,16 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         this.isLocked = true;
+
+        // force send an UI orientation event
+        lastOrientationValue = "LANDSCAPE-LEFT";
+        WritableMap params = Arguments.createMap();
+        params.putString("orientation", lastOrientationValue);
+        if (ctx.hasActiveCatalystInstance()) {
+            ctx
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit("orientationDidChange", params);
+        }
     }
 
     @ReactMethod
@@ -213,6 +255,16 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
         this.isLocked = true;
+
+        // force send an UI orientation event
+        lastOrientationValue = "LANDSCAPE-RIGHT";
+        WritableMap params = Arguments.createMap();
+        params.putString("orientation", lastOrientationValue);
+        if (ctx.hasActiveCatalystInstance()) {
+            ctx
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit("orientationDidChange", params);
+        }
     }
 
     @ReactMethod
@@ -221,6 +273,16 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         this.isLocked = false;
+
+        // force send an UI orientation event
+        lastOrientationValue = lastDeviceOrientationValue;
+        WritableMap params = Arguments.createMap();
+        params.putString("orientation", lastOrientationValue);
+        if (ctx.hasActiveCatalystInstance()) {
+            ctx
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit("orientationDidChange", params);
+        }
     }
 
     @ReactMethod
