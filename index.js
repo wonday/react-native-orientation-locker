@@ -115,7 +115,7 @@ export default class Orientation {
         cb(state);
       });
     } else {
-      cb(TRUE); // iOS not implement
+      cb(true); // iOS not implement
     }
   };
 }
