@@ -34,7 +34,7 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAll;
 - (NSArray<NSString *> *)supportedEvents
 {
     
-    return @[@"orientationDidChange"];
+    return @[@"orientationDidChange",@"deviceOrientationDidChange"];
     
 }
 
