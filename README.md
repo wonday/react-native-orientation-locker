@@ -11,6 +11,9 @@ A react-native module that can listen on orientation changing of device, get cur
 
  ### ChangeLog
 
+v1.1.2
+ 1. improve android orientation changed event timing
+
 v1.1.1
  1. fix show "supported event type for deviceOrientationDidChange..." error in debug
  2. fix getAutoRotateState() code error
@@ -44,18 +47,6 @@ v1.0.17
 1. fix podspec
 2. fix "Calling UI code from background thread" error
 
-v1.0.16
-1. restore s.dependency 'React' to podspec
-
-v1.0.15
-1. remove s.dependency 'React' from podspec
-
-v1.0.14
-1. remove "sending orientationDidChange with no listener" warning
-
-v1.0.13
-1. fix android lockToLandscapeXXX return error value
-2. fix after lockToXXX still can get changed orientation
 
 [[more]](https://github.com/wonday/react-native-orientation-locker/releases)
 
