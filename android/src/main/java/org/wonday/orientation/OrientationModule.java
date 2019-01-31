@@ -58,28 +58,21 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
                 FLog.d(ReactConstants.TAG,"DeviceOrientation changed to " + orientation);
 
-                String orientationValue = "UNKNOWN";
                 String deviceOrientationValue = "UNKNOWN";
 
 
-                if (orientation > 315 || orientation < 45) {
+                if (orientation > 355 || orientation < 5) {
                     deviceOrientationValue = "PORTRAIT";
-                } else if (orientation > 45 && orientation < 135) {
+                } else if (orientation > 85 && orientation < 95) {
                     deviceOrientationValue = "LANDSCAPE-RIGHT";
-                } else if (orientation > 135 && orientation < 225) {
+                } else if (orientation > 175 && orientation < 185) {
                     deviceOrientationValue = "PORTRAIT-UPSIDEDOWN";
-                } else if (orientation > 225 && orientation < 315) {
+                } else if (orientation > 265 && orientation < 275) {
                     deviceOrientationValue = "LANDSCAPE-LEFT";
                 } else {
-                    orientationValue = "UNKNOWN";
                     deviceOrientationValue = "UNKNOWN";
                 }
 
-                if (isLocked) {
-                    orientationValue = getCurrentOrientation();
-                } else {
-                    orientationValue = deviceOrientationValue;
-                }
 
                 if (!lastDeviceOrientationValue.equals(deviceOrientationValue)) {
 
@@ -91,19 +84,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                         ctx
                         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                         .emit("deviceOrientationDidChange", params);
-                    }
-                }
-
-                if (!lastOrientationValue.equals(orientationValue)) {
-                
-                    lastOrientationValue = orientationValue;
-
-                    WritableMap params = Arguments.createMap();
-                    params.putString("orientation", orientationValue);
-                    if (ctx.hasActiveCatalystInstance()) {
-                        ctx
-                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                        .emit("orientationDidChange", params);
                     }
                 }
 
