@@ -66,24 +66,21 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAll;
     
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     UIInterfaceOrientation deviceOrientation = (UIInterfaceOrientation) [UIDevice currentDevice].orientation;
+
+    // do not send UnKnow Orientation
     if (deviceOrientation==UIInterfaceOrientationUnknown) {
-        
+        return;
     }
     
-    if (orientation!=UIInterfaceOrientationUnknown && orientation!=_lastOrientation) {
+    // when call lockToXXX, not sent orientationDidChange
+    if (!_isLocking && orientation!=UIInterfaceOrientationUnknown && orientation!=_lastOrientation) {
         [self sendEventWithName:@"orientationDidChange" body:@{@"orientation": [self getOrientationStr:orientation]}];
+        _lastOrientation = orientation;
     }
     
-    // when call lockToXXX, not sent deviceOrientationDidChange
-    if (!_isLocking && deviceOrientation!=UIInterfaceOrientationUnknown && deviceOrientation!=_lastDeviceOrientation) {
+    if (deviceOrientation!=_lastDeviceOrientation) {
         [self sendEventWithName:@"deviceOrientationDidChange" body:@{@"deviceOrientation":[self getOrientationStr:deviceOrientation]}];
-    }
-    
-    _lastOrientation = orientation;
-    _lastDeviceOrientation = deviceOrientation;
-    
-    if (deviceOrientation==UIInterfaceOrientationUnknown) {
-        _lastOrientation = UIInterfaceOrientationUnknown;
+        _lastDeviceOrientation = deviceOrientation;
     }
     
 }
