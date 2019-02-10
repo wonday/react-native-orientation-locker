@@ -88,7 +88,14 @@ Add the following to your project's `AppDelegate.m`:
 Add following to android/app/src/main/AndroidManifest.xml
 
 ```diff
-+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+      <activity
+        ....
++       android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+        android:windowSoftInputMode="adjustResize">
+
+          ....
+
+      </activity>
 
 ```
 
