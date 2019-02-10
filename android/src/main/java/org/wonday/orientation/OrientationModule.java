@@ -76,14 +76,9 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                     deviceOrientationValue = "UNKNOWN";
                 }
 
-
-                DisplayMetrics dm = reactContext.getResources().getDisplayMetrics();
-                int winWidth = dm.widthPixels;
-
-                if (!lastDeviceOrientationValue.equals(deviceOrientationValue) && lastWinWidth!=winWidth) {
+                if (!lastDeviceOrientationValue.equals(deviceOrientationValue)) {
 
                     lastDeviceOrientationValue = deviceOrientationValue;
-                    lastWinWidth = winWidth;
 
                     WritableMap params = Arguments.createMap();
                     params.putString("deviceOrientation", deviceOrientationValue);
