@@ -20,6 +20,8 @@ import android.view.OrientationEventListener;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
+import android.util.DisplayMetrics;
+import android.hardware.SensorManager;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.react.bridge.Arguments;
@@ -39,19 +41,20 @@ import javax.annotation.Nullable;
 
 public class OrientationModule extends ReactContextBaseJavaModule implements LifecycleEventListener{
 
-    final BroadcastReceiver receiver;
+    final BroadcastReceiver mReceiver;
     final OrientationEventListener mOrientationListener;
     final ReactApplicationContext ctx;
     private boolean isLocked = false;
     private String lastOrientationValue = "";
     private String lastDeviceOrientationValue = "";
+    private int lastWinWidth = 0;
 
 
     public OrientationModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.ctx = reactContext;
 
-        mOrientationListener = new OrientationEventListener(reactContext) {
+        mOrientationListener = new OrientationEventListener(reactContext, SensorManager.SENSOR_DELAY_UI) {
 
             @Override
             public void onOrientationChanged(int orientation) {
@@ -74,9 +77,13 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                 }
 
 
-                if (!lastDeviceOrientationValue.equals(deviceOrientationValue)) {
+                DisplayMetrics dm = reactContext.getResources().getDisplayMetrics();
+                int winWidth = dm.widthPixels;
+
+                if (!lastDeviceOrientationValue.equals(deviceOrientationValue) && lastWinWidth!=winWidth) {
 
                     lastDeviceOrientationValue = deviceOrientationValue;
+                    lastWinWidth = winWidth;
 
                     WritableMap params = Arguments.createMap();
                     params.putString("deviceOrientation", deviceOrientationValue);
@@ -99,16 +106,20 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
            mOrientationListener.disable();
         }
 
-        receiver = new BroadcastReceiver() {
+        mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Configuration newConfig = intent.getParcelableExtra("newConfig");
 
                 String orientationValue = getCurrentOrientation();
 
-                if (!lastOrientationValue.equals(orientationValue)) {
+                DisplayMetrics dm = context.getResources().getDisplayMetrics();
+                int winWidth = dm.widthPixels;
+
+                if (!lastOrientationValue.equals(orientationValue) && lastWinWidth!=winWidth) {
 
                     lastOrientationValue = orientationValue;
+                    lastWinWidth = winWidth;
 
                     WritableMap params = Arguments.createMap();
                     params.putString("orientation", orientationValue);
@@ -291,7 +302,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
-        activity.registerReceiver(receiver, new IntentFilter("onConfigurationChanged"));
+        activity.registerReceiver(mReceiver, new IntentFilter("onConfigurationChanged"));
     }
     @Override
     public void onHostPause() {
@@ -302,10 +313,10 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         if (activity == null) return;
         try
         {
-            activity.unregisterReceiver(receiver);
+            activity.unregisterReceiver(mReceiver);
         }
         catch (java.lang.IllegalArgumentException e) {
-            FLog.w(ReactConstants.TAG, "receiver already unregistered", e);
+            FLog.w(ReactConstants.TAG, "Receiver already unregistered", e);
         }
     }
 
@@ -318,10 +329,10 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         if (activity == null) return;
         try
         {
-            activity.unregisterReceiver(receiver);
+            activity.unregisterReceiver(mReceiver);
         }
         catch (java.lang.IllegalArgumentException e) {
-            FLog.w(ReactConstants.TAG, "receiver already unregistered", e);
+            FLog.w(ReactConstants.TAG, "Receiver already unregistered", e);
         }
     }
 }
