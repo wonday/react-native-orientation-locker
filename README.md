@@ -85,6 +85,13 @@ Add the following to your project's `AppDelegate.m`:
 
 #### Android
 
+Add following to android/app/src/main/AndroidManifest.xml
+
+```diff
++        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+
+```
+
 Implement onConfigurationChanged method (in `MainActivity.java`)
 
 ```diff
