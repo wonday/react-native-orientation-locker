@@ -11,6 +11,10 @@ A react-native module that can listen on orientation changing of device, get cur
 
  ### ChangeLog
 
+v1.1.3
+1. add addLockListener/removeLockListener
+2. improve android orientation changed event sending condition
+
 v1.1.2
  1. improve android orientation changed event timing
 
@@ -199,6 +203,14 @@ When lockToXXX is called, callback function also can be called.
 It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
 
 - `removeDeviceOrientationListener(function(deviceOrientation))`
+
+- `addLockListener(function(orientation))`
+
+When call lockToXXX/unlockAllOrientations, callback function will be called.
+It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `UNKNOWN`
+`UNKNOWN` means not be locked.
+
+- `removeLockListener(function(orientation))`
 
 
 ## Functions
