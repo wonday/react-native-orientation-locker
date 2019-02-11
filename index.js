@@ -7,10 +7,10 @@
 //
 
 "use strict";
-import React, { Component } from "react";
+import React, {Component} from "react";
 
 const OrientationNative = require("react-native").NativeModules.Orientation;
-const { NativeEventEmitter,Platform } = require("react-native");
+const {NativeEventEmitter, Platform} = require("react-native");
 const LocalEventEmitter = new NativeEventEmitter(OrientationNative);
 
 var listeners = {};
@@ -19,103 +19,122 @@ var id = 0;
 var META = "__listener_id";
 
 function getKey(listener) {
-  if (!listener.hasOwnProperty(META)) {
-    if (!Object.isExtensible(listener)) {
-      return "F";
+    if (!listener.hasOwnProperty(META)) {
+        if (!Object.isExtensible(listener)) {
+            return "F";
+        }
+        Object.defineProperty(listener, META, {
+            value: "L" + ++id
+        });
     }
-    Object.defineProperty(listener, META, {
-      value: "L" + ++id
-    });
-  }
-  return listener[META];
+    return listener[META];
 }
 
 export default class Orientation {
-  static getOrientation = cb => {
-    OrientationNative.getOrientation(orientation => {
-      cb(orientation);
-    });
-  };
+    static getOrientation = cb => {
+        OrientationNative.getOrientation(orientation => {
+            cb(orientation);
+        });
+    };
 
-  static getDeviceOrientation = cb => {
-    OrientationNative.getDeviceOrientation(deviceOrientation => {
-      cb(deviceOrientation);
-    });
-  };
+    static getDeviceOrientation = cb => {
+        OrientationNative.getDeviceOrientation(deviceOrientation => {
+            cb(deviceOrientation);
+        });
+    };
 
-  static lockToPortrait = () => {
-    OrientationNative.lockToPortrait();
-  };
+    static lockToPortrait = () => {
+        OrientationNative.lockToPortrait();
+    };
 
-  static lockToPortraitUpsideDown = () => {
-    OrientationNative.lockToPortraitUpsideDown();
-  };
+    static lockToPortraitUpsideDown = () => {
+        OrientationNative.lockToPortraitUpsideDown();
+    };
 
-  static lockToLandscape = () => {
-    OrientationNative.lockToLandscape();
-  };
+    static lockToLandscape = () => {
+        OrientationNative.lockToLandscape();
+    };
 
-  static lockToLandscapeRight = () => {
-    OrientationNative.lockToLandscapeRight();
-  };
+    static lockToLandscapeRight = () => {
+        OrientationNative.lockToLandscapeRight();
+    };
 
-  static lockToLandscapeLeft = () => {
-    OrientationNative.lockToLandscapeLeft();
-  };
+    static lockToLandscapeLeft = () => {
+        OrientationNative.lockToLandscapeLeft();
+    };
 
-  static unlockAllOrientations = () => {
-    OrientationNative.unlockAllOrientations();
-  };
+    static unlockAllOrientations = () => {
+        OrientationNative.unlockAllOrientations();
+    };
 
-  static addOrientationListener = cb => {
-    var key = getKey(cb);
-    listeners[key] = LocalEventEmitter.addListener(
-      "orientationDidChange",
-      body => {
-        cb(body.orientation);
-      }
-    );
-  };
+    static addOrientationListener = cb => {
+        var key = getKey(cb);
+        listeners[key] = LocalEventEmitter.addListener(
+            "orientationDidChange",
+            body => {
+                cb(body.orientation);
+            }
+        );
+    };
 
-  static removeOrientationListener = cb => {
-    var key = getKey(cb);
-    if (!listeners[key]) {
-      return;
-    }
-    listeners[key].remove();
-    listeners[key] = null;
-  };
+    static removeOrientationListener = cb => {
+        var key = getKey(cb);
+        if (!listeners[key]) {
+            return;
+        }
+        listeners[key].remove();
+        listeners[key] = null;
+    };
 
-  static addDeviceOrientationListener = cb => {
-    var key = getKey(cb);
-    listeners[key] = LocalEventEmitter.addListener(
-      "deviceOrientationDidChange",
-      body => {
-        cb(body.deviceOrientation);
-      }
-    );
-  };
+    static addDeviceOrientationListener = cb => {
+        var key = getKey(cb);
+        listeners[key] = LocalEventEmitter.addListener(
+            "deviceOrientationDidChange",
+            body => {
+                cb(body.deviceOrientation);
+            }
+        );
+    };
 
-  static removeDeviceOrientationListener = cb => {
-    var key = getKey(cb);
-    if (!listeners[key]) {
-      return;
-    }
-    listeners[key].remove();
-    listeners[key] = null;
-  };
+    static removeDeviceOrientationListener = cb => {
+        var key = getKey(cb);
+        if (!listeners[key]) {
+            return;
+        }
+        listeners[key].remove();
+        listeners[key] = null;
+    };
 
-  static getInitialOrientation = () => {
-    return OrientationNative.initialOrientation;
-  };
+    static addLockListener = cb => {
+        var key = getKey(cb);
+        listeners[key] = LocalEventEmitter.addListener(
+            "lockDidChange",
+            body => {
+                cb(body.orientation);
+            }
+        );
+    };
 
-  static getAutoRotateState = cb => {
-    if (Platform.OS === "android") {
-      OrientationNative.getAutoRotateState(state => {
-        cb(state);
-      });
-    } else {
-      cb(true); // iOS not implement
-    }
-  };
+    static removeLockListener = cb => {
+        var key = getKey(cb);
+        if (!listeners[key]) {
+            return;
+        }
+        listeners[key].remove();
+        listeners[key] = null;
+    };
+
+    static getInitialOrientation = () => {
+        return OrientationNative.initialOrientation;
+    };
+
+    static getAutoRotateState = cb => {
+        if (Platform.OS === "android") {
+            OrientationNative.getAutoRotateState(state => {
+                cb(state);
+            });
+        } else {
+            cb(true); // iOS not implement
+        }
+    };
 }

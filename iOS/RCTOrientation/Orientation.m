@@ -34,7 +34,7 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAll;
 - (NSArray<NSString *> *)supportedEvents
 {
     
-    return @[@"orientationDidChange",@"deviceOrientationDidChange"];
+    return @[@"orientationDidChange",@"deviceOrientationDidChange",@"lockDidChange"];
     
 }
 
@@ -162,7 +162,10 @@ RCT_EXPORT_METHOD(lockToPortrait)
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: deviceOrientation] forKey:@"orientation"];
         
         [UIViewController attemptRotationToDeviceOrientation];
-        
+
+        // send a lock event
+        [self sendEventWithName:@"lockDidChange" body:@{@"orientation":@"PORTRAIT"}];
+
         _isLocking = NO;
         
     }];
@@ -201,7 +204,10 @@ RCT_EXPORT_METHOD(lockToLandscape)
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: deviceOrientation] forKey:@"orientation"];
 
         [UIViewController attemptRotationToDeviceOrientation];
-        
+
+        // send a lock event
+        [self sendEventWithName:@"lockDidChange" body:@{@"orientation":@"LANDSCAPE-LEFT"}];
+
         _isLocking = NO;
         
     }];
@@ -233,7 +239,10 @@ RCT_EXPORT_METHOD(lockToLandscapeRight)
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: deviceOrientation] forKey:@"orientation"];
         
         [UIViewController attemptRotationToDeviceOrientation];
-        
+
+        // send a lock event
+        [self sendEventWithName:@"lockDidChange" body:@{@"orientation":@"PORTRAIT"}];
+
         _isLocking = NO;
         
     }];
@@ -265,7 +274,10 @@ RCT_EXPORT_METHOD(lockToLandscapeLeft)
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: deviceOrientation] forKey:@"orientation"];
         
         [UIViewController attemptRotationToDeviceOrientation];
-        
+
+        // send a lock event
+        [self sendEventWithName:@"lockDidChange" body:@{@"orientation":@"LANDSCAPE-LEFT"}];
+
         _isLocking = NO;
         
     }];
@@ -293,7 +305,10 @@ RCT_EXPORT_METHOD(unlockAllOrientations)
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: lastDeviceOrientation] forKey:@"orientation"];
         
         [UIViewController attemptRotationToDeviceOrientation];
-        
+
+        // send a lock event
+        [self sendEventWithName:@"lockDidChange" body:@{@"orientation":@"UNKNOWN"}];
+
         _isLocking = NO;
 
     }];
