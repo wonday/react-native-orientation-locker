@@ -12,12 +12,12 @@ declare module 'react-native-orientation-locker' {
     namespace Orientation {
         type Orientation = "PORTRAIT" | "PORTRAIT-UPSIDEDOWN" | "LANDSCAPE-LEFT" | "LANDSCAPE-RIGHT" | "UNKNOWN";
 
-        export function addOrientationListener(callback: (orientation: Orientation, deviceOrientation: Orientation) => void): void;
-        export function removeOrientationListener(callback: (orientation: Orientation, deviceOrientation: Orientation) => void): void;
-        export function addDeviceOrientationListener(callback: (orientation: Orientation, deviceOrientation: Orientation) => void): void;
-        export function removeDeviceOrientationListener(callback: (orientation: Orientation, deviceOrientation: Orientation) => void): void;
-        export function addLockListener(callback: (orientation: Orientation, deviceOrientation: Orientation) => void): void;
-        export function removeLockListener(callback: (orientation: Orientation, deviceOrientation: Orientation) => void): void;
+        export function addOrientationListener(callback: (orientation: Orientation) => void): void;
+        export function removeOrientationListener(callback: (orientation: Orientation) => void): void;
+        export function addDeviceOrientationListener(callback: (deviceOrientation: Orientation) => void): void;
+        export function removeDeviceOrientationListener(callback: (deviceOrientation: Orientation) => void): void;
+        export function addLockListener(callback: (orientation: Orientation) => void): void;
+        export function removeLockListener(callback: (orientation: Orientation) => void): void;
 
         export function getInitialOrientation(): Orientation;
         export function lockToPortrait(): void;
