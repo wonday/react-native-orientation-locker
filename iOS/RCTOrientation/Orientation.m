@@ -72,13 +72,13 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAll;
         return;
     }
     
-    // when call lockToXXX, not sent orientationDidChange
-    if (!_isLocking && orientation!=UIInterfaceOrientationUnknown && orientation!=_lastOrientation) {
+    if (orientation!=UIInterfaceOrientationUnknown && orientation!=_lastOrientation) {
         [self sendEventWithName:@"orientationDidChange" body:@{@"orientation": [self getOrientationStr:orientation]}];
         _lastOrientation = orientation;
     }
     
-    if (deviceOrientation!=_lastDeviceOrientation) {
+    // when call lockToXXX, not sent deviceOrientationDidChange
+    if (!_isLocking && deviceOrientation!=_lastDeviceOrientation) {
         [self sendEventWithName:@"deviceOrientationDidChange" body:@{@"deviceOrientation":[self getOrientationStr:deviceOrientation]}];
         _lastDeviceOrientation = deviceOrientation;
     }
