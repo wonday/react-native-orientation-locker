@@ -1,5 +1,3 @@
-import {Orientation} from "react-native-orientation-locker";
-
 /**
  * Copyright (c) 2017-present, Wonday (@wonday.org)
  * All rights reserved.
@@ -8,27 +6,22 @@ import {Orientation} from "react-native-orientation-locker";
  * LICENSE file in the root directory of this source tree.
  */
 
-declare module 'react-native-orientation-locker' {
-    namespace Orientation {
-        type Orientation = "PORTRAIT" | "PORTRAIT-UPSIDEDOWN" | "LANDSCAPE-LEFT" | "LANDSCAPE-RIGHT" | "UNKNOWN";
-
-        export function addOrientationListener(callback: (orientation: Orientation) => void): void;
-        export function removeOrientationListener(callback: (orientation: Orientation) => void): void;
-        export function addDeviceOrientationListener(callback: (deviceOrientation: Orientation) => void): void;
-        export function removeDeviceOrientationListener(callback: (deviceOrientation: Orientation) => void): void;
-        export function addLockListener(callback: (orientation: Orientation) => void): void;
-        export function removeLockListener(callback: (orientation: Orientation) => void): void;
-
-        export function getInitialOrientation(): Orientation;
-        export function lockToPortrait(): void;
-        export function lockToLandscape(): void;
-        export function lockToLandscapeLeft(): void;
-        export function lockToLandscapeRight(): void;
-        export function unlockAllOrientations(): void;
-        export function getOrientation(callback: (orientation: Orientation) => void): void;
-        export function getDeviceOrientation(callback: (orientation: Orientation) => void): void;
-        export function getAutoRotateState(callback: (state: boolean) => void): void;
-    }
-
-    export = Orientation;
+export type OrientationType = "PORTRAIT" | "PORTRAIT-UPSIDEDOWN" | "LANDSCAPE-LEFT" | "LANDSCAPE-RIGHT" | "UNKNOWN";
+declare class Orientation {
+  static addOrientationListener(callback: (orientation: OrientationType) => void): void;
+  static removeOrientationListener(callback: (orientation: OrientationType) => void): void;
+  static addDeviceOrientationListener(callback: (deviceOrientation: OrientationType) => void): void;
+  static removeDeviceOrientationListener(callback: (deviceOrientation: OrientationType) => void): void;
+  static addLockListener(callback: (orientation: OrientationType) => void): void;
+  static removeLockListener(callback: (orientation: OrientationType) => void): void;
+  static getInitialOrientation(): OrientationType;
+  static lockToPortrait(): void;
+  static lockToLandscape(): void;
+  static lockToLandscapeLeft(): void;
+  static lockToLandscapeRight(): void;
+  static unlockAllOrientations(): void;
+  static getOrientation(callback: (orientation: OrientationType) => void): void;
+  static getDeviceOrientation(callback: (orientation: OrientationType) => void): void;
+  static getAutoRotateState(callback: (state: boolean) => void): void;
 }
+export default Orientation;
