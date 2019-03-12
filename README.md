@@ -45,7 +45,9 @@ v1.0.21
 
 ### Notice
 
-RN 0.58 + Android target SDK 27 maybe causes ```Issue: java.lang.IllegalStateException: Only fullscreen activities can request orientation```, see [[#55]](https://github.com/wonday/react-native-orientation-locker/issues/55) for a solution.
+RN 0.58 + Android target SDK 27 maybe cause 
+```Issue: java.lang.IllegalStateException: Only fullscreen activities can request orientation``` problem, 
+see [[#55]](https://github.com/wonday/react-native-orientation-locker/issues/55) for a solution.
 
 
 ### Installation
