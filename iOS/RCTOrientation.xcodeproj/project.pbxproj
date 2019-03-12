@@ -8,10 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		27F5D7F01D0BC955003F92DE /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F5D7EF1D0BC955003F92DE /* Orientation.m */; };
+		B59029A32237E1A400A9DA7D /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F5D7EF1D0BC955003F92DE /* Orientation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		58B511D91A9E6C8500147676 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B59029A52237E1A400A9DA7D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
@@ -26,10 +36,18 @@
 		134814201AA4EA6300B7C361 /* libRCTOrientation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTOrientation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F5D7EE1D0BC955003F92DE /* Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Orientation.h; sourceTree = "<group>"; };
 		27F5D7EF1D0BC955003F92DE /* Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Orientation.m; sourceTree = "<group>"; };
+		B59029A92237E1A400A9DA7D /* libRCTOrientation-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRCTOrientation-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		58B511D81A9E6C8500147676 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B59029A42237E1A400A9DA7D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -61,6 +79,7 @@
 			children = (
 				27F5D7ED1D0BC820003F92DE /* RCTOrientation */,
 				134814211AA4EA7D00B7C361 /* Products */,
+				B59029A92237E1A400A9DA7D /* libRCTOrientation-tvOS.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,6 +101,23 @@
 			name = RCTOrientation;
 			productName = RCTDataManager;
 			productReference = 134814201AA4EA6300B7C361 /* libRCTOrientation.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B59029A12237E1A400A9DA7D /* RCTOrientation-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B59029A62237E1A400A9DA7D /* Build configuration list for PBXNativeTarget "RCTOrientation-tvOS" */;
+			buildPhases = (
+				B59029A22237E1A400A9DA7D /* Sources */,
+				B59029A42237E1A400A9DA7D /* Frameworks */,
+				B59029A52237E1A400A9DA7D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RCTOrientation-tvOS";
+			productName = RCTDataManager;
+			productReference = B59029A92237E1A400A9DA7D /* libRCTOrientation-tvOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -111,6 +147,7 @@
 			projectRoot = "";
 			targets = (
 				58B511DA1A9E6C8500147676 /* RCTOrientation */,
+				B59029A12237E1A400A9DA7D /* RCTOrientation-tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -121,6 +158,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				27F5D7F01D0BC955003F92DE /* Orientation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B59029A22237E1A400A9DA7D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B59029A32237E1A400A9DA7D /* Orientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +297,40 @@
 			};
 			name = Release;
 		};
+		B59029A72237E1A400A9DA7D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
+			};
+			name = Debug;
+		};
+		B59029A82237E1A400A9DA7D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -269,6 +348,15 @@
 			buildConfigurations = (
 				58B511F01A9E6C8500147676 /* Debug */,
 				58B511F11A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B59029A62237E1A400A9DA7D /* Build configuration list for PBXNativeTarget "RCTOrientation-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B59029A72237E1A400A9DA7D /* Debug */,
+				B59029A82237E1A400A9DA7D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
