@@ -11,6 +11,9 @@ A react-native module that can listen on orientation changing of device, get cur
 
  ### ChangeLog
 
+v1.1.4
+1. Fix typescript declarations
+
 v1.1.3
 1. add addLockListener/removeLockListener
 2. improve android orientation changed event sending condition
@@ -37,22 +40,13 @@ v1.0.21
 1. add getDeviceOrientation()
 2. orientationDidChange return DeviceOrientation
 
-v1.0.20
-abandon
-
-v1.0.19
-1. change license to MIT
-
-v1.0.18
-1. update build.gradle for RN 0.57
-2. format some codes and readme
-
-v1.0.17
-1. fix podspec
-2. fix "Calling UI code from background thread" error
-
 
 [[more]](https://github.com/wonday/react-native-orientation-locker/releases)
+
+### Notice
+
+RN 0.58 + Android target SDK 27 maybe causes ```Issue: java.lang.IllegalStateException: Only fullscreen activities can request orientation```, see [[#55]](https://github.com/wonday/react-native-orientation-locker/issues/55) for a solution.
+
 
 ### Installation
 #### Using npm
