@@ -12,11 +12,14 @@
 
 @implementation Orientation
 {
+    #if (!TARGET_OS_TV)
     UIInterfaceOrientation _lastOrientation;
     UIInterfaceOrientation _lastDeviceOrientation;
+    #endif
     BOOL _isLocking;
 }
 
+#if (!TARGET_OS_TV)
 static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAll;
 
 + (void)setOrientation: (UIInterfaceOrientationMask)orientation {
@@ -116,34 +119,44 @@ static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAll;
     return orientationStr;
     
 }
+#else
+
+- (NSArray<NSString *> *)supportedEvents
+{
+    
+    return @[];
+    
+}
+
+#endif
 
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(getOrientation:(RCTResponseSenderBlock)callback)
 {
-    
+    #if (!TARGET_OS_TV)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
         NSString *orientationStr = [self getOrientationStr:orientation];
         callback(@[orientationStr]);
     }];
-    
+    #endif
 }
 
 RCT_EXPORT_METHOD(getDeviceOrientation:(RCTResponseSenderBlock)callback)
 {
-    
+    #if (!TARGET_OS_TV)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         UIInterfaceOrientation deviceOrientation = (UIInterfaceOrientation) [UIDevice currentDevice].orientation;
         NSString *orientationStr = [self getOrientationStr:deviceOrientation];
         callback(@[orientationStr]);
     }];
-    
+    #endif
 }
 
 RCT_EXPORT_METHOD(lockToPortrait)
 {
-
+    #if (!TARGET_OS_TV)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         
         // set a flag so that no deviceOrientationDidChange events are sent to JS
@@ -169,7 +182,7 @@ RCT_EXPORT_METHOD(lockToPortrait)
         _isLocking = NO;
         
     }];
-    
+    #endif
 }
 
 RCT_EXPORT_METHOD(lockToLandscape)
@@ -179,6 +192,7 @@ RCT_EXPORT_METHOD(lockToLandscape)
     NSLog(@"Locked to Landscape");
 #endif
 
+    #if (!TARGET_OS_TV)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         
         // set a flag so that no deviceOrientationDidChange events are sent to JS
@@ -211,7 +225,7 @@ RCT_EXPORT_METHOD(lockToLandscape)
         _isLocking = NO;
         
     }];
-    
+    #endif
 }
 
 RCT_EXPORT_METHOD(lockToLandscapeRight)
@@ -221,6 +235,7 @@ RCT_EXPORT_METHOD(lockToLandscapeRight)
     NSLog(@"Locked to Landscape Right");
 #endif
     
+    #if (!TARGET_OS_TV)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         
         // set a flag so that no deviceOrientationDidChange events are sent to JS
@@ -246,7 +261,7 @@ RCT_EXPORT_METHOD(lockToLandscapeRight)
         _isLocking = NO;
         
     }];
-    
+    #endif
 }
 
 RCT_EXPORT_METHOD(lockToLandscapeLeft)
@@ -255,7 +270,7 @@ RCT_EXPORT_METHOD(lockToLandscapeLeft)
 #if DEBUG
     NSLog(@"Locked to Landscape Left");
 #endif
-    
+    #if (!TARGET_OS_TV)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
 
         // set a flag so that no deviceOrientationDidChange events are sent to JS
@@ -281,6 +296,7 @@ RCT_EXPORT_METHOD(lockToLandscapeLeft)
         _isLocking = NO;
         
     }];
+    #endif
     
 }
 
@@ -291,6 +307,7 @@ RCT_EXPORT_METHOD(unlockAllOrientations)
     NSLog(@"Unlock All Orientations");
 #endif
     
+    #if (!TARGET_OS_TV)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         
         // set a flag so that no deviceOrientationDidChange events are sent to JS
@@ -312,17 +329,19 @@ RCT_EXPORT_METHOD(unlockAllOrientations)
         _isLocking = NO;
 
     }];
-
+    #endif
 }
 
 - (NSDictionary *)constantsToExport
 {
     
+    #if (!TARGET_OS_TV)
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     NSString *orientationStr = [self getOrientationStr:orientation];
     
     return @{@"initialOrientation": orientationStr};
-    
+    #endif
+    return nil;
 }
 
 + (BOOL)requiresMainQueueSetup
