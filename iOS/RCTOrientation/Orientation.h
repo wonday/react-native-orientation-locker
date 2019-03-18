@@ -13,6 +13,8 @@
 #import <React/RCTEventEmitter.h>
 
 @interface Orientation : RCTEventEmitter <RCTBridgeModule>
+#if (!TARGET_OS_TV)
 + (void)setOrientation: (UIInterfaceOrientationMask)orientation;
 + (UIInterfaceOrientationMask)getOrientation;
+#endif
 @end
