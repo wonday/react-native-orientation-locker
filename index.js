@@ -136,7 +136,7 @@ export default class Orientation {
         listeners[key] = null;
     };
 
-    static removeAllListener = () => {
+    static removeAllListeners = () => {
         for(var key in listeners){
             if (!listeners[key]) {
                 continue;
