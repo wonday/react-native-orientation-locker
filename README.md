@@ -12,7 +12,7 @@ A react-native module that can listen on orientation changing of device, get cur
  ### ChangeLog
 
 v1.1.5
-add Orientation.isLocked() and Orientation.removeAllListeners()
+1. add Orientation.isLocked() and Orientation.removeAllListeners()
 
 v1.1.4
 1. Fix typescript declarations
