@@ -61,9 +61,10 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                 FLog.d(ReactConstants.TAG,"DeviceOrientation changed to " + orientation);
 
                 String deviceOrientationValue = lastDeviceOrientationValue;
-
-
-                if (orientation > 355 || orientation < 5) {
+                
+                if (orientation == -1) {
+                    deviceOrientationValue = "FACE-DOWN";
+                } else if (orientation > 355 || orientation < 5) {
                     deviceOrientationValue = "PORTRAIT";
                 } else if (orientation > 85 && orientation < 95) {
                     deviceOrientationValue = "LANDSCAPE-RIGHT";
