@@ -11,6 +11,10 @@ A react-native module that can listen on orientation changing of device, get cur
 
  ### ChangeLog
 
+v1.1.6
+1. catch unknown device orientation value
+2. when calling unlockAllOrientations(), forcibly unlock whether lock or not
+
 v1.1.5
 1. add Orientation.isLocked() and Orientation.removeAllListeners()
 
