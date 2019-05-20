@@ -223,7 +223,7 @@ It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `UNKNOWN`
 - `getOrientation(function(orientation))`
 - `getDeviceOrientation(function(deviceOrientation))`
 - `getAutoRotateState(function(state))` (android only)
-- `isLocked()` (lock status by the library)
+- `isLocked()` (lock status by this library)
 
 orientation can return one of:
 
