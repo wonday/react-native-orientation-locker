@@ -63,7 +63,9 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                 String deviceOrientationValue = lastDeviceOrientationValue;
 
 
-                if (orientation > 355 || orientation < 5) {
+                if (orientation == -1) {
+                    deviceOrientationValue = "UNKNOWN";
+                } else if (orientation > 355 || orientation < 5) {
                     deviceOrientationValue = "PORTRAIT";
                 } else if (orientation > 85 && orientation < 95) {
                     deviceOrientationValue = "LANDSCAPE-RIGHT";
