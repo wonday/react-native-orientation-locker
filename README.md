@@ -218,6 +218,7 @@ It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `UNKNOWN`
 - `lockToLandscape()`
 - `lockToLandscapeLeft()`  this will lock to camera left home button right
 - `lockToLandscapeRight()` this will lock to camera right home button left
+- `lockToPortraitUpsideDown` only support android
 - `unlockAllOrientations()`
 - `getOrientation(function(orientation))`
 - `getDeviceOrientation(function(deviceOrientation))`
