@@ -50,7 +50,7 @@ v1.1.0 **BREAK CHANGE**
 see [[#55]](https://github.com/wonday/react-native-orientation-locker/issues/55) for a solution.
 
 2. orientationDidChange will be delayed in iPad if we set upside down to be true.
-Simply disable upside down for iPad and everything works like a charm ([[#78]](https://github.com/wonday/react-native-orientation-locker/issues/55) Thanks [[truongluong1314520]](https://github.com/truongluong1314520))
+Simply disable upside down for iPad and everything works like a charm ([[#78]](https://github.com/wonday/react-native-orientation-locker/issues/55) Thanks [truongluong1314520](https://github.com/truongluong1314520))
 
 ### Installation
 #### Using npm
