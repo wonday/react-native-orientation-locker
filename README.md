@@ -52,6 +52,11 @@ see [[#55]](https://github.com/wonday/react-native-orientation-locker/issues/55)
 2. orientationDidChange will be delayed in iPad if we set upside down to be true.
 Simply disable upside down for iPad and everything works like a charm ([[#78]](https://github.com/wonday/react-native-orientation-locker/issues/55) Thanks [truongluong1314520](https://github.com/truongluong1314520))
 
+3. if you got build error on ios 
+```ld: library not found for -lRCTOrientation-tvOS```
+Just remove it from linked libraries and frameworks
+
+
 ### Installation
 #### Using npm
 
