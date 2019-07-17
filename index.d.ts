@@ -14,7 +14,9 @@ declare class Orientation {
   static removeDeviceOrientationListener(callback: (deviceOrientation: OrientationType) => void): void;
   static addLockListener(callback: (orientation: OrientationType) => void): void;
   static removeLockListener(callback: (orientation: OrientationType) => void): void;
+  static removeAllListeners(): void;
   static getInitialOrientation(): OrientationType;
+  static isLocked(): boolean;
   static lockToPortrait(): void;
   static lockToLandscape(): void;
   static lockToLandscapeLeft(): void;
