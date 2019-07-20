@@ -129,6 +129,7 @@ public class MainActivity extends ReactActivity {
 ```
 
 Add following to MainApplication.java
+(This will be added automatically by the react-native-link. If not, please manually add the following )
 
 ```diff
 //...
