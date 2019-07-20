@@ -130,15 +130,15 @@ public class MainActivity extends ReactActivity {
 
 Add following to MainApplication.java
 
-```
+```diff
 //...
-import org.wonday.orientation.OrientationPackage;  <-- Add this line
++import org.wonday.orientation.OrientationPackage;
 
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         //...
-        new OrientationPackage(), <-- Add this line
++        new OrientationPackage(),
         //...
       );
     }
