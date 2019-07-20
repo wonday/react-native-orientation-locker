@@ -128,6 +128,23 @@ public class MainActivity extends ReactActivity {
 }
 ```
 
+Add following to MainApplication.java
+
+```
+//...
+import org.wonday.orientation.OrientationPackage;  <-- Add this line
+
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+        //...
+        new OrientationPackage(), <-- Add this line
+        //...
+      );
+    }
+//...
+```
+
 ## Usage
 
 Whenever you want to use it within React Native code now you can:
