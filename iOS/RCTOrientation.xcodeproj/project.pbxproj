@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		52EA30BE22DB68DA00018871 /* RCTOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA30BD22DB68DA00018871 /* RCTOrientation.m */; };
 		52EA30BF22DB68DA00018871 /* RCTOrientation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 52EA30BC22DB68DA00018871 /* RCTOrientation.h */; };
-		52EA30D222DB6A0800018871 /* RCTOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA30BD22DB68DA00018871 /* RCTOrientation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,33 +22,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		52EA30C722DB69B600018871 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		52EA30B922DB68DA00018871 /* libRCTOrientation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTOrientation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		52EA30BC22DB68DA00018871 /* RCTOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTOrientation.h; sourceTree = "<group>"; };
 		52EA30BD22DB68DA00018871 /* RCTOrientation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTOrientation.m; sourceTree = "<group>"; };
-		52EA30C922DB69B600018871 /* libRCTOrientation-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRCTOrientation-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		52EA30B622DB68DA00018871 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		52EA30C622DB69B600018871 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -71,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				52EA30B922DB68DA00018871 /* libRCTOrientation.a */,
-				52EA30C922DB69B600018871 /* libRCTOrientation-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,23 +86,6 @@
 			productReference = 52EA30B922DB68DA00018871 /* libRCTOrientation.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		52EA30C822DB69B600018871 /* RCTOrientation-tvOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 52EA30CF22DB69B600018871 /* Build configuration list for PBXNativeTarget "RCTOrientation-tvOS" */;
-			buildPhases = (
-				52EA30C522DB69B600018871 /* Sources */,
-				52EA30C622DB69B600018871 /* Frameworks */,
-				52EA30C722DB69B600018871 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "RCTOrientation-tvOS";
-			productName = "RCTOrientation-tvOS";
-			productReference = 52EA30C922DB69B600018871 /* libRCTOrientation-tvOS.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -134,9 +98,6 @@
 					52EA30B822DB68DA00018871 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
-					52EA30C822DB69B600018871 = {
-						CreatedOnToolsVersion = 6.1.1;
-					};
 				};
 			};
 			buildConfigurationList = 52EA30B422DB68DA00018871 /* Build configuration list for PBXProject "RCTOrientation" */;
@@ -144,6 +105,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 52EA30B022DB68DA00018871;
@@ -152,7 +114,6 @@
 			projectRoot = "";
 			targets = (
 				52EA30B822DB68DA00018871 /* RCTOrientation */,
-				52EA30C822DB69B600018871 /* RCTOrientation-tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -163,14 +124,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				52EA30BE22DB68DA00018871 /* RCTOrientation.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		52EA30C522DB69B600018871 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				52EA30D222DB6A0800018871 /* RCTOrientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +234,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "RCTOrientation";
+				PRODUCT_NAME = RCTOrientation;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -297,42 +250,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "RCTOrientation";
+				PRODUCT_NAME = RCTOrientation;
 				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		52EA30D022DB69B600018871 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "RCTOrientation-tvOS";
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
-			};
-			name = Debug;
-		};
-		52EA30D122DB69B600018871 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "RCTOrientation-tvOS";
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
 			};
 			name = Release;
 		};
@@ -353,15 +272,6 @@
 			buildConfigurations = (
 				52EA30C322DB68DA00018871 /* Debug */,
 				52EA30C422DB68DA00018871 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		52EA30CF22DB69B600018871 /* Build configuration list for PBXNativeTarget "RCTOrientation-tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				52EA30D022DB69B600018871 /* Debug */,
-				52EA30D122DB69B600018871 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
