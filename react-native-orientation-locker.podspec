@@ -13,6 +13,7 @@ Pod::Spec.new do |s|
   s.source         = { :git => 'https://github.com/wonday/react-native-orientation-locker.git', :tag => "v#{s.version}" }
   s.requires_arc   = true
   s.platform       = :ios, '8.0'
+  s.platform       = :tvos, '11.0'
   s.preserve_paths = 'README.md', 'package.json', 'index.js'
   s.source_files   = 'iOS/**/*.{h,m}'
   s.dependency     'React'
