@@ -63,7 +63,9 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                 String deviceOrientationValue = lastDeviceOrientationValue;
 
 
-                if (orientation > 355 || orientation < 5) {
+                if (orientation == -1) {
+                    deviceOrientationValue = "UNKNOWN";
+                } else if (orientation > 355 || orientation < 5) {
                     deviceOrientationValue = "PORTRAIT";
                 } else if (orientation > 85 && orientation < 95) {
                     deviceOrientationValue = "LANDSCAPE-RIGHT";
@@ -291,8 +293,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
     @ReactMethod
     public void unlockAllOrientations() {
-        // not lock then not need unlock
-        if (!isLocked) return;
 
         final Activity activity = getCurrentActivity();
         if (activity == null) return;

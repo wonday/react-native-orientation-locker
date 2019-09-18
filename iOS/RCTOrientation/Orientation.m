@@ -20,17 +20,17 @@
 }
 
 #if (!TARGET_OS_TV)
-static UIInterfaceOrientationMask _orientation = UIInterfaceOrientationMaskAll;
+static UIInterfaceOrientationMask _orientationMask = UIInterfaceOrientationMaskAll;
 
-+ (void)setOrientation: (UIInterfaceOrientationMask)orientation {
++ (void)setOrientation: (UIInterfaceOrientationMask)orientationMask {
     
-    _orientation = orientation;
+    _orientationMask = orientationMask;
     
 }
 
 + (UIInterfaceOrientationMask)getOrientation {
     
-    return _orientation;
+    return _orientationMask;
     
 }
 
@@ -156,7 +156,7 @@ RCT_EXPORT_METHOD(getDeviceOrientation:(RCTResponseSenderBlock)callback)
 
 RCT_EXPORT_METHOD(lockToPortrait)
 {
-    #if (!TARGET_OS_TV)
+#if (!TARGET_OS_TV)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         
         // set a flag so that no deviceOrientationDidChange events are sent to JS
@@ -166,7 +166,7 @@ RCT_EXPORT_METHOD(lockToPortrait)
         
         // lock to Portrait
         [Orientation setOrientation:UIInterfaceOrientationMaskPortrait];
-
+        
         // when call lockXXX, make sure to sent orientationDidChange event to JS
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: UIInterfaceOrientationUnknown] forKey:@"orientation"];
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: UIInterfaceOrientationPortrait] forKey:@"orientation"];
@@ -175,14 +175,45 @@ RCT_EXPORT_METHOD(lockToPortrait)
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: deviceOrientation] forKey:@"orientation"];
         
         [UIViewController attemptRotationToDeviceOrientation];
-
+        
         // send a lock event
         [self sendEventWithName:@"lockDidChange" body:@{@"orientation":@"PORTRAIT"}];
-
+        
         _isLocking = NO;
         
     }];
-    #endif
+#endif
+}
+
+RCT_EXPORT_METHOD(lockToPortraitUpsideDown)
+{
+#if (!TARGET_OS_TV)
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        
+        // set a flag so that no deviceOrientationDidChange events are sent to JS
+        _isLocking = YES;
+        
+        UIInterfaceOrientation deviceOrientation = _lastDeviceOrientation;
+        
+        // lock to PortraitUpsideDown
+        [Orientation setOrientation:UIInterfaceOrientationMaskPortraitUpsideDown];
+        
+        // when call lockXXX, make sure to sent orientationDidChange event to JS
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: UIInterfaceOrientationUnknown] forKey:@"orientation"];
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: UIInterfaceOrientationPortraitUpsideDown] forKey:@"orientation"];
+        
+        // restore device orientation
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: deviceOrientation] forKey:@"orientation"];
+        
+        [UIViewController attemptRotationToDeviceOrientation];
+        
+        // send a lock event
+        [self sendEventWithName:@"lockDidChange" body:@{@"orientation":@"PORTRAIT-UPSIDEDOWN"}];
+        
+        _isLocking = NO;
+        
+    }];
+#endif
 }
 
 RCT_EXPORT_METHOD(lockToLandscape)

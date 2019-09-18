@@ -11,6 +11,16 @@ A react-native module that can listen on orientation changing of device, get cur
 
  ### ChangeLog
 
+v1.1.6
+1. catch unknown device orientation value
+2. when calling unlockAllOrientations(), forcibly unlock whether lock or not
+
+v1.1.5
+1. add Orientation.isLocked() and Orientation.removeAllListeners()
+
+v1.1.4
+1. Fix typescript declarations
+
 v1.1.3
 1. add addLockListener/removeLockListener
 2. improve android orientation changed event sending condition
@@ -30,29 +40,22 @@ v1.1.0 **BREAK CHANGE**
  4. add getAutoRotateState() for android
  5. add TypeScript define file
 
-v1.0.22  
- 1. add getAutoRotateState() (android only)
-
-v1.0.21
-1. add getDeviceOrientation()
-2. orientationDidChange return DeviceOrientation
-
-v1.0.20
-abandon
-
-v1.0.19
-1. change license to MIT
-
-v1.0.18
-1. update build.gradle for RN 0.57
-2. format some codes and readme
-
-v1.0.17
-1. fix podspec
-2. fix "Calling UI code from background thread" error
-
 
 [[more]](https://github.com/wonday/react-native-orientation-locker/releases)
+
+### Notice
+
+1. RN 0.58 + Android target SDK 27 maybe cause 
+```Issue: java.lang.IllegalStateException: Only fullscreen activities can request orientation``` problem, 
+see [[#55]](https://github.com/wonday/react-native-orientation-locker/issues/55) for a solution.
+
+2. orientationDidChange will be delayed in iPad if we set upside down to be true.
+Simply disable upside down for iPad and everything works like a charm ([[#78]](https://github.com/wonday/react-native-orientation-locker/issues/55) Thanks [truongluong1314520](https://github.com/truongluong1314520))
+
+3. if you got build error on ios 
+```ld: library not found for -lRCTOrientation-tvOS```
+Just remove it from linked libraries and frameworks
+
 
 ### Installation
 #### Using npm
@@ -123,6 +126,24 @@ public class MainActivity extends ReactActivity {
 
     // ......
 }
+```
+
+Add following to MainApplication.java
+(This will be added automatically by the react-native-link. If not, please manually add the following )
+
+```diff
+//...
++import org.wonday.orientation.OrientationPackage;
+
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+        //...
++        new OrientationPackage(),
+        //...
+      );
+    }
+//...
 ```
 
 ## Usage
@@ -212,6 +233,7 @@ It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `UNKNOWN`
 
 - `removeLockListener(function(orientation))`
 
+- `removeAllListeners()`
 
 ## Functions
 
@@ -219,10 +241,12 @@ It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `UNKNOWN`
 - `lockToLandscape()`
 - `lockToLandscapeLeft()`  this will lock to camera left home button right
 - `lockToLandscapeRight()` this will lock to camera right home button left
+- `lockToPortraitUpsideDown` only support android
 - `unlockAllOrientations()`
 - `getOrientation(function(orientation))`
 - `getDeviceOrientation(function(deviceOrientation))`
 - `getAutoRotateState(function(state))` (android only)
+- `isLocked()` (lock status by this library)
 
 orientation can return one of:
 
