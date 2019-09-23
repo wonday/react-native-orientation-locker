@@ -7,7 +7,7 @@
 //
 
 
-#import "Orientation.h"
+#import "RCTOrientation.h"
 
 
 @implementation Orientation
