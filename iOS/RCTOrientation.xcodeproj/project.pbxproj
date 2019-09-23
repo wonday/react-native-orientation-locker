@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		52EA30BE22DB68DA00018871 /* RCTOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA30BD22DB68DA00018871 /* RCTOrientation.m */; };
-		52EA30BF22DB68DA00018871 /* RCTOrientation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 52EA30BC22DB68DA00018871 /* RCTOrientation.h */; };
-		52EA30D222DB6A0800018871 /* RCTOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA30BD22DB68DA00018871 /* RCTOrientation.m */; };
+		52EA30BE22DB68DA00018871 /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA30BD22DB68DA00018871 /* Orientation.m */; };
+		52EA30BF22DB68DA00018871 /* Orientation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 52EA30BC22DB68DA00018871 /* Orientation.h */; };
+		52EA30D222DB6A0800018871 /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA30BD22DB68DA00018871 /* Orientation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -19,7 +19,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				52EA30BF22DB68DA00018871 /* RCTOrientation.h in CopyFiles */,
+				52EA30BF22DB68DA00018871 /* Orientation.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,8 +36,8 @@
 
 /* Begin PBXFileReference section */
 		52EA30B922DB68DA00018871 /* libRCTOrientation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTOrientation.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		52EA30BC22DB68DA00018871 /* RCTOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTOrientation.h; sourceTree = "<group>"; };
-		52EA30BD22DB68DA00018871 /* RCTOrientation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTOrientation.m; sourceTree = "<group>"; };
+		52EA30BC22DB68DA00018871 /* Orientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Orientation.h; sourceTree = "<group>"; };
+		52EA30BD22DB68DA00018871 /* Orientation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Orientation.m; sourceTree = "<group>"; };
 		52EA30C922DB69B600018871 /* libRCTOrientation-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRCTOrientation-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -79,8 +79,8 @@
 		52EA30BB22DB68DA00018871 /* RCTOrientation */ = {
 			isa = PBXGroup;
 			children = (
-				52EA30BC22DB68DA00018871 /* RCTOrientation.h */,
-				52EA30BD22DB68DA00018871 /* RCTOrientation.m */,
+				52EA30BC22DB68DA00018871 /* Orientation.h */,
+				52EA30BD22DB68DA00018871 /* Orientation.m */,
 			);
 			path = RCTOrientation;
 			sourceTree = "<group>";
@@ -162,7 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52EA30BE22DB68DA00018871 /* RCTOrientation.m in Sources */,
+				52EA30BE22DB68DA00018871 /* Orientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52EA30D222DB6A0800018871 /* RCTOrientation.m in Sources */,
+				52EA30D222DB6A0800018871 /* Orientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
