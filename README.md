@@ -9,36 +9,36 @@ A react-native module that can listen on orientation changing of device, get cur
 * listen on orientation changing of device
 * get the current orientation of device
 
- ### ChangeLog
+### ChangeLog
 
 v1.1.6
-1. catch unknown device orientation value
-2. when calling unlockAllOrientations(), forcibly unlock whether lock or not
+1. Catch unknown device orientation value
+2. When calling unlockAllOrientations(), forcibly unlock whether locked or not
 
 v1.1.5
-1. add Orientation.isLocked() and Orientation.removeAllListeners()
+1. Add Orientation.isLocked() and Orientation.removeAllListeners()
 
 v1.1.4
-1. Fix typescript declarations
+1. Fix TypeScript declarations
 
 v1.1.3
-1. add addLockListener/removeLockListener
-2. improve android orientation changed event sending condition
+1. Add `addLockListener` and `removeLockListener`
+2. Improve Android orientation changed event sending condition
 
 v1.1.2
- 1. improve android orientation changed event timing
+ 1. Improve Android orientation changed event timing
 
 v1.1.1
- 1. fix show "supported event type for deviceOrientationDidChange..." error in debug
- 2. fix getAutoRotateState() code error
+ 1. Fix show "supported event type for deviceOrientationDidChange..." error in debug
+ 2. Fix getAutoRotateState() code error
 
 
-v1.1.0 **BREAK CHANGE**  
- 1. split ```addOrientationListener(function(orientation, deviceOrientation))``` to ```addOrientationListener(function(orientation))``` and ```addDeviceOrientationListener(function(deviceOrientation))```
- 2. make sure when lockToXXX and unlockAllOrientations resend UI orientation event
+v1.1.0 **BREAKING CHANGES**  
+ 1. Split ```addOrientationListener(function(orientation, deviceOrientation))``` to ```addOrientationListener(function(orientation))``` and ```addDeviceOrientationListener(function(deviceOrientation))```
+ 2. Make sure when lockToXXX and unlockAllOrientations resend UI orientation event
  3. remove setTimout from orientation listener
- 4. add getAutoRotateState() for android
- 5. add TypeScript define file
+ 4. Add getAutoRotateState() for Android
+ 5. Add TypeScript definitions
 
 
 [[more]](https://github.com/wonday/react-native-orientation-locker/releases)
@@ -49,10 +49,10 @@ v1.1.0 **BREAK CHANGE**
 ```Issue: java.lang.IllegalStateException: Only fullscreen activities can request orientation``` problem, 
 see [[#55]](https://github.com/wonday/react-native-orientation-locker/issues/55) for a solution.
 
-2. orientationDidChange will be delayed in iPad if we set upside down to be true.
+2. orientationDidChange will be delayed on iPads if we set upside down to true.
 Simply disable upside down for iPad and everything works like a charm ([[#78]](https://github.com/wonday/react-native-orientation-locker/issues/78) Thanks [truongluong1314520](https://github.com/truongluong1314520))
 
-3. if you got build error on ios 
+3. If you get the following build error on iOS: 
 ```ld: library not found for -lRCTOrientation-tvOS```
 Just remove it from linked libraries and frameworks
 
@@ -256,4 +256,4 @@ orientation can return one of:
 - `PORTRAIT-UPSIDEDOWN`
 - `UNKNOWN`
 
-Notice: PORTRAIT-UPSIDEDOWN not support at iOS now
+Notice: PORTRAIT-UPSIDEDOWN is currently not supported on iOS at the moment.
