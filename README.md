@@ -10,6 +10,12 @@ A react-native module that can listen on orientation changing of device, get cur
 * get the current orientation of device
 
 ### ChangeLog
+<details>
+  <summary>ChangeLog details</summary>
+
+v1.1.7
+1. Add lockToPortraitUpsideDown() to iOS
+2. Minor case corrections
 
 v1.1.6
 1. Catch unknown device orientation value
@@ -40,8 +46,8 @@ v1.1.0 **BREAKING CHANGES**
  4. Add getAutoRotateState() for Android
  5. Add TypeScript definitions
 
-
 [[more]](https://github.com/wonday/react-native-orientation-locker/releases)
+</details>
 
 ### Notice
 
@@ -58,10 +64,21 @@ Just remove it from linked libraries and frameworks
 
 
 ### Installation
-#### Using npm
+#### Using yarn (RN 0.60 and and above)
 
-    npm install react-native-orientation-locker --save
+```
+    yarn add react-native-orientation-locer
+```
+
+
+
+#### Using yarn (RN 0.59 and and below)
+
+```
+    yarn add react-native-orientation-locer
     react-native link react-native-orientation-locker
+```
+
 
 
 #### Using CocoaPods (iOS Only)
