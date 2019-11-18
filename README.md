@@ -71,7 +71,6 @@ Just remove it from linked libraries and frameworks
 ```
 
 
-
 #### Using yarn (RN 0.59 and and below)
 
 ```
@@ -80,12 +79,12 @@ Just remove it from linked libraries and frameworks
 ```
 
 
-
 #### Using CocoaPods (iOS Only)
 
-    pod 'react-native-orientation-locker', :path => '../node_modules/react-native-orientation-locker/react-native-orientation-locker.podspec'
 
-Consult the React Native documentation on how to [install React Native using CocoaPods](https://facebook.github.io/react-native/docs/embedded-app-ios.html#install-react-native-using-cocoapods).
+Run ```pod install``` in the ios directory. Linking is not required in React Native 0.60 and above.
+
+
 
 ### Configuration
 
