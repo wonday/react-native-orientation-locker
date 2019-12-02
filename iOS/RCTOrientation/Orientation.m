@@ -99,7 +99,17 @@ static UIInterfaceOrientationMask _orientationMask = UIInterfaceOrientationMaskA
             
             orientationStr = @"PORTRAIT-UPSIDEDOWN";
             break;
-            
+        
+        case UIDeviceOrientationFaceUp:
+
+            orientationStr = @"FACE-UP";
+            break;
+
+        case UIDeviceOrientationFaceDown:
+        
+            orientationStr = @"FACE-DOWN";
+            break;
+
         default:
             orientationStr = @"UNKNOWN";
             break;
