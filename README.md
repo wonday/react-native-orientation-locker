@@ -270,6 +270,8 @@ orientation can return one of:
 - `LANDSCAPE-LEFT` camera left home button right
 - `LANDSCAPE-RIGHT` camera right home button left
 - `PORTRAIT-UPSIDEDOWN`
+- `FACE-UP`
+- `FACE-DOWN`
 - `UNKNOWN`
 
-Notice: PORTRAIT-UPSIDEDOWN is currently not supported on iOS at the moment.
+Notice: PORTRAIT-UPSIDEDOWN is currently not supported on iOS at the moment. FACE-UP and FACE-DOWN are only supported on iOS.

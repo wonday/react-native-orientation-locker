@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export type OrientationType = "PORTRAIT" | "PORTRAIT-UPSIDEDOWN" | "LANDSCAPE-LEFT" | "LANDSCAPE-RIGHT" | "UNKNOWN";
+export type OrientationType = "PORTRAIT" | "PORTRAIT-UPSIDEDOWN" | "LANDSCAPE-LEFT" | "LANDSCAPE-RIGHT" | "FACE-UP" | "FACE-DOWN" | "UNKNOWN";
 
 declare class Orientation {
   static addOrientationListener(callback: (orientation: OrientationType) => void): void;
