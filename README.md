@@ -148,7 +148,7 @@ public class MainActivity extends ReactActivity {
 ```
 
 Add following to MainApplication.java
-(This will be added automatically by the react-native-link. If not, please manually add the following )
+(This will be added automatically by auto link. If not, please manually add the following )
 
 ```diff
 //...
@@ -156,11 +156,12 @@ Add following to MainApplication.java
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-        //...
-+        new OrientationPackage(),
-        //...
-      );
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for example:
+      // packages.add(new MyReactNativePackage());
++      packages.add(new OrientationPackage());
+      return packages;
     }
 //...
 ```
