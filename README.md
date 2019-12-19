@@ -13,6 +13,9 @@ A react-native module that can listen on orientation changing of device, get cur
 <details>
   <summary>ChangeLog details</summary>
 
+v1.1.8
+1. Support FACE-UP and FACE-DOWN on iOS
+
 v1.1.7
 1. Add lockToPortraitUpsideDown() to iOS
 2. Minor case corrections
