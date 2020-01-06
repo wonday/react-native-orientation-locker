@@ -265,7 +265,7 @@ RCT_EXPORT_METHOD(lockToAllOrientationsButUpsideDown)
 #endif
 #if (!TARGET_OS_TV)
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-        [self lockToOrientation:UIInterfaceOrientationLandscapeRight usingMask:UIInterfaceOrientationMaskAllButUpsideDown];
+        [self lockToOrientation:UIInterfaceOrientationMaskAllButUpsideDown usingMask:UIInterfaceOrientationMaskAllButUpsideDown];
     }];
 #endif
 }
