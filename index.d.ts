@@ -21,6 +21,7 @@ declare class Orientation {
   static lockToPortrait(): void;
   static lockToLandscape(): void;
   static lockToLandscapeLeft(): void;
+  static lockToAllOrientationsButUpsideDown(): void;
   static lockToLandscapeRight(): void;
   static lockToPortraitUpsideDown(): void;
   static unlockAllOrientations(): void;
