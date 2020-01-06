@@ -74,6 +74,14 @@ export default class Orientation {
         OrientationNative.lockToLandscapeLeft();
     };
 
+    // OrientationMaskAllButUpsideDown
+    static lockToAllOrientationsButUpsideDown = () => {
+        locked = true;
+        if (Platform.OS === "ios") {
+            OrientationNative.lockToAllOrientationsButUpsideDown();
+        }
+    };
+
     static unlockAllOrientations = () => {
         locked = false;
         OrientationNative.unlockAllOrientations();

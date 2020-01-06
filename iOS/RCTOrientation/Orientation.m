@@ -258,6 +258,18 @@ RCT_EXPORT_METHOD(lockToLandscapeLeft)
 #endif
 }
 
+RCT_EXPORT_METHOD(lockToAllOrientationsButUpsideDown)
+{
+#if DEBUG
+    NSLog(@"Locking to all except upside down");
+#endif
+#if (!TARGET_OS_TV)
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        [self lockToOrientation:UIInterfaceOrientationPortrait usingMask:UIInterfaceOrientationMaskAllButUpsideDown];
+    }];
+#endif
+}
+
 RCT_EXPORT_METHOD(unlockAllOrientations)
 {
 #if DEBUG
