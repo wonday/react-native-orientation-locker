@@ -25,7 +25,7 @@ import android.hardware.SensorManager;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -48,6 +48,12 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     private String lastOrientationValue = "";
     private String lastDeviceOrientationValue = "";
 
+    final String LANDSCAPE_RIGHT = "LANDSCAPE-RIGHT";
+    final String LANDSCAPE_LEFT = "LANDSCAPE-LEFT";
+    final String PORTRAIT_UPSIDEDOWN = "PORTRAIT-UPSIDEDOWN";
+    final String PORTRAIT = "PORTRAIT";
+    final String UNKNOWN = "UNKNOWN";
+
 
     public OrientationModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -64,15 +70,15 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
 
                 if (orientation == -1) {
-                    deviceOrientationValue = "UNKNOWN";
+                    deviceOrientationValue = UNKNOWN;
                 } else if (orientation > 355 || orientation < 5) {
-                    deviceOrientationValue = "PORTRAIT";
+                    deviceOrientationValue = PORTRAIT;
                 } else if (orientation > 85 && orientation < 95) {
-                    deviceOrientationValue = "LANDSCAPE-RIGHT";
+                    deviceOrientationValue = LANDSCAPE_RIGHT;
                 } else if (orientation > 175 && orientation < 185) {
-                    deviceOrientationValue = "PORTRAIT-UPSIDEDOWN";
+                    deviceOrientationValue = PORTRAIT_UPSIDEDOWN;
                 } else if (orientation > 265 && orientation < 275) {
-                    deviceOrientationValue = "LANDSCAPE-LEFT";
+                    deviceOrientationValue = LANDSCAPE_LEFT;
                 }
 
                 if (!lastDeviceOrientationValue.equals(deviceOrientationValue)) {
@@ -134,26 +140,31 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
         switch (display.getRotation()) {
             case Surface.ROTATION_0:
-                return "PORTRAIT";
+                return PORTRAIT;
             case Surface.ROTATION_90:
-                return "LANDSCAPE-LEFT";
+                return LANDSCAPE_LEFT;
             case Surface.ROTATION_180:
-                return "PORTRAIT-UPSIDEDOWN";
+                return PORTRAIT_UPSIDEDOWN;
             case Surface.ROTATION_270:
-                return "LANDSCAPE-RIGHT";
+                return LANDSCAPE_RIGHT;
         }
-        return "UNKNOWN";
+        return UNKNOWN;
     }
 
     @ReactMethod
-    public void getOrientation(Callback callback) {
+    public void getOrientation(Promise promise) {
         String orientation = getCurrentOrientation();
-        callback.invoke(orientation);
+        promise.resolve(orientation);
     }
 
     @ReactMethod
-    public void getDeviceOrientation(Callback callback) {
-        callback.invoke(lastDeviceOrientationValue);
+    public void getDeviceOrientation(Promise promise) {
+        promise.resolve(lastDeviceOrientationValue);
+    }
+
+    @ReactMethod
+    public void isLocked(Promise promise) {
+        promise.resolve(isLocked);
     }
 
     @ReactMethod
@@ -164,7 +175,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         isLocked = true;
 
         // force send an UI orientation event
-        lastOrientationValue = "PORTRAIT";
+        lastOrientationValue = PORTRAIT;
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
@@ -191,7 +202,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         isLocked = true;
 
         // force send an UI orientation event
-        lastOrientationValue = "PORTRAIT-UPSIDEDOWN";
+        lastOrientationValue = PORTRAIT_UPSIDEDOWN;
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
@@ -218,7 +229,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         isLocked = true;
 
         // force send an UI orientation event
-        lastOrientationValue = "LANDSCAPE-LEFT";
+        lastOrientationValue = LANDSCAPE_LEFT;
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
@@ -245,7 +256,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         isLocked = true;
 
         // force send an UI orientation event
-        lastOrientationValue = "LANDSCAPE-LEFT";
+        lastOrientationValue = LANDSCAPE_LEFT;
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
@@ -272,7 +283,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         isLocked = true;
 
         // force send an UI orientation event
-        lastOrientationValue = "LANDSCAPE-RIGHT";
+        lastOrientationValue = LANDSCAPE_RIGHT;
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
@@ -311,7 +322,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
         // send a unlocked event
         WritableMap lockParams = Arguments.createMap();
-        lockParams.putString("orientation", "UNKNOWN");
+        lockParams.putString("orientation", UNKNOWN);
         if (ctx.hasActiveCatalystInstance()) {
             ctx
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
@@ -320,12 +331,17 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     }
 
     @ReactMethod
-    public void getAutoRotateState(Callback callback) {
+    public void getAutoRotateState(Promise promise) {
       final ContentResolver resolver = ctx.getContentResolver();
       boolean rotateLock = android.provider.Settings.System.getInt(
       resolver,
       android.provider.Settings.System.ACCELEROMETER_ROTATION, 0) == 1;
-      callback.invoke(rotateLock);
+      promise.resolve(rotateLock);
+    }
+
+    @ReactMethod
+    public void lockToAllOrientationsButUpsideDown(Promise promise) {
+      promise.reject("Not implemented on android.");
     }
 
     @Override
@@ -334,6 +350,11 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
         String orientation = getCurrentOrientation();
         constants.put("initialOrientation", orientation);
+        constants.put("LANDSCAPE_RIGHT", LANDSCAPE_RIGHT);
+        constants.put("LANDSCAPE_LEFT", LANDSCAPE_LEFT);
+        constants.put("PORTRAIT_UPSIDEDOWN", PORTRAIT_UPSIDEDOWN);
+        constants.put("PORTRAIT", PORTRAIT);
+        constants.put("UNKNOWN", UNKNOWN);
 
         return constants;
     }
