@@ -7,26 +7,25 @@
 //
 
 'use strict';
-const {
-  NativeEventEmitter,
-  NativeModules: {Orientation},
-} = require('react-native');
 
-const LocalEventEmitter = new NativeEventEmitter(Orientation);
+const resolveUnkown = () => Promise.resolve(Orientation.UNKNOWN);
+const doNothing = () => null;
 
 export default {
-  ...Orientation,
-  addOrientationListener: cb =>
-    LocalEventEmitter.addListener('orientationDidChange', event => {
-      cb(event.orientation);
-    }).remove,
-  addDeviceOrientationListener: cb =>
-    LocalEventEmitter.addListener('deviceOrientationDidChange', body => {
-      cb(body.deviceOrientation);
-    }).remove,
-  addLockListener: cb =>
-    LocalEventEmitter.addListener('lockDidChange', body => {
-      cb(body.orientation);
-    }).remove,
-  getInitialOrientation: () => Orientation.initialOrientation,
+  getOrientation: resolveUnkown,
+  getDeviceOrientation: resolveUnkown,
+  isLocked: () => Promise.resolve(false),
+  lockToPortrait: doNothing,
+  lockToPortraitUpsideDown: doNothing,
+  lockToLandscape: doNothing,
+  lockToLandscapeRight: doNothing,
+  lockToLandscapeLeft: doNothing,
+  // OrientationMaskAllButUpsideDown
+  lockToAllOrientationsButUpsideDown: doNothing,
+  unlockAllOrientations: doNothing,
+  addOrientationListener: doNothing,
+  addDeviceOrientationListener: doNothing,
+  addLockListener: doNothing,
+  getInitialOrientation: resolveUnkown,
+  getAutoRotateState: () => Promise.resolve(true),
 };
