@@ -300,7 +300,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         isLocked = false;
 
         //force send an UI orientation event when unlock
-        lastOrientationValue = lastDeviceOrientationValue;
+        lastOrientationValue = this.getCurrentOrientation();
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
