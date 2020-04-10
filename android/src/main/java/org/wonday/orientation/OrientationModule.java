@@ -36,18 +36,15 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nullable;
 
 @ReactModule(name = "Orientation")
 public class OrientationModule extends ReactContextBaseJavaModule implements LifecycleEventListener{
 
     final BroadcastReceiver mReceiver;
     final OrientationEventListener mOrientationListener;
-    final ReactApplicationContext ctx;
-    private boolean isLocked = false;
     private String lastOrientationValue = "";
     private String lastDeviceOrientationValue = "";
-
+    final ReactApplicationContext ctx;
 
     public OrientationModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -57,23 +54,9 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
             @Override
             public void onOrientationChanged(int orientation) {
-
                 FLog.d(ReactConstants.TAG,"DeviceOrientation changed to " + orientation);
 
-                String deviceOrientationValue = lastDeviceOrientationValue;
-
-
-                if (orientation == -1) {
-                    deviceOrientationValue = "UNKNOWN";
-                } else if (orientation > 355 || orientation < 5) {
-                    deviceOrientationValue = "PORTRAIT";
-                } else if (orientation > 85 && orientation < 95) {
-                    deviceOrientationValue = "LANDSCAPE-RIGHT";
-                } else if (orientation > 175 && orientation < 185) {
-                    deviceOrientationValue = "PORTRAIT-UPSIDEDOWN";
-                } else if (orientation > 265 && orientation < 275) {
-                    deviceOrientationValue = "LANDSCAPE-LEFT";
-                }
+                String deviceOrientationValue = getOrientationString(orientation);
 
                 if (!lastDeviceOrientationValue.equals(deviceOrientationValue)) {
 
@@ -87,8 +70,23 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
                         .emit("deviceOrientationDidChange", params);
                     }
                 }
+            }
 
-                return;
+            private String getOrientationString(int degrees) {
+                String deviceOrientationValue = lastDeviceOrientationValue;
+
+                if (degrees == -1) {
+                    deviceOrientationValue = "UNKNOWN";
+                } else if (degrees > 355 || degrees < 5) {
+                    deviceOrientationValue = "PORTRAIT";
+                } else if (degrees > 85 && degrees < 95) {
+                    deviceOrientationValue = "LANDSCAPE-RIGHT";
+                } else if (degrees > 175 && degrees < 185) {
+                    deviceOrientationValue = "PORTRAIT-UPSIDEDOWN";
+                } else if (degrees > 265 && degrees < 275) {
+                    deviceOrientationValue = "LANDSCAPE-LEFT";
+                }
+                return deviceOrientationValue;
             }
         };
 
@@ -120,7 +118,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
             }
         };
 
-        ctx.addLifecycleEventListener(this);
+        reactContext.addLifecycleEventListener(this);
     }
 
     @Override
@@ -129,7 +127,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     }
 
     private String getCurrentOrientation() {
-
         final Display display = ((WindowManager) getReactApplicationContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
         switch (display.getRotation()) {
@@ -161,7 +158,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        isLocked = true;
 
         // force send an UI orientation event
         lastOrientationValue = "PORTRAIT";
@@ -188,7 +184,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
-        isLocked = true;
 
         // force send an UI orientation event
         lastOrientationValue = "PORTRAIT-UPSIDEDOWN";
@@ -215,7 +210,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        isLocked = true;
 
         // force send an UI orientation event
         lastOrientationValue = "LANDSCAPE-LEFT";
@@ -242,7 +236,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        isLocked = true;
 
         // force send an UI orientation event
         lastOrientationValue = "LANDSCAPE-LEFT";
@@ -269,7 +262,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
-        isLocked = true;
 
         // force send an UI orientation event
         lastOrientationValue = "LANDSCAPE-RIGHT";
@@ -293,11 +285,9 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
 
     @ReactMethod
     public void unlockAllOrientations() {
-
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-        isLocked = false;
 
         //force send an UI orientation event when unlock
         lastOrientationValue = lastDeviceOrientationValue;
@@ -329,7 +319,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
     }
 
     @Override
-    public @Nullable Map<String, Object> getConstants() {
+    public Map<String, Object> getConstants() {
         HashMap<String, Object> constants = new HashMap<String, Object>();
 
         String orientation = getCurrentOrientation();
@@ -347,6 +337,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         if (activity == null) return;
         activity.registerReceiver(mReceiver, new IntentFilter("onConfigurationChanged"));
     }
+
     @Override
     public void onHostPause() {
         FLog.d(ReactConstants.TAG, "orientation detect disabled.");
@@ -358,7 +349,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         {
             activity.unregisterReceiver(mReceiver);
         }
-        catch (java.lang.IllegalArgumentException e) {
+        catch (IllegalArgumentException e) {
             FLog.w(ReactConstants.TAG, "Receiver already unregistered", e);
         }
     }
@@ -374,7 +365,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Lif
         {
             activity.unregisterReceiver(mReceiver);
         }
-        catch (java.lang.IllegalArgumentException e) {
+        catch (IllegalArgumentException e) {
             FLog.w(ReactConstants.TAG, "Receiver already unregistered", e);
         }
     }
