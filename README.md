@@ -235,7 +235,7 @@ It is possible to have multiple `ScreenOrientation` components mounted at the sa
 ```js
 import React, { useState } from "react";
 import { Text, View } from "react-native";
-import { ScreenOrientation, PORTRAIT, LANDSCAPE } from "react-native-orientation-locker";
+import ScreenOrientation, { PORTRAIT, LANDSCAPE } from "react-native-orientation-locker/ScreenOrientation";
 
 export default function App() {
   const [showVideo, setShowVideo] = useState(true);

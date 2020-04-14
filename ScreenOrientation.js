@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import Orientation from 'react-native-orientation-locker';
+import Orientation from './';
 
 export const UNLOCK = 'UNLOCK';
 export const PORTRAIT = 'PORTRAIT';
