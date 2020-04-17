@@ -15,12 +15,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.view.OrientationEventListener;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
-import android.util.DisplayMetrics;
 import android.hardware.SensorManager;
 
 import com.facebook.common.logging.FLog;
@@ -30,6 +28,7 @@ import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.ReactConstants;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
@@ -39,6 +38,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
+@ReactModule(name = "OrientationModule")
 public class OrientationModule extends ReactContextBaseJavaModule implements LifecycleEventListener{
 
     final BroadcastReceiver mReceiver;
