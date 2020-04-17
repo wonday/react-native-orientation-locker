@@ -38,7 +38,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-@ReactModule(name = "OrientationModule")
+@ReactModule(name = "Orientation")
 public class OrientationModule extends ReactContextBaseJavaModule implements LifecycleEventListener{
 
     final BroadcastReceiver mReceiver;
