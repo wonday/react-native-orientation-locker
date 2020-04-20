@@ -168,6 +168,8 @@ Add following to MainApplication.java
 
 ## Usage
 
+### Imperative API
+
 Whenever you want to use it within React Native code now you can:
 `import Orientation from 'react-native-orientation-locker';`
 
@@ -224,6 +226,38 @@ import Orientation from 'react-native-orientation-locker';
   componentWillUnmount: function() {
     Orientation.removeOrientationListener(this._onOrientationDidChange);
   }
+```
+
+### Reactive component `<ScreenOrientation>`
+
+It is possible to have multiple `ScreenOrientation` components mounted at the same time. The props will be merged in the order the `ScreenOrientation` components were mounted.
+
+```js
+import React, { useState } from "react";
+import { Text, View } from "react-native";
+import ScreenOrientation, { PORTRAIT, LANDSCAPE } from "react-native-orientation-locker/ScreenOrientation";
+
+export default function App() {
+  const [showVideo, setShowVideo] = useState(true);
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ScreenOrientation
+        orientation={PORTRAIT}
+        onChange={orientation => console.log('onChange', orientation)}
+        onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+      />
+      <Button title="Toggle Video" onPress={() => setShowVideo(!showVideo)} />
+      {showVideo && (
+        <View>
+          <ScreenOrientation orientation={LANDSCAPE} />
+          <View style={{ width: 320, height: 180, backgroundColor: '#ccc' }}>
+            <Text>Landscape video goes here</Text>
+          </View>
+        </View>
+      )}
+    </View>
+  );
+};
 ```
 
 ## Events
