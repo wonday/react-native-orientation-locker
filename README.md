@@ -153,7 +153,7 @@ Add following to MainApplication.java
 ```diff
 //...
 +import org.wonday.orientation.OrientationPackage;
-
++import org.wonday.orientation.OrientationActivityLifecycle;
     @Override
     protected List<ReactPackage> getPackages() {
       @SuppressWarnings("UnnecessaryLocalVariable")
@@ -164,6 +164,12 @@ Add following to MainApplication.java
       return packages;
     }
 //...
+
+  @Override
+  public void onCreate() {
+    ...
++    registerActivityLifecycleCallbacks(OrientationActivityLifecycle.getInstance());
+  }
 ```
 
 ## Usage
