@@ -8,53 +8,6 @@
 
 "use strict";
 
-export default class Orientation {
-  static getOrientation = cb => {
-    cb("UNKNOWN");
-  };
+import Orientation from './orientation';
 
-  static getDeviceOrientation = cb => {
-    cb("UNKNOWN");
-  };
-
-  static isLocked = () => {
-    return false;
-  };
-
-  static lockToPortrait = () => {};
-
-  static lockToPortraitUpsideDown = () => {};
-
-  static lockToLandscape = () => {};
-
-  static lockToLandscapeRight = () => {};
-
-  static lockToLandscapeLeft = () => {};
-
-  // OrientationMaskAllButUpsideDown
-  static lockToAllOrientationsButUpsideDown = () => {};
-
-  static unlockAllOrientations = () => {};
-
-  static addOrientationListener = cb => {};
-
-  static removeOrientationListener = cb => {};
-
-  static addDeviceOrientationListener = cb => {};
-
-  static removeDeviceOrientationListener = cb => {};
-
-  static addLockListener = cb => {};
-
-  static removeLockListener = cb => {};
-
-  static removeAllListeners = () => {};
-
-  static getInitialOrientation = () => {
-    return "UNKNOWN";
-  };
-
-  static getAutoRotateState = cb => {
-    cb(true);
-  };
-}
+export default Orientation;
