@@ -77,7 +77,9 @@ public class OrientationActivityLifecycle implements Application.ActivityLifecyc
     public void onActivityDestroyed(Activity activity) {
         Log.d(TAG, "onActivityDestroyed");
         if (activeCount.get() == 0) {
-            orientationListeners.release();
+            if (orientationListeners != null) {
+                orientationListeners.release();
+            }
         }
     }
 }
