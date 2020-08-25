@@ -13,13 +13,24 @@ A react-native module that can listen on orientation changing of device, get cur
 <details>
   <summary>ChangeLog details</summary>
 
-v1.2.0
+v1.2.0 **BREAKING CHANGES**
 1. Add support for lockAllOrientationsButUpsideDown
 2. Ignore on web and desktop (#115)
 3. Fix for not finding @ReactModule (#125)
 4. Fix unlockAllOrientations on Android (#133)
 5. Implement ActivityLifecycleCallbacks on Android (#131)
 
+Please be sure to add to `onCreate` of your `MainApplication`
+```
+import org.wonday.orientation.OrientationActivityLifecycle;
+
+  @Override
+  public void onCreate() {
+    ...
++    registerActivityLifecycleCallbacks(OrientationActivityLifecycle.getInstance());
+  }
+
+```
 v1.1.8
 1. Support FACE-UP and FACE-DOWN on iOS
 
