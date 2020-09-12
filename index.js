@@ -8,6 +8,8 @@
 
 "use strict";
 
-import Orientation from './orientation';
+import Orientation from './src/orientation';
+
+export * from './src/hooks';
 
 export default Orientation;

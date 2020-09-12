@@ -98,14 +98,28 @@ Just remove it from linked libraries and frameworks
     yarn add react-native-orientation-locker
     react-native link react-native-orientation-locker
 ```
+#### Manual linking
+Add following to MainApplication.java
+(This will be added automatically by auto link. If not, please manually add the following )
 
+```diff
+//...
++import org.wonday.orientation.OrientationPackage;
+    @Override
+    protected List<ReactPackage> getPackages() {
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for example:
+      // packages.add(new MyReactNativePackage());
++      packages.add(new OrientationPackage());
+      return packages;
+    }
+//...
+```
 
 #### Using CocoaPods (iOS Only)
 
-
 Run ```pod install``` in the ios directory. Linking is not required in React Native 0.60 and above.
-
-
 
 ### Configuration
 
@@ -166,26 +180,11 @@ public class MainActivity extends ReactActivity {
 ```
 
 Add following to MainApplication.java
-(This will be added automatically by auto link. If not, please manually add the following )
 
 ```diff
-//...
-+import org.wonday.orientation.OrientationPackage;
 +import org.wonday.orientation.OrientationActivityLifecycle;
-    @Override
-    protected List<ReactPackage> getPackages() {
-      @SuppressWarnings("UnnecessaryLocalVariable")
-      List<ReactPackage> packages = new PackageList(this).getPackages();
-      // Packages that cannot be autolinked yet can be added manually here, for example:
-      // packages.add(new MyReactNativePackage());
-+      packages.add(new OrientationPackage());
-      return packages;
-    }
-//...
-
   @Override
   public void onCreate() {
-    ...
 +    registerActivityLifecycleCallbacks(OrientationActivityLifecycle.getInstance());
   }
 ```
@@ -282,6 +281,22 @@ export default function App() {
     </View>
   );
 };
+```
+
+## Hooks
+- `useOrientationChange`: hook for `addOrientationListener` event
+- `useDeviceOrientationChange`: hook for `addDeviceOrientationListener` event
+
+```
+function SomeComponent() {
+  useOrientationChange((o) => {
+    // Handle orientation change
+  });
+
+  useDeviceOrientationChange((o) => {
+    // Handle device orientation change
+  });
+}
 ```
 
 ## Events
