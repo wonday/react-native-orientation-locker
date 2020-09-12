@@ -79,7 +79,6 @@ public class OrientationActivityLifecycle implements Application.ActivityLifecyc
         if (activeCount.get() == 0) {
             if (orientationListeners != null) {
                 orientationListeners.release();
-                orientationListeners = null;
             }
         }
     }
