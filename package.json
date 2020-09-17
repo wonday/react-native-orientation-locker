@@ -25,8 +25,11 @@
     "bugs": {
         "url": "https://github.com/wonday/react-native-orientation-locker/issues"
     },
-    "dependencies": {
-    },
+    "dependencies": {},
     "peerDependencies": {
+        "react-native-windows": "0.63"
+    },
+    "devDependencies": {
+        "react-native": "0.63"
     }
 }
