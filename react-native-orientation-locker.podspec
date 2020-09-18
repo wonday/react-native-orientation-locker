@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '11.0'
   s.preserve_paths = 'README.md', 'package.json', 'index.js'
   s.source_files   = 'iOS/**/*.{h,m}'
-  s.dependency     'React'
+  s.dependency     'React-Core'
 end
