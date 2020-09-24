@@ -1,9 +1,0 @@
-node_modules/
-xcuserdata/
-xcshareddata/
-contents.xcworkspacedata
-android/.gradle
-android/.project
-android/.settings
-.vs/
-build
