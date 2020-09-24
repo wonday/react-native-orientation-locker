@@ -7,3 +7,5 @@ android/.project
 android/.settings
 .vs/
 build
+..*
+*~

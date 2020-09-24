@@ -5,8 +5,5 @@ contents.xcworkspacedata
 android/.gradle
 android/.project
 android/.settings
-<<<<<<< HEAD
-.vs
-=======
+.vs/
 build
->>>>>>> 2f04965d0e445fdff274f8992f6fe80f136ab29c
