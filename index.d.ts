@@ -29,4 +29,15 @@ declare class Orientation {
   static getDeviceOrientation(callback: (orientation: OrientationType) => void): void;
   static getAutoRotateState(callback: (state: boolean) => void): void;
 }
+
 export default Orientation;
+
+declare function useOrientationChange(listener: (orientation: OrientationType) => void);
+declare function useDeviceOrientationChange(listener: (orientation: OrientationType) => void);
+declare function useLockListener(listener: (orientation: OrientationType) => void);
+
+export {
+  useOrientationChange,
+  useDeviceOrientationChange,
+  useLockListener,
+}
