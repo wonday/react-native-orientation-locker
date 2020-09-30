@@ -15,12 +15,14 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="ReactPackageProvider.cpp" />
+    <ClCompile Include="OrientationWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Class.h" />
     <ClInclude Include="ReactPackageProvider.h" />
+    <ClInclude Include="OrientationWindows.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OrientationWindows.def" />

@@ -3,6 +3,7 @@
 #include "ReactPackageProvider.g.cpp"
 
 #include <ModuleRegistration.h>
+#include "OrientationWindows.h"
 
 // NOTE: You must include the headers of your native modules here in
 // order for the AddAttributedModules call below to find them.
