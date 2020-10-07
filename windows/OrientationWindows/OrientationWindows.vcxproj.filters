@@ -13,12 +13,16 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="Class.cpp" />
+    <ClCompile Include="ReactPackageProvider.cpp" />
+    <ClCompile Include="OrientationWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Midl Include="Class.idl" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Class.h" />
+    <ClInclude Include="ReactPackageProvider.h" />
+    <ClInclude Include="OrientationWindows.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OrientationWindows.def" />
@@ -29,5 +33,14 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OrientationWindows.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="Class.idl" />
+    <Midl Include="ReactPackageProvider.idl" />
   </ItemGroup>
 </Project>
