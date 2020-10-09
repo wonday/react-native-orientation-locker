@@ -1,5 +1,5 @@
 "use strict";
-const OrientationNative = require("react-native").NativeModules.Orientation;
+const OrientationNative = require("react-native").NativeModules.OrientationLocker;
 const { NativeEventEmitter } = require("react-native");
 const LocalEventEmitter = new NativeEventEmitter(OrientationNative);
 
