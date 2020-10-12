@@ -18,6 +18,8 @@ namespace OrientationWindows {
 
     void OrientationLockerModule::LockToLandscapeRight() noexcept {}
 
+    void OrientationLockerModule::LockToLandscapeLeft() noexcept {}
+
     void OrientationLockerModule::UnlockAllOrientations() noexcept {}
 
  }

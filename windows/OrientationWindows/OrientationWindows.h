@@ -30,11 +30,14 @@ namespace OrientationWindows {
         REACT_METHOD(LockToLandscapeRight, L"lockToLandscapeRight");
         void LockToLandscapeRight() noexcept;
 
-        REACT_METHOD(UnlockAllOrientations, L"UnlockAllOrientations");
+        REACT_METHOD(LockToLandscapeLeft, L"lockToLandscapeLeft");
+        void LockToLandscapeLeft() noexcept;
+
+        REACT_METHOD(UnlockAllOrientations, L"unlockAllOrientations");
         void UnlockAllOrientations() noexcept;
 
         REACT_CONSTANT(InitialOrientation, L"initialOrientation");
-        const std::string InitialOrientation = "PORTRAIT_WINDOWS";
+        const std::string InitialOrientation = "PORTRAIT";
     };
 }
 

@@ -76,14 +76,14 @@ export default class Orientation {
     };
 
     static addOrientationListener = cb => {
-        /*var key = getKey(cb);
+        var key = getKey(cb);
         listeners[key] = LocalEventEmitter.addListener(
             "orientationDidChange",
             body => {
                 cb(body.orientation);
             }
         );
-    */};
+    };
 
     static removeOrientationListener = cb => {
         var key = getKey(cb);
@@ -95,14 +95,14 @@ export default class Orientation {
     };
 
     static addDeviceOrientationListener = cb => {
-        /*var key = getKey(cb);
+        var key = getKey(cb);
         listeners[key] = LocalEventEmitter.addListener(
             "deviceOrientationDidChange",
             body => {
                 cb(body.deviceOrientation);
             }
         );
-    */};
+    };
 
     static removeDeviceOrientationListener = cb => {
         var key = getKey(cb);
@@ -114,11 +114,11 @@ export default class Orientation {
     };
 
     static addLockListener = cb => {
-        /*var key = getKey(cb);
+        var key = getKey(cb);
         listeners[key] = LocalEventEmitter.addListener("lockDidChange", body => {
             cb(body.orientation);
         });
-    */};
+    };
 
     static removeLockListener = cb => {
         var key = getKey(cb);
