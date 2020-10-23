@@ -48,7 +48,7 @@ function update() {
   });
 }
 
-export default function ScreenOrientation({
+export default function OrientationLocker({
   orientation,
   onChange,
   onDeviceChange,
