@@ -48,7 +48,7 @@ function update() {
   });
 }
 
-export default function OrientationLocker({
+export function OrientationLocker({
   orientation,
   onChange,
   onDeviceChange,
