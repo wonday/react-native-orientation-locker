@@ -253,7 +253,7 @@ import Orientation from 'react-native-orientation-locker';
 
 ### Reactive component `<OrientationLocker>`
 
-It is possible to have multiple `OrientationLocker` components mounted at the same time. The props will be merged in the order the `OrientationLocker` components were mounted. This follows the usability of (StatusBar)[https://reactnative.dev/docs/statusbar].
+It is possible to have multiple `OrientationLocker` components mounted at the same time. The props will be merged in the order the `OrientationLocker` components were mounted. This follows the same usability of [\<StatusBar\>](https://reactnative.dev/docs/statusbar).
 
 ```js
 import React, { useState } from "react";
