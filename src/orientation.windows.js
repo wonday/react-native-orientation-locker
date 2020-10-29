@@ -80,7 +80,7 @@ export default class Orientation {
         listeners[key] = LocalEventEmitter.addListener(
             "orientationDidChange",
             body => {
-                cb(body.orientation);
+                cb(body);
             }
         );
     };
@@ -99,7 +99,7 @@ export default class Orientation {
         listeners[key] = LocalEventEmitter.addListener(
             "deviceOrientationDidChange",
             body => {
-                cb(body.deviceOrientation);
+                cb(body);
             }
         );
     };
@@ -116,7 +116,7 @@ export default class Orientation {
     static addLockListener = cb => {
         var key = getKey(cb);
         listeners[key] = LocalEventEmitter.addListener("lockDidChange", body => {
-            cb(body.orientation);
+            cb(body);
         });
     };
 
