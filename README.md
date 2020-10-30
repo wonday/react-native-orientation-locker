@@ -83,6 +83,9 @@ Simply disable upside down for iPad and everything works like a charm ([[#78]](h
 ```ld: library not found for -lRCTOrientation-tvOS```
 Just remove it from linked libraries and frameworks
 
+4. For Windows, locking to an orientation will only work on devices in tablet mode.
+
+5. For Windows, getting information on device orientation and tracking its changes will only be possible on devices with an orientation sensor. If the device running your application does not have the appropriate hardware to support tracking device orientation, `getDeviceOrientation()` will return UNKNOWN.
 
 ### Installation
 #### Using yarn (RN 0.60 and and above)
@@ -99,6 +102,8 @@ Just remove it from linked libraries and frameworks
     react-native link react-native-orientation-locker
 ```
 #### Manual linking
+For Windows, you must follow the steps outlined [here](https://microsoft.github.io/react-native-windows/docs/native-modules-using) for linking module.
+
 Add following to MainApplication.java
 (This will be added automatically by auto link. If not, please manually add the following )
 
@@ -334,7 +339,7 @@ It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `UNKNOWN`
 - `lockToLandscape()`
 - `lockToLandscapeLeft()`  this will lock to camera left home button right
 - `lockToLandscapeRight()` this will lock to camera right home button left
-- `lockToPortraitUpsideDown` only support android
+- `lockToPortraitUpsideDown` only support android and windows
 - `lockToAllOrientationsButUpsideDown` only ios
 - `unlockAllOrientations()`
 - `getOrientation(function(orientation))`
@@ -352,4 +357,4 @@ orientation can return one of:
 - `FACE-DOWN`
 - `UNKNOWN`
 
-Notice: PORTRAIT-UPSIDEDOWN is currently not supported on iOS at the moment. FACE-UP and FACE-DOWN are only supported on iOS.
+Notice: PORTRAIT-UPSIDEDOWN is currently not supported on iOS at the moment. FACE-UP and FACE-DOWN are only supported on iOS and windows.

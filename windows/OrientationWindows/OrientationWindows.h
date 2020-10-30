@@ -8,27 +8,10 @@
 using namespace winrt::Microsoft::ReactNative;
 
 namespace OrientationWindows {
-    
-    struct OrientationConstHolder
-    {
 
-        
-    };
-    
     REACT_MODULE(OrientationLockerModule, L"OrientationLocker");
     struct OrientationLockerModule
     {
-
-        winrt::Windows::Graphics::Display::DisplayInformation displayInfo{ nullptr };
-        bool isLocked = false;
-        winrt::event_token orientationChangedToken{};
-        winrt::Windows::UI::ViewManagement::UIViewSettings viewSettings{ nullptr };
-        winrt::Microsoft::ReactNative::ReactContext m_context;
-
-        std::string initialOrientation;
-
-        OrientationLockerModule();
-
         REACT_INIT(Initialize)
         void Initialize(React::ReactContext const& reactContext) noexcept;
 
@@ -58,7 +41,7 @@ namespace OrientationWindows {
 
         REACT_EVENT(OrientationDidChange, L"orientationDidChange");
         std::function<void(std::string)> OrientationDidChange;
-        
+
         REACT_EVENT(DeviceOrientationDidChange, L"deviceOrientationDidChange");
         std::function<void(std::string)> DeviceOrientationDidChange;
 
@@ -68,15 +51,32 @@ namespace OrientationWindows {
         REACT_CONSTANT_PROVIDER(GetConstants)
         void GetConstants(React::ReactConstantProvider& provider) noexcept;
 
+    private:
+
         std::string OrientationToString(winrt::Windows::Graphics::Display::DisplayOrientations orientations) noexcept;
 
-        //static void OnOrientationChanged(winrt::Windows::Graphics::Display::DisplayInformation const&, winrt::Windows::Foundation::IInspectable const&) noexcept;
+        std::string DeviceOrientationToString(winrt::Windows::Devices::Sensors::SimpleOrientation orientation) noexcept;
 
-        void SetInitOrientation() noexcept;
+        void OnOrientationChanged(winrt::Windows::Graphics::Display::DisplayInformation const&, winrt::Windows::Foundation::IInspectable const&) noexcept;
+
+        void OnDeviceOrientationChanged(winrt::Windows::Devices::Sensors::SimpleOrientationSensor const&, winrt::Windows::Devices::Sensors::SimpleOrientationSensorOrientationChangedEventArgs const&) noexcept;
+
+        void InitConstants() noexcept;
 
         std::string GetInitOrientation() noexcept;
 
-        void GetToken() noexcept;
+        winrt::Windows::Graphics::Display::DisplayInformation m_displayInfo{ nullptr };
+
+        winrt::event_token m_orientationChangedToken{};
+
+        winrt::Windows::UI::ViewManagement::UIViewSettings m_viewSettings{ nullptr };
+
+        winrt::Microsoft::ReactNative::ReactContext m_context;
+
+        std::string m_initialOrientation;
+
+        winrt::Windows::Devices::Sensors::SimpleOrientationSensor m_deviceOrientationSensor{ nullptr };
+
+        winrt::event_token m_deviceOrientationChangedToken{};
     };
 }
-
