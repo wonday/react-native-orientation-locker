@@ -6,7 +6,7 @@
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <CppWinRTGenerateWindowsMetadata>true</CppWinRTGenerateWindowsMetadata>
     <MinimalCoreWin>true</MinimalCoreWin>
-    <ProjectGuid>{94d5c9cc-a4ca-499f-939b-d6c2c47f49b4}</ProjectGuid>
+    <ProjectGuid>{0419108C-6695-4E9C-9CA5-23778B3F14E1}</ProjectGuid>
     <ProjectName>OrientationWindows</ProjectName>
     <RootNamespace>OrientationWindows</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
@@ -121,14 +121,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Class.h" />
     <ClInclude Include="OrientationWindows.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ReactPackageProvider.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Class.cpp" />
     <ClCompile Include="OrientationWindows.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -156,7 +154,6 @@
     <ResourceCompile Include="OrientationWindows.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Class.idl" />
     <Midl Include="ReactPackageProvider.idl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

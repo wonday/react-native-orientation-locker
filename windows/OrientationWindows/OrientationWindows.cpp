@@ -39,40 +39,50 @@ namespace OrientationWindows {
     void OrientationLockerModule::LockToPortrait() noexcept {
         UserInteractionMode mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
-            DisplayInformation::AutoRotationPreferences(DisplayOrientations::Portrait);
-            LockDidChange("PORTRAIT");
+            if (m_displayInfo.AutoRotationPreferences() != DisplayOrientations::Portrait) {
+                DisplayInformation::AutoRotationPreferences(DisplayOrientations::Portrait);
+                LockDidChange("PORTRAIT");
+            }
         }
     }
 
     void OrientationLockerModule::LockToPortraitUpsideDown() noexcept {
         UserInteractionMode mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
-            DisplayInformation::AutoRotationPreferences(DisplayOrientations::PortraitFlipped);
-            LockDidChange("PORTRAIT-UPSIDEDOWN");
+            if (m_displayInfo.AutoRotationPreferences() != DisplayOrientations::PortraitFlipped) {
+                DisplayInformation::AutoRotationPreferences(DisplayOrientations::PortraitFlipped);
+                LockDidChange("PORTRAIT-UPSIDEDOWN");
+            }
         }
     }
 
     void OrientationLockerModule::LockToLandscape() noexcept {
         UserInteractionMode mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
-            DisplayInformation::AutoRotationPreferences(DisplayOrientations::Landscape);
-            LockDidChange("LANDSCAPE");
+            if (m_displayInfo.AutoRotationPreferences() != DisplayOrientations::Landscape) {
+                DisplayInformation::AutoRotationPreferences(DisplayOrientations::Landscape);
+                LockDidChange("LANDSCAPE");
+            }
         }
     }
 
     void OrientationLockerModule::LockToLandscapeRight() noexcept {
         UserInteractionMode mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
-            DisplayInformation::AutoRotationPreferences(DisplayOrientations::LandscapeFlipped);
-            LockDidChange("LANDSCAPE-RIGHT");
+            if (m_displayInfo.AutoRotationPreferences() != DisplayOrientations::LandscapeFlipped) {
+                DisplayInformation::AutoRotationPreferences(DisplayOrientations::LandscapeFlipped);
+                LockDidChange("LANDSCAPE-RIGHT");
+            }
         }
     }
 
     void OrientationLockerModule::LockToLandscapeLeft() noexcept {
         UserInteractionMode mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
-            DisplayInformation::AutoRotationPreferences(DisplayOrientations::Landscape);
-            LockDidChange("LANDSCAPE-LEFT");
+            if (m_displayInfo.AutoRotationPreferences() != DisplayOrientations::Landscape) {
+                DisplayInformation::AutoRotationPreferences(DisplayOrientations::Landscape);
+                LockDidChange("LANDSCAPE-LEFT");
+            }
         }
     }
 
@@ -80,8 +90,10 @@ namespace OrientationWindows {
         UserInteractionMode mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
             DisplayOrientations allOrientations = DisplayOrientations::Landscape | DisplayOrientations::LandscapeFlipped | DisplayOrientations::Portrait | DisplayOrientations::PortraitFlipped;
-            DisplayInformation::AutoRotationPreferences(allOrientations);
-            GetOrientation(LockDidChange);
+            if (m_displayInfo.AutoRotationPreferences() != allOrientations) {
+                DisplayInformation::AutoRotationPreferences(allOrientations);
+                GetOrientation(LockDidChange);
+            }
         }
     }
 

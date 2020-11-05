@@ -4,7 +4,7 @@
   <ItemGroup>
     <!-- Projects from react-native-orientation-locker -->
     <ProjectReference Include="$(ProjectDir)..\..\node_modules\react-native-orientation-locker\windows\OrientationWindows\OrientationWindows.vcxproj">
-      <Project>{94d5c9cc-a4ca-499f-939b-d6c2c47f49b4}</Project>
+      <Project>{0419108C-6695-4E9C-9CA5-23778B3F14E1}</Project>
     </ProjectReference>
   </ItemGroup>
 </Project>

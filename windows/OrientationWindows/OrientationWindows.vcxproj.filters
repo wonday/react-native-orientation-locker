@@ -11,16 +11,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Class.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="Class.cpp" />
     <ClCompile Include="ReactPackageProvider.cpp" />
     <ClCompile Include="OrientationWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Class.h" />
     <ClInclude Include="ReactPackageProvider.h" />
     <ClInclude Include="OrientationWindows.h" />
   </ItemGroup>
@@ -40,7 +37,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Class.idl" />
     <Midl Include="ReactPackageProvider.idl" />
   </ItemGroup>
 </Project>
