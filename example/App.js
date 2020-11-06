@@ -20,10 +20,10 @@ import {
 } from 'react-native';
 import Orientation, {
   useOrientationChange,
-//  useDeviceOrientationChange,
-//  useLockListener,
+  useDeviceOrientationChange,
+  useLockListener,
 } from 'react-native-orientation-locker';
-//import {useLockListener} from '../src/hooks';
+import {useLockListener} from '../src/hooks';
 
 export default function App() {
   const [isLocked, setLocked] = useState();
@@ -32,14 +32,14 @@ export default function App() {
   const [lock, setLock] = useState();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-/*  useEffect(() => {
+  useEffect(() => {
     checkLocked();
-  });*/
+  });
 
   useOrientationChange((o) => {
     setOrientation(o);
   });
-/*
+
   useDeviceOrientationChange((o) => {
     setDeviceOrientation(o);
   });
@@ -53,7 +53,7 @@ export default function App() {
     if (locked !== isLocked) {
       setLocked(locked);
     }
-  }*/
+  }
 
   return (
     <View style={styles.container}>
@@ -80,7 +80,7 @@ export default function App() {
           activeOpacity={0.9}
           onPress={() => {
             Orientation.lockToPortrait();
-            //checkLocked();
+            checkLocked();
           }}
           style={styles.button}>
           <Text>Lock me to PORTRAIT</Text>
@@ -89,7 +89,7 @@ export default function App() {
           activeOpacity={0.9}
           onPress={() => {
             Orientation.lockToPortraitUpsideDown();
-            //checkLocked();
+            checkLocked();
           }}
           style={styles.button}>
           <Text>Lock me to PORTRAIT UPSIDE DOWN</Text>
@@ -98,7 +98,7 @@ export default function App() {
           activeOpacity={0.9}
           onPress={() => {
             Orientation.lockToLandscape();
-            //checkLocked();
+            checkLocked();
           }}
           style={styles.button}>
           <Text>Lock me to LANDSCAPE</Text>
@@ -107,7 +107,7 @@ export default function App() {
           activeOpacity={0.9}
           onPress={() => {
             Orientation.lockToLandscapeLeft();
-            //checkLocked();
+            checkLocked();
           }}
           style={styles.button}>
           <Text>Lock me to LANDSCAPE LEFT</Text>
@@ -116,7 +116,7 @@ export default function App() {
           activeOpacity={0.9}
           onPress={() => {
             Orientation.lockToLandscapeRight();
-            //checkLocked();
+            checkLocked();
           }}
           style={styles.button}>
           <Text>Lock me to LANDSCAPE RIGHT</Text>
@@ -126,7 +126,7 @@ export default function App() {
           activeOpacity={0.9}
           onPress={() => {
             Orientation.unlockAllOrientations();
-            //checkLocked();
+            checkLocked();
           }}
           style={styles.button}>
           <Text>Unlock all orientations</Text>
