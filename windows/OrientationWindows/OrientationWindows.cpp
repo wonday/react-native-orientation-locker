@@ -14,20 +14,17 @@ namespace OrientationWindows {
         {
             m_deviceOrientationChangedToken = m_deviceOrientationSensor.OrientationChanged({ this, &OrientationLockerModule::OnDeviceOrientationChanged });
         }
-        else {
-            printf("No Simple Orientation Sensor found on this device. Unable to get device orientation information.");
-        }
     }
 
     void OrientationLockerModule::GetOrientation(std::function<void(std::string)> cb) noexcept {
-        DisplayOrientations currentOrientation = m_displayInfo.CurrentOrientation();
+        const auto currentOrientation = m_displayInfo.CurrentOrientation();
         cb(OrientationToString(currentOrientation));
     }
 
     void OrientationLockerModule::GetDeviceOrientation(std::function<void(std::string)> cb) noexcept {
         if (m_deviceOrientationSensor != nullptr)
         {
-            winrt::Windows::Devices::Sensors::SimpleOrientation currentDeviceOrientation = m_deviceOrientationSensor.GetCurrentOrientation();
+           const auto currentDeviceOrientation = m_deviceOrientationSensor.GetCurrentOrientation();
             cb(DeviceOrientationToString(currentDeviceOrientation));
         }
         else {
@@ -37,7 +34,7 @@ namespace OrientationWindows {
     }
 
     void OrientationLockerModule::LockToPortrait() noexcept {
-        UserInteractionMode mode = m_viewSettings.UserInteractionMode();
+        const auto mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
             if (m_displayInfo.AutoRotationPreferences() != DisplayOrientations::Portrait) {
                 DisplayInformation::AutoRotationPreferences(DisplayOrientations::Portrait);
@@ -47,7 +44,7 @@ namespace OrientationWindows {
     }
 
     void OrientationLockerModule::LockToPortraitUpsideDown() noexcept {
-        UserInteractionMode mode = m_viewSettings.UserInteractionMode();
+        const auto mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
             if (m_displayInfo.AutoRotationPreferences() != DisplayOrientations::PortraitFlipped) {
                 DisplayInformation::AutoRotationPreferences(DisplayOrientations::PortraitFlipped);
@@ -57,7 +54,7 @@ namespace OrientationWindows {
     }
 
     void OrientationLockerModule::LockToLandscape() noexcept {
-        UserInteractionMode mode = m_viewSettings.UserInteractionMode();
+        const auto mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
             if (m_displayInfo.AutoRotationPreferences() != DisplayOrientations::Landscape) {
                 DisplayInformation::AutoRotationPreferences(DisplayOrientations::Landscape);
@@ -67,7 +64,7 @@ namespace OrientationWindows {
     }
 
     void OrientationLockerModule::LockToLandscapeRight() noexcept {
-        UserInteractionMode mode = m_viewSettings.UserInteractionMode();
+        const auto mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
             if (m_displayInfo.AutoRotationPreferences() != DisplayOrientations::LandscapeFlipped) {
                 DisplayInformation::AutoRotationPreferences(DisplayOrientations::LandscapeFlipped);
@@ -77,7 +74,7 @@ namespace OrientationWindows {
     }
 
     void OrientationLockerModule::LockToLandscapeLeft() noexcept {
-        UserInteractionMode mode = m_viewSettings.UserInteractionMode();
+        const auto mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
             if (m_displayInfo.AutoRotationPreferences() != DisplayOrientations::Landscape) {
                 DisplayInformation::AutoRotationPreferences(DisplayOrientations::Landscape);
@@ -87,7 +84,7 @@ namespace OrientationWindows {
     }
 
     void OrientationLockerModule::UnlockAllOrientations() noexcept {
-        UserInteractionMode mode = m_viewSettings.UserInteractionMode();
+        const auto mode = m_viewSettings.UserInteractionMode();
         if (mode == UserInteractionMode::Touch) {
             DisplayOrientations allOrientations = DisplayOrientations::Landscape | DisplayOrientations::LandscapeFlipped | DisplayOrientations::Portrait | DisplayOrientations::PortraitFlipped;
             if (m_displayInfo.AutoRotationPreferences() != allOrientations) {
@@ -99,29 +96,25 @@ namespace OrientationWindows {
 
     void OrientationLockerModule::GetConstants(React::ReactConstantProvider& provider) noexcept {
         if (!m_context.UIDispatcher().HasThreadAccess()) {
-            HANDLE ghSetConstantsEvent;
-            ghSetConstantsEvent = CreateEvent(
-                NULL,                       // default security attributes
+            const auto ghSetConstantsEvent = CreateEvent(
+                nullptr,                       // default security attributes
                 TRUE,                       // manual-reset event
                 FALSE,                      // initial state is nonsignaled
-                TEXT("SetConstantsEvent")   // object name
+                L"OrientationLockerModule_SetConstantsEvent"   // object name
             );
-            if (ghSetConstantsEvent == NULL)
+            if (ghSetConstantsEvent == nullptr)
             {
-                printf("CreateEvent for ghSetConstantsEvent failed (%d)\n", GetLastError());
-                return;
+                assert(false);
             }
             m_context.UIDispatcher().Post([&provider, ghSetConstantsEvent, this]() {
                 InitConstants();
                 provider.Add(L"initialOrientation", GetInitOrientation());
                 if (!SetEvent(ghSetConstantsEvent))
                 {
-                    printf("SetEvent for ghSetConstantsEvent failed (%d)\n", GetLastError());
-                    return;
+                    assert(false);
                 }
                 });
-            DWORD dwWaitResult;
-            dwWaitResult = WaitForSingleObject(
+            const auto dwWaitResult = WaitForSingleObject(
                 ghSetConstantsEvent,
                 INFINITE);                  // wait period
             switch (dwWaitResult)
@@ -129,8 +122,7 @@ namespace OrientationWindows {
             case WAIT_OBJECT_0:
                 break;
             default:
-                printf("Wait error for dwWaitResult (%d)\n", GetLastError());
-                break;
+                assert(false);
             }
             CloseHandle(ghSetConstantsEvent);
         }
@@ -141,20 +133,20 @@ namespace OrientationWindows {
     }
 
     std::string OrientationLockerModule::OrientationToString(DisplayOrientations orientation) noexcept {
-        std::string result = "";
-        if ((orientation & DisplayOrientations::Landscape) == DisplayOrientations::Landscape)
+        std::string result;
+        if (orientation == DisplayOrientations::Landscape)
         {
             result = "LANDSCAPE";
         }
-        else if ((orientation & DisplayOrientations::Portrait) == DisplayOrientations::Portrait)
+        else if (orientation == DisplayOrientations::Portrait)
         {
             result = "PORTRAIT";
         }
-        else if ((orientation & DisplayOrientations::LandscapeFlipped) == DisplayOrientations::LandscapeFlipped)
+        else if (orientation == DisplayOrientations::LandscapeFlipped)
         {
             result = "LANDSCAPE-RIGHT";
         }
-        else if ((orientation & DisplayOrientations::PortraitFlipped) == DisplayOrientations::PortraitFlipped)
+        else if (orientation == DisplayOrientations::PortraitFlipped)
         {
             result = "PORTRAIT-UPSIDEDOWN";
         }
@@ -162,7 +154,7 @@ namespace OrientationWindows {
     }
 
     std::string OrientationLockerModule::DeviceOrientationToString(SimpleOrientation orientation) noexcept {
-        std::string result = "";
+        std::string result;
         if (orientation == SimpleOrientation::Facedown)
         {
             result = "FACE-DOWN";
