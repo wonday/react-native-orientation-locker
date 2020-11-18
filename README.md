@@ -87,6 +87,14 @@ Just remove it from linked libraries and frameworks
 
 5. For Windows, getting information on device orientation and tracking its changes will only be possible on devices with an orientation sensor. If the device running your application does not have the appropriate hardware to support tracking device orientation, `getDeviceOrientation()` will return UNKNOWN.
 
+#### To Run example on Windows Tablet (This will allow one to view modules full functionality)
+1. Run `yarn start:windows`.
+2. In a new window, run `npx react-native run-windows --release`.
+3. Navigative to 'example\windows\AppPackages\example\example_1.0.0.0_Win32_Debug_Test' folder and copy it over to desired tablet.
+4. On tablet open 'example_1.0.0.0_Win32_Test\example_1.0.0.0_Win32.appx'.
+5. Hit 'Install' if app has never been installed on tablet before, or 'Renstall' if previous version has been installed.
+6. Hit 'Launch' to launch example. 
+
 ### Installation
 #### Using yarn (RN 0.60 and and above)
 

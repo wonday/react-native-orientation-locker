@@ -22,7 +22,7 @@ import Orientation, {
   useOrientationChange,
   useDeviceOrientationChange,
 } from 'react-native-orientation-locker';
-//import {useLockListener} from '../src/hooks';
+import {useLockListener} from '../src/hooks';
 
 export default function App() {
   const [isLocked, setLocked] = useState();
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   value: {
     backgroundColor: 'green',
-    color: 'white',
+    color: 'black',
     paddingHorizontal: 10,
     paddingVertical: 5,
   },

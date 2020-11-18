@@ -8,12 +8,12 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "start:windows": "react-native start --use-react-native-windows"
+    "start:windows": "react-native start --use-react-native-windows --projectRoot ../"
   },
   "dependencies": {
     "react": "16.13.1",
     "react-native": "0.63.2",
-    "react-native-orientation-locker": "./src",
+    "react-native-orientation-locker": "link:../",
     "react-native-windows": "^0.63.3"
   },
   "devDependencies": {
