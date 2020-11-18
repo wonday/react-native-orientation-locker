@@ -53,9 +53,9 @@ namespace OrientationWindows {
 
     private:
 
-        std::string OrientationToString(winrt::Windows::Graphics::Display::DisplayOrientations orientations) noexcept;
+        static std::string OrientationToString(winrt::Windows::Graphics::Display::DisplayOrientations orientations) noexcept;
 
-        std::string DeviceOrientationToString(winrt::Windows::Devices::Sensors::SimpleOrientation orientation) noexcept;
+        static std::string DeviceOrientationToString(winrt::Windows::Devices::Sensors::SimpleOrientation orientation) noexcept;
 
         void OnOrientationChanged(winrt::Windows::Graphics::Display::DisplayInformation const&, winrt::Windows::Foundation::IInspectable const&) noexcept;
 
