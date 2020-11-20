@@ -24,7 +24,7 @@ if (process.argv.includes(windowsSwitch)) {
   module.exports = {
     reactNativePath: '../node_modules/react-native-windows',
   };
-}else {
+} else {
   module.exports = {
     project: {
       android: {sourceDir: './android'},
