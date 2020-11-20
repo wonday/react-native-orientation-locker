@@ -365,4 +365,4 @@ orientation can return one of:
 - `FACE-DOWN`
 - `UNKNOWN`
 
-Notice: PORTRAIT-UPSIDEDOWN is currently not supported on iOS at the moment. FACE-UP and FACE-DOWN are only supported on iOS and windows.
+Notice: PORTRAIT-UPSIDEDOWN is currently not supported on iOS at the moment. FACE-UP and FACE-DOWN are only supported on iOS and Windows.
