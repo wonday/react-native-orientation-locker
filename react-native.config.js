@@ -8,7 +8,7 @@ module.exports = {
           {
             projectFile: 'OrientationWindows\\OrientationWindows.vcxproj',
             directDependency: true,
-		  }
+          }
         ],
       },
 	},
