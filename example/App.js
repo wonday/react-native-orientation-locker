@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   value: {
     backgroundColor: 'green',
-    color: 'white',
+    color: 'black',
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
