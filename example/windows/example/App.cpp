@@ -26,7 +26,7 @@ App::App() noexcept
     InstanceSettings().UseWebDebugger(false);
     InstanceSettings().UseFastRefresh(false);
 #else
-    JavaScriptMainModuleName(L"index");
+    JavaScriptMainModuleName(L"example/index");
     InstanceSettings().UseWebDebugger(true);
     InstanceSettings().UseFastRefresh(true);
 #endif
@@ -40,7 +40,6 @@ App::App() noexcept
     RegisterAutolinkedNativeModulePackages(PackageProviders()); // Includes any autolinked modules
 
     PackageProviders().Append(make<ReactPackageProvider>()); // Includes all modules in this project
-
     PackageProviders().Append(winrt::OrientationWindows::ReactPackageProvider());
 
     InitializeComponent();
