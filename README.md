@@ -267,20 +267,20 @@ import Orientation from 'react-native-orientation-locker';
   }
 ```
 
-### Reactive component `<ScreenOrientation>`
+### Reactive component `<OrientationLocker>`
 
-It is possible to have multiple `ScreenOrientation` components mounted at the same time. The props will be merged in the order the `ScreenOrientation` components were mounted.
+It is possible to have multiple `OrientationLocker` components mounted at the same time. The props will be merged in the order the `OrientationLocker` components were mounted. This follows the same usability of [\<StatusBar\>](https://reactnative.dev/docs/statusbar).
 
 ```js
 import React, { useState } from "react";
 import { Text, View } from "react-native";
-import ScreenOrientation, { PORTRAIT, LANDSCAPE } from "react-native-orientation-locker/ScreenOrientation";
+import { OrientationLocker, PORTRAIT, LANDSCAPE } from "react-native-orientation-locker";
 
 export default function App() {
   const [showVideo, setShowVideo] = useState(true);
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ScreenOrientation
+      <OrientationLocker
         orientation={PORTRAIT}
         onChange={orientation => console.log('onChange', orientation)}
         onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
@@ -288,7 +288,7 @@ export default function App() {
       <Button title="Toggle Video" onPress={() => setShowVideo(!showVideo)} />
       {showVideo && (
         <View>
-          <ScreenOrientation orientation={LANDSCAPE} />
+          <OrientationLocker orientation={LANDSCAPE} />
           <View style={{ width: 320, height: 180, backgroundColor: '#ccc' }}>
             <Text>Landscape video goes here</Text>
           </View>
