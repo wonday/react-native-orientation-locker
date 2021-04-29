@@ -6,7 +6,7 @@
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <CppWinRTGenerateWindowsMetadata>true</CppWinRTGenerateWindowsMetadata>
     <MinimalCoreWin>true</MinimalCoreWin>
-    <ProjectGuid>{296E7F6F-151E-4068-A925-19E6209EAEF7}</ProjectGuid>
+    <ProjectGuid>{EF847B00-0D03-4611-93E3-40FFD0191998}</ProjectGuid>
     <ProjectName>OrientationWindows</ProjectName>
     <RootNamespace>OrientationWindows</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
