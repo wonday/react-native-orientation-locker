@@ -21,8 +21,8 @@ import {
 import Orientation, {
   useOrientationChange,
   useDeviceOrientationChange,
+  useLockListener,
 } from 'react-native-orientation-locker';
-import {useLockListener} from '../src/hooks';
 
 export default function App() {
   const [isLocked, setLocked] = useState();
