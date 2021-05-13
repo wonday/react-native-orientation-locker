@@ -20,10 +20,16 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+
 # Windows
 #
 *.binlog
+
+# yarn
+#
 yarn-error.log
+yarn.lock
+
 # Android/IntelliJ
 #
 build/
