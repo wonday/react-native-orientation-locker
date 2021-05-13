@@ -13,6 +13,11 @@ A react-native module that can listen on orientation changing of device, get cur
 <details>
   <summary>ChangeLog details</summary>
 
+v1.3.0 **BREAKING CHANGES**
+1. Add support for Window
+2. modify sample project
+3. Updates Tyescript define
+
 v1.2.0 **BREAKING CHANGES**
 1. Add support for lockAllOrientationsButUpsideDown
 2. Ignore on web and desktop (#115)
