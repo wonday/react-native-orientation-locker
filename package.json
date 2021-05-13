@@ -15,6 +15,7 @@
         "react-native",
         "android",
         "ios",
+        "windows",
         "screen"
     ],
     "author": {
@@ -28,5 +29,13 @@
     "dependencies": {
     },
     "peerDependencies": {
+        "react": "16.13.1",
+        "react-native": "0.63.2",
+        "react-native-windows": "^0.63.3"
+    },
+    "devDependencies": {
+        "react": "16.13.1",
+        "react-native": "0.63.2",
+        "react-native-windows": "^0.63.3"
     }
 }

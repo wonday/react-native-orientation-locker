@@ -6,3 +6,8 @@ android/.gradle
 android/.project
 android/.settings
 .history
+.vs/
+build
+..*
+*~
+nuget.exe

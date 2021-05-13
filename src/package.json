@@ -1,0 +1,13 @@
+{
+  "main": "../index.js",
+  "types": "../index.d.ts",
+  "peerDependencies": {
+      "react-native-windows": "^0.63.3",
+      "react-native": "0.63.2"
+  },
+  "devDependencies": {
+      "react-native-windows": "^0.63.3",
+      "react-native": "0.63.2",
+      "react": "16.13.1"
+  }
+}

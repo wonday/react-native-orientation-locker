@@ -13,13 +13,24 @@ A react-native module that can listen on orientation changing of device, get cur
 <details>
   <summary>ChangeLog details</summary>
 
-v1.2.0
+v1.2.0 **BREAKING CHANGES**
 1. Add support for lockAllOrientationsButUpsideDown
 2. Ignore on web and desktop (#115)
 3. Fix for not finding @ReactModule (#125)
 4. Fix unlockAllOrientations on Android (#133)
 5. Implement ActivityLifecycleCallbacks on Android (#131)
 
+Please be sure to add to `onCreate` of your `MainApplication`
+```
+import org.wonday.orientation.OrientationActivityLifecycle;
+
+  @Override
+  public void onCreate() {
+    ...
++    registerActivityLifecycleCallbacks(OrientationActivityLifecycle.getInstance());
+  }
+
+```
 v1.1.8
 1. Support FACE-UP and FACE-DOWN on iOS
 
@@ -72,6 +83,20 @@ Simply disable upside down for iPad and everything works like a charm ([[#78]](h
 ```ld: library not found for -lRCTOrientation-tvOS```
 Just remove it from linked libraries and frameworks
 
+4. For Windows, locking to an orientation will only work on devices in tablet mode.
+
+5. For Windows, getting information on device orientation and tracking its changes will only be possible on devices with an orientation sensor. If the device running your application does not have the appropriate hardware to support tracking device orientation, `getDeviceOrientation()` will return UNKNOWN.
+
+#### To run example on Windows Tablet (This will allow one to view modules full functionality)
+1. Open example/windows/example.sln in Visual Studio. 
+2. Go to Project > Publish > Create App Packages.
+3. Certificate password is "password".
+4. Select "Sideloading" and hit "Next".
+5. Hit "Yes, use the current certificate" and hit "Next".
+6. Choose desired output location and hit "Create".
+7. Got to output location and copy example_<version>_Test directory over to tablet device.
+8. On tablet device open APPXBUNDLE File and hit "Install" (make sure tablet is in developer mode). App should launch after install is complete.
+9. Turn on tablet mode on device to see locking to a UI orientation functionality. 
 
 ### Installation
 #### Using yarn (RN 0.60 and and above)
@@ -87,14 +112,30 @@ Just remove it from linked libraries and frameworks
     yarn add react-native-orientation-locker
     react-native link react-native-orientation-locker
 ```
+#### Manual linking
+For Windows, if you are using RNW v0.63.0 or higher, autolinking should link the module for you. Otherwise, you must follow the steps outlined [here](https://microsoft.github.io/react-native-windows/docs/native-modules-using) for linking module.
 
+Add following to MainApplication.java
+(This will be added automatically by auto link. If not, please manually add the following )
+
+```diff
+//...
++import org.wonday.orientation.OrientationPackage;
+    @Override
+    protected List<ReactPackage> getPackages() {
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for example:
+      // packages.add(new MyReactNativePackage());
++      packages.add(new OrientationPackage());
+      return packages;
+    }
+//...
+```
 
 #### Using CocoaPods (iOS Only)
 
-
 Run ```pod install``` in the ios directory. Linking is not required in React Native 0.60 and above.
-
-
 
 ### Configuration
 
@@ -155,26 +196,11 @@ public class MainActivity extends ReactActivity {
 ```
 
 Add following to MainApplication.java
-(This will be added automatically by auto link. If not, please manually add the following )
 
 ```diff
-//...
-+import org.wonday.orientation.OrientationPackage;
 +import org.wonday.orientation.OrientationActivityLifecycle;
-    @Override
-    protected List<ReactPackage> getPackages() {
-      @SuppressWarnings("UnnecessaryLocalVariable")
-      List<ReactPackage> packages = new PackageList(this).getPackages();
-      // Packages that cannot be autolinked yet can be added manually here, for example:
-      // packages.add(new MyReactNativePackage());
-+      packages.add(new OrientationPackage());
-      return packages;
-    }
-//...
-
   @Override
   public void onCreate() {
-    ...
 +    registerActivityLifecycleCallbacks(OrientationActivityLifecycle.getInstance());
   }
 ```
@@ -241,20 +267,20 @@ import Orientation from 'react-native-orientation-locker';
   }
 ```
 
-### Reactive component `<ScreenOrientation>`
+### Reactive component `<OrientationLocker>`
 
-It is possible to have multiple `ScreenOrientation` components mounted at the same time. The props will be merged in the order the `ScreenOrientation` components were mounted.
+It is possible to have multiple `OrientationLocker` components mounted at the same time. The props will be merged in the order the `OrientationLocker` components were mounted. This follows the same usability of [\<StatusBar\>](https://reactnative.dev/docs/statusbar).
 
 ```js
 import React, { useState } from "react";
 import { Text, View } from "react-native";
-import ScreenOrientation, { PORTRAIT, LANDSCAPE } from "react-native-orientation-locker/ScreenOrientation";
+import { OrientationLocker, PORTRAIT, LANDSCAPE } from "react-native-orientation-locker";
 
 export default function App() {
   const [showVideo, setShowVideo] = useState(true);
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ScreenOrientation
+      <OrientationLocker
         orientation={PORTRAIT}
         onChange={orientation => console.log('onChange', orientation)}
         onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
@@ -262,7 +288,7 @@ export default function App() {
       <Button title="Toggle Video" onPress={() => setShowVideo(!showVideo)} />
       {showVideo && (
         <View>
-          <ScreenOrientation orientation={LANDSCAPE} />
+          <OrientationLocker orientation={LANDSCAPE} />
           <View style={{ width: 320, height: 180, backgroundColor: '#ccc' }}>
             <Text>Landscape video goes here</Text>
           </View>
@@ -271,6 +297,22 @@ export default function App() {
     </View>
   );
 };
+```
+
+## Hooks
+- `useOrientationChange`: hook for `addOrientationListener` event
+- `useDeviceOrientationChange`: hook for `addDeviceOrientationListener` event
+
+```
+function SomeComponent() {
+  useOrientationChange((o) => {
+    // Handle orientation change
+  });
+
+  useDeviceOrientationChange((o) => {
+    // Handle device orientation change
+  });
+}
 ```
 
 ## Events
@@ -308,7 +350,7 @@ It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `UNKNOWN`
 - `lockToLandscape()`
 - `lockToLandscapeLeft()`  this will lock to camera left home button right
 - `lockToLandscapeRight()` this will lock to camera right home button left
-- `lockToPortraitUpsideDown` only support android
+- `lockToPortraitUpsideDown` only support android and Windows
 - `lockToAllOrientationsButUpsideDown` only ios
 - `unlockAllOrientations()`
 - `getOrientation(function(orientation))`
@@ -326,4 +368,4 @@ orientation can return one of:
 - `FACE-DOWN`
 - `UNKNOWN`
 
-Notice: PORTRAIT-UPSIDEDOWN is currently not supported on iOS at the moment. FACE-UP and FACE-DOWN are only supported on iOS.
+Notice: PORTRAIT-UPSIDEDOWN is currently not supported on iOS at the moment. FACE-UP and FACE-DOWN are only supported on iOS and Windows.
