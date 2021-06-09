@@ -6,7 +6,7 @@ module.exports = {
         solutionFile: 'OrientationWindows.sln',
         projects: [
           {
-            projectFile: 'OrientationWindows\\OrientationWindows.vcxproj',
+            projectFile: 'OrientationWindows/OrientationWindows.vcxproj',
             directDependency: true,
           }
         ],
