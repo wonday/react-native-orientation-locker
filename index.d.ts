@@ -18,21 +18,21 @@ export enum OrientationType {
   "UNKNOWN" = "UNKNOWN",
 }
 
-export type UNLOCK = 'UNLOCK';
-export type PORTRAIT = 'PORTRAIT';
-export type LANDSCAPE = 'LANDSCAPE';
-export type LANDSCAPE_LEFT = 'LANDSCAPE_LEFT';
-export type LANDSCAPE_RIGHT = 'LANDSCAPE_RIGHT';
-export type PORTRAIT_UPSIDE_DOWN = 'PORTRAIT_UPSIDE_DOWN';
-export type ALL_ORIENTATIONS_BUT_UPSIDE_DOWN = 'ALL_ORIENTATIONS_BUT_UPSIDE_DOWN';
+export const UNLOCK = 'UNLOCK';
+export const PORTRAIT = 'PORTRAIT';
+export const LANDSCAPE = 'LANDSCAPE';
+export const LANDSCAPE_LEFT = 'LANDSCAPE_LEFT';
+export const LANDSCAPE_RIGHT = 'LANDSCAPE_RIGHT';
+export const PORTRAIT_UPSIDE_DOWN = 'PORTRAIT_UPSIDE_DOWN';
+export const ALL_ORIENTATIONS_BUT_UPSIDE_DOWN = 'ALL_ORIENTATIONS_BUT_UPSIDE_DOWN';
 
 export interface OrientationLockerProps {
-  orientation: UNLOCK | PORTRAIT | LANDSCAPE | LANDSCAPE_LEFT | LANDSCAPE_RIGHT | PORTRAIT_UPSIDE_DOWN | ALL_ORIENTATIONS_BUT_UPSIDE_DOWN;
+  orientation: typeof UNLOCK | typeof PORTRAIT | typeof LANDSCAPE | typeof LANDSCAPE_LEFT | typeof LANDSCAPE_RIGHT | typeof PORTRAIT_UPSIDE_DOWN | typeof ALL_ORIENTATIONS_BUT_UPSIDE_DOWN;
   onChange?: (orientation: OrientationType) => void;
   onDeviceChange?: (deviceOrientation: OrientationType) => void;
 }
 
-export type OrientationLocker = React.ComponentType<OrientationLockerProps>;
+export const OrientationLocker: React.ComponentType<OrientationLockerProps>;
 
 declare class Orientation {
   static addOrientationListener(callback: (orientation: OrientationType) => void): void;
