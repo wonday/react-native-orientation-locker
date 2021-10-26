@@ -9,7 +9,7 @@
 "use strict";
 const OrientationNative = require("react-native").NativeModules.Orientation;
 const { NativeEventEmitter } = require("react-native");
-const LocalEventEmitter = new NativeEventEmitter(OrientationNative);
+let LocalEventEmitter;
 
 var listeners = {};
 
@@ -24,21 +24,21 @@ function getKey(listener) {
       return "F";
     }
     Object.defineProperty(listener, META, {
-      value: "L" + ++id
+      value: "L" + ++id,
     });
   }
   return listener[META];
 }
 
 export default class Orientation {
-  static getOrientation = cb => {
-    OrientationNative.getOrientation(orientation => {
+  static getOrientation = (cb) => {
+    OrientationNative.getOrientation((orientation) => {
       cb(orientation);
     });
   };
 
-  static getDeviceOrientation = cb => {
-    OrientationNative.getDeviceOrientation(deviceOrientation => {
+  static getDeviceOrientation = (cb) => {
+    OrientationNative.getDeviceOrientation((deviceOrientation) => {
       cb(deviceOrientation);
     });
   };
@@ -82,17 +82,19 @@ export default class Orientation {
     OrientationNative.unlockAllOrientations();
   };
 
-  static addOrientationListener = cb => {
+  static addOrientationListener = (cb) => {
     var key = getKey(cb);
+    LocalEventEmitter =
+      LocalEventEmitter ?? new NativeEventEmitter(OrientationNative);
     listeners[key] = LocalEventEmitter.addListener(
       "orientationDidChange",
-      body => {
+      (body) => {
         cb(body.orientation);
       }
     );
   };
 
-  static removeOrientationListener = cb => {
+  static removeOrientationListener = (cb) => {
     var key = getKey(cb);
     if (!listeners[key]) {
       return;
@@ -101,17 +103,19 @@ export default class Orientation {
     listeners[key] = null;
   };
 
-  static addDeviceOrientationListener = cb => {
+  static addDeviceOrientationListener = (cb) => {
     var key = getKey(cb);
+    LocalEventEmitter =
+      LocalEventEmitter ?? new NativeEventEmitter(OrientationNative);
     listeners[key] = LocalEventEmitter.addListener(
       "deviceOrientationDidChange",
-      body => {
+      (body) => {
         cb(body.deviceOrientation);
       }
     );
   };
 
-  static removeDeviceOrientationListener = cb => {
+  static removeDeviceOrientationListener = (cb) => {
     var key = getKey(cb);
     if (!listeners[key]) {
       return;
@@ -120,14 +124,16 @@ export default class Orientation {
     listeners[key] = null;
   };
 
-  static addLockListener = cb => {
+  static addLockListener = (cb) => {
     var key = getKey(cb);
-    listeners[key] = LocalEventEmitter.addListener("lockDidChange", body => {
+    LocalEventEmitter =
+      LocalEventEmitter ?? new NativeEventEmitter(OrientationNative);
+    listeners[key] = LocalEventEmitter.addListener("lockDidChange", (body) => {
       cb(body.orientation);
     });
   };
 
-  static removeLockListener = cb => {
+  static removeLockListener = (cb) => {
     var key = getKey(cb);
     if (!listeners[key]) {
       return;
@@ -150,8 +156,8 @@ export default class Orientation {
     return OrientationNative.initialOrientation;
   };
 
-  static getAutoRotateState = cb => {
-    OrientationNative.getAutoRotateState(state => {
+  static getAutoRotateState = (cb) => {
+    OrientationNative.getAutoRotateState((state) => {
       cb(state);
     });
   };
