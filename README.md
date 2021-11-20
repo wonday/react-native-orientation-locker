@@ -13,6 +13,9 @@ A react-native module that can listen on orientation changing of device, get cur
 <details>
   <summary>ChangeLog details</summary>
 
+v1.4.0
+1. Fix typescript types
+2. fix some bugs
 
 v1.3.1 
 1. Fix require cycle problem
