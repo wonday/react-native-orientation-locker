@@ -24,7 +24,7 @@ namespace OrientationWindows {
                 cb(OrientationToString(currentOrientation));
                 return;
             }
-            cb("");
+            cb("UNKNOWN");
         });
     }
 
