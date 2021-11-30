@@ -17,20 +17,31 @@ namespace OrientationWindows {
     }
 
     void OrientationLockerModule::GetOrientation(std::function<void(std::string)> cb) noexcept {
-        const auto currentOrientation = m_displayInfo.CurrentOrientation();
-        cb(OrientationToString(currentOrientation));
+        m_context.UIDispatcher().Post([weakThis = weak_from_this(), this, cb]() {
+            if (auto strongThis = weakThis.lock())
+            {
+                const auto currentOrientation = m_displayInfo.CurrentOrientation();
+                cb(OrientationToString(currentOrientation));
+                return;
+            }
+            cb("");
+        });
     }
 
     void OrientationLockerModule::GetDeviceOrientation(std::function<void(std::string)> cb) noexcept {
-        if (m_deviceOrientationSensor != nullptr)
-        {
-           const auto currentDeviceOrientation = m_deviceOrientationSensor.GetCurrentOrientation();
-            cb(DeviceOrientationToString(currentDeviceOrientation));
-        }
-        else {
+        m_context.UIDispatcher().Post([weakThis = weak_from_this(), this, cb]() {
+            if (auto strongThis = weakThis.lock())
+            {
+                if (m_deviceOrientationSensor != nullptr)
+                {
+                    const auto currentDeviceOrientation = m_deviceOrientationSensor.GetCurrentOrientation();
+                    cb(DeviceOrientationToString(currentDeviceOrientation));
+                    return;
+                }
+            }
             // No Orientation Sensor found on device
             cb("UNKNOWN");
-        }
+        });
     }
 
     void OrientationLockerModule::LockToPortrait() noexcept {
