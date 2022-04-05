@@ -85,6 +85,21 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
                     }
                 }
 
+                String orientationValue = getCurrentOrientation();
+                if (!lastOrientationValue.equals(orientationValue)) {
+                    lastOrientationValue = orientationValue;
+
+                    FLog.d(ReactConstants.TAG,"Orientation changed to " + orientationValue);
+
+                    WritableMap params = Arguments.createMap();
+                    params.putString("orientation", orientationValue);
+                    if (ctx.hasActiveCatalystInstance()) {
+                        ctx
+                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("orientationDidChange", params);
+                    }
+                }
+
                 return;
             }
         };
