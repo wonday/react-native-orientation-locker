@@ -27,15 +27,5 @@
         "url": "https://github.com/wonday/react-native-orientation-locker/issues"
     },
     "dependencies": {
-    },
-    "peerDependencies": {
-        "react": "*",
-        "react-native": "*",
-        "react-native-windows": "*"
-    },
-    "devDependencies": {
-        "react": "*",
-        "react-native": "*",
-        "react-native-windows": "*"
     }
 }
