@@ -85,6 +85,21 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
                     }
                 }
 
+                String orientationValue = getCurrentOrientation();
+                if (!lastOrientationValue.equals(orientationValue)) {
+                    lastOrientationValue = orientationValue;
+
+                    FLog.d(ReactConstants.TAG,"Orientation changed to " + orientationValue);
+
+                    WritableMap params = Arguments.createMap();
+                    params.putString("orientation", orientationValue);
+                    if (ctx.hasActiveCatalystInstance()) {
+                        ctx
+                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("orientationDidChange", params);
+                    }
+                }
+
                 return;
             }
         };
@@ -366,5 +381,15 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         catch (java.lang.IllegalArgumentException e) {
             FLog.w(ReactConstants.TAG, "Receiver already unregistered", e);
         }
+    }
+
+    @ReactMethod
+    public void addListener(String eventName) {
+     // Keep: Required for RN built in Event Emitter Calls.
+    }
+
+    @ReactMethod
+    public void removeListeners(Integer count) {
+     // Keep: Required for RN built in Event Emitter Calls.
     }
 }

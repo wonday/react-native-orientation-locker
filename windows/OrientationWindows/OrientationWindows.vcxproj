@@ -6,7 +6,7 @@
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <CppWinRTGenerateWindowsMetadata>true</CppWinRTGenerateWindowsMetadata>
     <MinimalCoreWin>true</MinimalCoreWin>
-    <ProjectGuid>{296E7F6F-151E-4068-A925-19E6209EAEF7}</ProjectGuid>
+    <ProjectGuid>{EF847B00-0D03-4611-93E3-40FFD0191998}</ProjectGuid>
     <ProjectName>OrientationWindows</ProjectName>
     <RootNamespace>OrientationWindows</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
@@ -20,7 +20,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="ReactNativeWindowsProps">
     <ReactNativeWindowsDir Condition="'$(ReactNativeWindowsDir)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\react-native-windows\package.json'))\node_modules\react-native-windows\</ReactNativeWindowsDir>
-    </PropertyGroup>
+  </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|ARM">
       <Configuration>Debug</Configuration>
@@ -165,7 +165,7 @@
   <ImportGroup Label="ReactNativeWindowsTargets">
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets" Condition="Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets')" />
   </ImportGroup>
-  <Target Name="Deploy"/>
+  <Target Name="Deploy" />
   <Target Name="EnsureReactNativeWindowsTargets" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references targets in your node_modules\react-native-windows folder that are missing. The missing file is {0}.</ErrorText>

@@ -5,8 +5,11 @@ contents.xcworkspacedata
 android/.gradle
 android/.project
 android/.settings
+.history
 .vs/
 build
 ..*
 *~
 nuget.exe
+yarn-error.log
+yarn.lock

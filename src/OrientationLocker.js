@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import Orientation from '..';
+import Orientation from './orientation';
 
 export const UNLOCK = 'UNLOCK';
 export const PORTRAIT = 'PORTRAIT';

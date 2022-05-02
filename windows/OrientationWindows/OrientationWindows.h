@@ -10,7 +10,7 @@ using namespace winrt::Microsoft::ReactNative;
 namespace OrientationWindows {
 
     REACT_MODULE(OrientationLockerModule, L"OrientationLocker");
-    struct OrientationLockerModule
+    struct OrientationLockerModule : public std::enable_shared_from_this<OrientationLockerModule>
     {
         REACT_INIT(Initialize)
         void Initialize(React::ReactContext const& reactContext) noexcept;
