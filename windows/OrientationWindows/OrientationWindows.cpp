@@ -16,6 +16,16 @@ namespace OrientationWindows {
         }
     }
 
+    void OrientationLockerModule::addListener(std::string) noexcept
+    {
+        // Keep: Required for RN built in Event Emitter Calls.
+    }
+
+    void OrientationLockerModule::removeListeners(int64_t) noexcept
+    {
+        // Keep: Required for RN built in Event Emitter Calls.
+    }
+
     void OrientationLockerModule::GetOrientation(std::function<void(std::string)> cb) noexcept {
         m_context.UIDispatcher().Post([weakThis = weak_from_this(), this, cb]() {
             if (auto strongThis = weakThis.lock())
