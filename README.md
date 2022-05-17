@@ -362,6 +362,7 @@ It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `UNKNOWN`
 
 ## Functions
 
+- `configure({ disableFaceUpDown: boolean })` (ios only)
 - `lockToPortrait()`
 - `lockToLandscape()`
 - `lockToLandscapeLeft()`  this will lock to camera left home button right
