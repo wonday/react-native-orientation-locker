@@ -60,6 +60,7 @@
     <PlatformToolset>v140</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '16.0'">v142</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '17.0'">v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
@@ -154,11 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ReactPackageProvider.idl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(ReactNativeWindowsDir)\Microsoft.ReactNative\Microsoft.ReactNative.vcxproj">
-      <Project>{f7d32bd0-2749-483e-9a0d-1635ef7e3136}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <!--Here-->

@@ -15,6 +15,14 @@ namespace OrientationWindows {
         REACT_INIT(Initialize)
         void Initialize(React::ReactContext const& reactContext) noexcept;
 
+        // Only used to suppress some warnings. Not actually used at this time.
+        REACT_METHOD(addListener);
+        void addListener(std::string) noexcept;
+
+        // Only used to suppress some warnings. Not actually used at this time.
+        REACT_METHOD(removeListeners);
+        void removeListeners(int64_t) noexcept;
+    
         REACT_METHOD(GetOrientation, L"getOrientation");
         void GetOrientation(std::function<void(std::string)> cb) noexcept;
 
