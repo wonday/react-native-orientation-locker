@@ -9,6 +9,8 @@
 "use strict";
 
 export default class Orientation {
+  static configure = options => {}
+
   static getOrientation = cb => {
     cb("UNKNOWN");
   };
