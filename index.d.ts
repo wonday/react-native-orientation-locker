@@ -82,11 +82,11 @@ declare class Orientation {
 
 export default Orientation;
 
-declare function useOrientationChange(listener: (orientation: OrientationType) => void);
+declare function useOrientationChange(listener: (orientation: OrientationType) => void): void;
 
-declare function useDeviceOrientationChange(listener: (orientation: OrientationType) => void);
+declare function useDeviceOrientationChange(listener: (orientation: OrientationType) => void): void;
 
-declare function useLockListener(listener: (orientation: OrientationType) => void);
+declare function useLockListener(listener: (orientation: OrientationType) => void): void;
 
 export {
   useOrientationChange,
