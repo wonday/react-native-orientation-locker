@@ -43,6 +43,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
     final OrientationEventListener mOrientationListener;
     final ReactApplicationContext ctx;
     private boolean isLocked = false;
+    private boolean isConfigurationChangeReceiverRegistered = false;
     private String lastOrientationValue = "";
     private String lastDeviceOrientationValue = "";
 
@@ -354,6 +355,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         FLog.i(ReactConstants.TAG, "orientation detect enabled.");
         mOrientationListener.enable();
         ctx.registerReceiver(mReceiver, new IntentFilter("onConfigurationChanged"));
+        isConfigurationChangeReceiverRegistered = true;
     }
 
     @Override
@@ -361,8 +363,11 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         FLog.d(ReactConstants.TAG, "orientation detect disabled.");
         mOrientationListener.disable();
         try {
-            ctx.unregisterReceiver(mReceiver);
-        } catch (java.lang.IllegalArgumentException e) {
+            if (isConfigurationChangeReceiverRegistered) {
+                ctx.unregisterReceiver(mReceiver);
+                isConfigurationChangeReceiverRegistered = false;
+            }
+        } catch (Exception e) {
            FLog.w(ReactConstants.TAG, "Receiver already unregistered", e);
         }
     }
@@ -376,9 +381,12 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         if (activity == null) return;
         try
         {
-            activity.unregisterReceiver(mReceiver);
+            if (isConfigurationChangeReceiverRegistered) {
+                activity.unregisterReceiver(mReceiver);
+                isConfigurationChangeReceiverRegistered = false;
+            }
         }
-        catch (java.lang.IllegalArgumentException e) {
+        catch (Exception e) {
             FLog.w(ReactConstants.TAG, "Receiver already unregistered", e);
         }
     }
