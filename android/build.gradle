@@ -5,6 +5,7 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
+    namespace = "org.wonday.orientation"
     compileSdkVersion safeExtGet('compileSdkVersion', 27)
     buildToolsVersion safeExtGet('buildToolsVersion', '27.0.3')
 
