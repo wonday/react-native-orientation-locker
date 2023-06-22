@@ -168,7 +168,8 @@ RCT_EXPORT_METHOD(configure:(NSDictionary *)options)
 #endif
     
 #if (!TARGET_OS_TV)
-    _disableFaceUpDown = [options objectForKey:@"disableFaceUpDown"] != nil;
+    NSNumber *disableFaceUpDown = [options objectForKey:@"disableFaceUpDown"];
+    _disableFaceUpDown = [disableFaceUpDown boolValue];
 #endif
 }
 
