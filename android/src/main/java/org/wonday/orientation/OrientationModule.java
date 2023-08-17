@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.view.Display;
 import android.view.OrientationEventListener;
 import android.view.Surface;
@@ -40,10 +41,9 @@ import javax.annotation.Nullable;
 public class OrientationModule extends ReactContextBaseJavaModule implements OrientationListeners {
 
     final BroadcastReceiver mReceiver;
-    final OrientationEventListener mOrientationListener;
+    private OrientationEventListener mOrientationListener;
     final ReactApplicationContext ctx;
     private boolean isLocked = false;
-    private boolean isConfigurationChangeReceiverRegistered = false;
     private String lastOrientationValue = "";
     private String lastDeviceOrientationValue = "";
 
@@ -51,67 +51,6 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         super(reactContext);
         ctx = reactContext;
 
-        mOrientationListener = new OrientationEventListener(reactContext, SensorManager.SENSOR_DELAY_UI) {
-
-            @Override
-            public void onOrientationChanged(int orientation) {
-
-                FLog.d(ReactConstants.TAG,"DeviceOrientation changed to " + orientation);
-
-                String deviceOrientationValue = lastDeviceOrientationValue;
-
-
-                if (orientation == -1) {
-                    deviceOrientationValue = "UNKNOWN";
-                } else if (orientation > 355 || orientation < 5) {
-                    deviceOrientationValue = "PORTRAIT";
-                } else if (orientation > 85 && orientation < 95) {
-                    deviceOrientationValue = "LANDSCAPE-RIGHT";
-                } else if (orientation > 175 && orientation < 185) {
-                    deviceOrientationValue = "PORTRAIT-UPSIDEDOWN";
-                } else if (orientation > 265 && orientation < 275) {
-                    deviceOrientationValue = "LANDSCAPE-LEFT";
-                }
-
-                if (!lastDeviceOrientationValue.equals(deviceOrientationValue)) {
-
-                    lastDeviceOrientationValue = deviceOrientationValue;
-
-                    WritableMap params = Arguments.createMap();
-                    params.putString("deviceOrientation", deviceOrientationValue);
-                    if (ctx.hasActiveCatalystInstance()) {
-                        ctx
-                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                        .emit("deviceOrientationDidChange", params);
-                    }
-                }
-
-                String orientationValue = getCurrentOrientation();
-                if (!lastOrientationValue.equals(orientationValue)) {
-                    lastOrientationValue = orientationValue;
-
-                    FLog.d(ReactConstants.TAG,"Orientation changed to " + orientationValue);
-
-                    WritableMap params = Arguments.createMap();
-                    params.putString("orientation", orientationValue);
-                    if (ctx.hasActiveCatalystInstance()) {
-                        ctx
-                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                        .emit("orientationDidChange", params);
-                    }
-                }
-
-                return;
-            }
-        };
-
-        if (mOrientationListener.canDetectOrientation()) {
-           FLog.d(ReactConstants.TAG, "orientation detect enabled.");
-           mOrientationListener.enable();
-        } else {
-           FLog.d(ReactConstants.TAG, "orientation detect disabled.");
-           mOrientationListener.disable();
-        }
 
         mReceiver = new BroadcastReceiver() {
             @Override
@@ -120,14 +59,12 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
                 String orientationValue = getCurrentOrientation();
                 lastOrientationValue = orientationValue;
 
-                FLog.d(ReactConstants.TAG,"Orientation changed to " + orientationValue);
+                FLog.d(ReactConstants.TAG, "Orientation changed to " + orientationValue);
 
                 WritableMap params = Arguments.createMap();
                 params.putString("orientation", orientationValue);
                 if (ctx.hasActiveCatalystInstance()) {
-                    ctx
-                    .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                    .emit("orientationDidChange", params);
+                    ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("orientationDidChange", params);
                 }
 
             }
@@ -169,6 +106,71 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
     }
 
     @ReactMethod
+    public void init() {
+        Log.e("OrientationModule", "init()");
+        mOrientationListener = new OrientationEventListener(ctx, SensorManager.SENSOR_DELAY_UI) {
+
+            @Override
+            public void onOrientationChanged(int orientation) {
+
+                FLog.d(ReactConstants.TAG, "DeviceOrientation changed to " + orientation);
+
+                String deviceOrientationValue = lastDeviceOrientationValue;
+
+
+                if (orientation == -1) {
+                    deviceOrientationValue = "UNKNOWN";
+                } else if (orientation > 355 || orientation < 5) {
+                    deviceOrientationValue = "PORTRAIT";
+                } else if (orientation > 85 && orientation < 95) {
+                    deviceOrientationValue = "LANDSCAPE-RIGHT";
+                } else if (orientation > 175 && orientation < 185) {
+                    deviceOrientationValue = "PORTRAIT-UPSIDEDOWN";
+                } else if (orientation > 265 && orientation < 275) {
+                    deviceOrientationValue = "LANDSCAPE-LEFT";
+                }
+
+                if (!lastDeviceOrientationValue.equals(deviceOrientationValue)) {
+
+                    lastDeviceOrientationValue = deviceOrientationValue;
+
+                    WritableMap params = Arguments.createMap();
+                    params.putString("deviceOrientation", deviceOrientationValue);
+                    if (ctx.hasActiveCatalystInstance()) {
+                        ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("deviceOrientationDidChange", params);
+                    }
+                }
+
+                String orientationValue = getCurrentOrientation();
+                if (!lastOrientationValue.equals(orientationValue)) {
+                    lastOrientationValue = orientationValue;
+
+                    FLog.d(ReactConstants.TAG, "Orientation changed to " + orientationValue);
+
+                    WritableMap params = Arguments.createMap();
+                    params.putString("orientation", orientationValue);
+                    if (ctx.hasActiveCatalystInstance()) {
+                        ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("orientationDidChange", params);
+                    }
+                }
+
+            }
+        };
+
+        mOrientationListener.enable();
+    }
+
+    @ReactMethod
+    public void removeInit() {
+        Log.e("OrientationModule", "removeInit()");
+        // 停止监听并释放资源
+        if (mOrientationListener != null) {
+            mOrientationListener.disable();
+            mOrientationListener = null; // 释放资源
+        }
+    }
+
+    @ReactMethod
     public void lockToPortrait() {
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
@@ -180,18 +182,14 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("orientationDidChange", params);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("orientationDidChange", params);
         }
 
         // send a locked event
         WritableMap lockParams = Arguments.createMap();
         lockParams.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("lockDidChange", lockParams);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("lockDidChange", lockParams);
         }
     }
 
@@ -207,18 +205,14 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("orientationDidChange", params);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("orientationDidChange", params);
         }
 
         // send a locked event
         WritableMap lockParams = Arguments.createMap();
         lockParams.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("lockDidChange", lockParams);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("lockDidChange", lockParams);
         }
     }
 
@@ -234,18 +228,14 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("orientationDidChange", params);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("orientationDidChange", params);
         }
 
         // send a locked event
         WritableMap lockParams = Arguments.createMap();
         lockParams.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("lockDidChange", lockParams);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("lockDidChange", lockParams);
         }
     }
 
@@ -261,18 +251,14 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("orientationDidChange", params);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("orientationDidChange", params);
         }
 
         // send a locked event
         WritableMap lockParams = Arguments.createMap();
         lockParams.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("lockDidChange", lockParams);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("lockDidChange", lockParams);
         }
     }
 
@@ -288,18 +274,14 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("orientationDidChange", params);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("orientationDidChange", params);
         }
 
         // send a locked event
         WritableMap lockParams = Arguments.createMap();
         lockParams.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("lockDidChange", lockParams);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("lockDidChange", lockParams);
         }
     }
 
@@ -316,28 +298,22 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("orientationDidChange", params);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("orientationDidChange", params);
         }
 
         // send a unlocked event
         WritableMap lockParams = Arguments.createMap();
         lockParams.putString("orientation", "UNKNOWN");
         if (ctx.hasActiveCatalystInstance()) {
-            ctx
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("lockDidChange", lockParams);
+            ctx.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("lockDidChange", lockParams);
         }
     }
 
     @ReactMethod
     public void getAutoRotateState(Callback callback) {
-      final ContentResolver resolver = ctx.getContentResolver();
-      boolean rotateLock = android.provider.Settings.System.getInt(
-      resolver,
-      android.provider.Settings.System.ACCELEROMETER_ROTATION, 0) == 1;
-      callback.invoke(rotateLock);
+        final ContentResolver resolver = ctx.getContentResolver();
+        boolean rotateLock = android.provider.Settings.System.getInt(resolver, android.provider.Settings.System.ACCELEROMETER_ROTATION, 0) == 1;
+        callback.invoke(rotateLock);
     }
 
     @Override
@@ -353,51 +329,49 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
     @Override
     public void start() {
         FLog.i(ReactConstants.TAG, "orientation detect enabled.");
-        mOrientationListener.enable();
+        if (mOrientationListener != null) {
+            mOrientationListener.enable();
+
+        }
         ctx.registerReceiver(mReceiver, new IntentFilter("onConfigurationChanged"));
-        isConfigurationChangeReceiverRegistered = true;
     }
 
     @Override
     public void stop() {
         FLog.d(ReactConstants.TAG, "orientation detect disabled.");
-        mOrientationListener.disable();
+        if (mOrientationListener != null) {
+            mOrientationListener.disable();
+        }
         try {
-            if (isConfigurationChangeReceiverRegistered) {
-                ctx.unregisterReceiver(mReceiver);
-                isConfigurationChangeReceiverRegistered = false;
-            }
-        } catch (Exception e) {
-           FLog.w(ReactConstants.TAG, "Receiver already unregistered", e);
+            ctx.unregisterReceiver(mReceiver);
+        } catch (java.lang.IllegalArgumentException e) {
+            FLog.w(ReactConstants.TAG, "Receiver already unregistered", e);
         }
     }
 
     @Override
     public void release() {
         FLog.d(ReactConstants.TAG, "orientation detect disabled.");
-        mOrientationListener.disable();
+        if (mOrientationListener != null) {
+            mOrientationListener.disable();
 
+        }
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
-        try
-        {
-            if (isConfigurationChangeReceiverRegistered) {
-                activity.unregisterReceiver(mReceiver);
-                isConfigurationChangeReceiverRegistered = false;
-            }
-        }
-        catch (Exception e) {
+        try {
+            activity.unregisterReceiver(mReceiver);
+        } catch (java.lang.IllegalArgumentException e) {
             FLog.w(ReactConstants.TAG, "Receiver already unregistered", e);
         }
     }
 
     @ReactMethod
     public void addListener(String eventName) {
-     // Keep: Required for RN built in Event Emitter Calls.
+        // Keep: Required for RN built in Event Emitter Calls.
     }
 
     @ReactMethod
     public void removeListeners(Integer count) {
-     // Keep: Required for RN built in Event Emitter Calls.
+        // Keep: Required for RN built in Event Emitter Calls.
     }
 }

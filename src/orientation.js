@@ -9,8 +9,6 @@
 "use strict";
 
 export default class Orientation {
-  static configure = options => {}
-
   static getOrientation = cb => {
     cb("UNKNOWN");
   };
@@ -24,6 +22,8 @@ export default class Orientation {
   };
 
   static lockToPortrait = () => {};
+  static init = () => {};
+  static removeInit = () => {};
 
   static lockToPortraitUpsideDown = () => {};
 

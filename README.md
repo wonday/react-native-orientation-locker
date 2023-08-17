@@ -233,28 +233,33 @@ Whenever you want to use it within React Native code now you can:
 import Orientation from 'react-native-orientation-locker';
 
 
-  _onOrientationDidChange = (orientation) => {
+_onOrientationDidChange = (orientation) => {
     if (orientation == 'LANDSCAPE-LEFT') {
-      //do something with landscape left layout
+        //do something with landscape left layout
     } else {
-      //do something with portrait layout
+        //do something with portrait layout
     }
-  };
+};
 
-  componentWillMount() {
+componentWillMount()
+{
     //The getOrientation method is async. It happens sometimes that
     //you need the orientation at the moment the js starts running on device.
     //getInitialOrientation returns directly because its a constant set at the
     //beginning of the js code.
     var initial = Orientation.getInitialOrientation();
     if (initial === 'PORTRAIT') {
-      //do stuff
+        //do stuff
     } else {
-      //do other stuff
+        //do other stuff
     }
-  },
+}
+,
 
-  componentDidMount() {
+componentDidMount()
+{
+    // init sdk  Only need android other platforms can ignore
+    Orientation.init();
 
     Orientation.getAutoRotateState((rotationLock) => this.setState({rotationLock}));
     //this allows to check if the system autolock is enabled or not.
@@ -276,11 +281,14 @@ import Orientation from 'react-native-orientation-locker';
     */
 
     Orientation.addOrientationListener(this._onOrientationDidChange);
-  },
+}
+,
 
-  componentWillUnmount: function() {
+componentWillUnmount: function () {
     Orientation.removeOrientationListener(this._onOrientationDidChange);
-  }
+    // init sdk  Only need android other platforms can ignore
+    Orientation.removeInit();
+}
 ```
 
 ### Reactive component `<OrientationLocker>`

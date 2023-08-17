@@ -31,16 +31,19 @@ function getKey(listener) {
 }
 
 export default class Orientation {
-  static configure = (_options) => {
-    // ios only
-  };
-
   static getOrientation = (cb) => {
     OrientationNative.getOrientation((orientation) => {
       cb(orientation);
     });
   };
 
+  static init =()=>{
+    OrientationNative.init()
+  }
+  static removeInit=()=>{
+    OrientationNative.removeInit()
+  }
+  
   static getDeviceOrientation = (cb) => {
     OrientationNative.getDeviceOrientation((deviceOrientation) => {
       cb(deviceOrientation);
