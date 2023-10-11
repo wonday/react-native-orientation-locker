@@ -312,7 +312,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
         isLocked = false;
 
         //force send an UI orientation event when unlock
-        lastOrientationValue = lastDeviceOrientationValue;
+        lastOrientationValue = getCurrentOrientation();
         WritableMap params = Arguments.createMap();
         params.putString("orientation", lastOrientationValue);
         if (ctx.hasActiveCatalystInstance()) {
