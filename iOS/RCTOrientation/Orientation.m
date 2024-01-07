@@ -138,11 +138,17 @@ static UIInterfaceOrientationMask _orientationMask = UIInterfaceOrientationMaskA
     UIInterfaceOrientation deviceOrientation = _lastDeviceOrientation;
     
     [Orientation setOrientation:mask];
-    UIDevice* currentDevice = [UIDevice currentDevice];
-    
-    [currentDevice setValue:@(UIInterfaceOrientationUnknown) forKey:orientation];
-    [currentDevice setValue:@(newOrientation) forKey:orientation];
-    
+
+    if (@available(iOS 16.0, *)) {
+        NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+        UIWindowScene *scene = (UIWindowScene *)array[0];    UIWindowSceneGeometryPreferencesIOS *geometryPreferences = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:mask];
+        [scene requestGeometryUpdateWithPreferences:geometryPreferences errorHandler:^(NSError * _Nonnull error) { }];
+    } else {
+        UIDevice* currentDevice = [UIDevice currentDevice];
+        [currentDevice setValue:@(UIInterfaceOrientationUnknown) forKey:orientation];
+        [currentDevice setValue:@(newOrientation) forKey:orientation];
+    }
+
     [UIViewController attemptRotationToDeviceOrientation];
     
     [self sendEventWithName:@"lockDidChange" body:@{orientation: [self getOrientationStr:newOrientation]}];
