@@ -12,6 +12,9 @@ A react-native module that can listen on orientation changing of device, get cur
 ### ChangeLog
 <details>
   <summary>ChangeLog details</summary>
+v1.7.0
+1. Add: Add support for new iOS orientation API on newer OS versions
+2. Fix: Fix reporting UI orientation upon unlock
 
 v1.6.0
 1. Add: Add vs2022 support. Remove unnecessary reference
