@@ -1,4 +1,5 @@
 # react-native-orientation-locker
+
 [![npm](https://img.shields.io/npm/v/react-native-orientation-locker.svg?style=flat-square)](https://www.npmjs.com/package/react-native-orientation-locker)
 
 A react-native module that can listen on orientation changing of device, get current orientation, lock to preferred orientation. (cross-platform support)
@@ -10,6 +11,7 @@ A react-native module that can listen on orientation changing of device, get cur
 * get the current orientation of device
 
 ### ChangeLog
+
 <details>
   <summary>ChangeLog details</summary>
 v1.7.0
@@ -17,6 +19,7 @@ v1.7.0
 2. Fix: Fix reporting UI orientation upon unlock
 
 v1.6.0
+
 1. Add: Add vs2022 support. Remove unnecessary reference
 2. Fix: Change WindowsTargetPlatformVersion to 10.0
 3. Fix: added check for broadcast receiver being registered and unregistered to avoid IllegalArgumentException
@@ -24,22 +27,27 @@ v1.6.0
 5. Fix: Add RECEIVER_EXPORTED/RECEIVER_NOT_EXPORTED to support Android 14
 
 v1.5.0
+
 1. Fix: threading issue on Windows and fix android not triggering event in some cases
 2. Fix: add stub methods to remove warning while using listeners
 
 v1.4.0
+
 1. Fix typescript types
 2. Fix some bugs
 
-v1.3.1 
+v1.3.1
+
 1. Fix require cycle problem
 
 v1.3.0 **BREAKING CHANGES**
+
 1. Add support for Window
 2. Modify sample project
 3. Updates Tyescript define
 
 v1.2.0 **BREAKING CHANGES**
+
 1. Add support for lockAllOrientationsButUpsideDown
 2. Ignore on web and desktop (#115)
 3. Fix for not finding @ReactModule (#125)
@@ -47,6 +55,7 @@ v1.2.0 **BREAKING CHANGES**
 5. Implement ActivityLifecycleCallbacks on Android (#131)
 
 Please be sure to add to `onCreate` of your `MainApplication`
+
 ```
 import org.wonday.orientation.OrientationActivityLifecycle;
 
@@ -57,36 +66,45 @@ import org.wonday.orientation.OrientationActivityLifecycle;
   }
 
 ```
+
 v1.1.8
+
 1. Support FACE-UP and FACE-DOWN on iOS
 
 v1.1.7
+
 1. Add lockToPortraitUpsideDown() to iOS
 2. Minor case corrections
 
 v1.1.6
+
 1. Catch unknown device orientation value
 2. When calling unlockAllOrientations(), forcibly unlock whether locked or not
 
 v1.1.5
+
 1. Add Orientation.isLocked() and Orientation.removeAllListeners()
 
 v1.1.4
+
 1. Fix TypeScript declarations
 
 v1.1.3
+
 1. Add `addLockListener` and `removeLockListener`
 2. Improve Android orientation changed event sending condition
 
 v1.1.2
+
  1. Improve Android orientation changed event timing
 
 v1.1.1
+
  1. Fix show "supported event type for deviceOrientationDidChange..." error in debug
  2. Fix getAutoRotateState() code error
 
-
 v1.1.0 **BREAKING CHANGES**  
+
  1. Split ```addOrientationListener(function(orientation, deviceOrientation))``` to ```addOrientationListener(function(orientation))``` and ```addDeviceOrientationListener(function(deviceOrientation))```
  2. Make sure when lockToXXX and unlockAllOrientations resend UI orientation event
  3. remove setTimout from orientation listener
@@ -98,14 +116,14 @@ v1.1.0 **BREAKING CHANGES**
 
 ### Notice
 
-1. RN 0.58 + Android target SDK 27 maybe cause 
-```Issue: java.lang.IllegalStateException: Only fullscreen activities can request orientation``` problem, 
+1. RN 0.58 + Android target SDK 27 maybe cause
+```Issue: java.lang.IllegalStateException: Only fullscreen activities can request orientation``` problem,
 see [[#55]](https://github.com/wonday/react-native-orientation-locker/issues/55) for a solution.
 
 2. orientationDidChange will be delayed on iPads if we set upside down to true.
 Simply disable upside down for iPad and everything works like a charm ([[#78]](https://github.com/wonday/react-native-orientation-locker/issues/78) Thanks [truongluong1314520](https://github.com/truongluong1314520))
 
-3. If you get the following build error on iOS: 
+3. If you get the following build error on iOS:
 ```ld: library not found for -lRCTOrientation-tvOS```
 Just remove it from linked libraries and frameworks
 
@@ -114,7 +132,8 @@ Just remove it from linked libraries and frameworks
 5. For Windows, getting information on device orientation and tracking its changes will only be possible on devices with an orientation sensor. If the device running your application does not have the appropriate hardware to support tracking device orientation, `getDeviceOrientation()` will return UNKNOWN.
 
 #### To run example on Windows Tablet (This will allow one to view modules full functionality)
-1. Open example/windows/example.sln in Visual Studio. 
+
+1. Open example/windows/example.sln in Visual Studio.
 2. Go to Project > Publish > Create App Packages.
 3. Certificate password is "password".
 4. Select "Sideloading" and hit "Next".
@@ -122,15 +141,15 @@ Just remove it from linked libraries and frameworks
 6. Choose desired output location and hit "Create".
 7. Got to output location and copy example_<version>_Test directory over to tablet device.
 8. On tablet device open APPXBUNDLE File and hit "Install" (make sure tablet is in developer mode). App should launch after install is complete.
-9. Turn on tablet mode on device to see locking to a UI orientation functionality. 
+9. Turn on tablet mode on device to see locking to a UI orientation functionality.
 
 ### Installation
+
 #### Using yarn (RN 0.60 and and above)
 
 ```
     yarn add react-native-orientation-locker
 ```
-
 
 #### Using yarn (RN 0.59 and and below)
 
@@ -138,7 +157,9 @@ Just remove it from linked libraries and frameworks
     yarn add react-native-orientation-locker
     react-native link react-native-orientation-locker
 ```
+
 #### Manual linking
+
 For Windows, if you are using RNW v0.63.0 or higher, autolinking should link the module for you. Otherwise, you must follow the steps outlined [here](https://microsoft.github.io/react-native-windows/docs/native-modules-using) for linking module.
 
 Add following to MainApplication.java
@@ -266,6 +287,9 @@ import Orientation from 'react-native-orientation-locker';
 
   componentDidMount() {
 
+    // init sdk  Only need android other platforms can ignore
+    Orientation.init();
+
     Orientation.getAutoRotateState((rotationLock) => this.setState({rotationLock}));
     //this allows to check if the system autolock is enabled or not.
 
@@ -290,6 +314,8 @@ import Orientation from 'react-native-orientation-locker';
 
   componentWillUnmount: function() {
     Orientation.removeOrientationListener(this._onOrientationDidChange);
+    // init sdk  Only need android other platforms can ignore
+    Orientation.removeInit();
   }
 ```
 
@@ -326,8 +352,10 @@ export default function App() {
 ```
 
 ## Hooks
-- `useOrientationChange`: hook for `addOrientationListener` event
-- `useDeviceOrientationChange`: hook for `addDeviceOrientationListener` event
+
+* `useOrientationChange`: hook for `addOrientationListener` event
+
+* `useDeviceOrientationChange`: hook for `addDeviceOrientationListener` event
 
 ```
 function SomeComponent() {
@@ -343,56 +371,56 @@ function SomeComponent() {
 
 ## Events
 
-- `addOrientationListener(function(orientation))`
+* `addOrientationListener(function(orientation))`
 
 When UI orientation changed, callback function will be called.
 But if lockToXXX is called , callback function will be not called untill unlockAllOrientations.
 It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
 When lockToXXX/unlockAllOrientations, it will force resend UI orientation changed event.
 
-- `removeOrientationListener(function(orientation))`
+* `removeOrientationListener(function(orientation))`
 
-- `addDeviceOrientationListener(function(deviceOrientation))`
+* `addDeviceOrientationListener(function(deviceOrientation))`
 
 When device orientation changed, callback function will be called.
 When lockToXXX is called, callback function also can be called.
 It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `PORTRAIT-UPSIDEDOWN` `UNKNOWN`
 
-- `removeDeviceOrientationListener(function(deviceOrientation))`
+* `removeDeviceOrientationListener(function(deviceOrientation))`
 
-- `addLockListener(function(orientation))`
+* `addLockListener(function(orientation))`
 
 When call lockToXXX/unlockAllOrientations, callback function will be called.
 It can return either `PORTRAIT` `LANDSCAPE-LEFT` `LANDSCAPE-RIGHT` `UNKNOWN`
 `UNKNOWN` means not be locked.
 
-- `removeLockListener(function(orientation))`
+* `removeLockListener(function(orientation))`
 
-- `removeAllListeners()`
+* `removeAllListeners()`
 
 ## Functions
 
-- `configure({ disableFaceUpDown: boolean })` (ios only)
-- `lockToPortrait()`
-- `lockToLandscape()`
-- `lockToLandscapeLeft()`  this will lock to camera left home button right
-- `lockToLandscapeRight()` this will lock to camera right home button left
-- `lockToPortraitUpsideDown` only support android and Windows
-- `lockToAllOrientationsButUpsideDown` only ios
-- `unlockAllOrientations()`
-- `getOrientation(function(orientation))`
-- `getDeviceOrientation(function(deviceOrientation))`
-- `getAutoRotateState(function(state))` (android only)
-- `isLocked()` (lock status by this library)
+* `configure({ disableFaceUpDown: boolean })` (ios only)
+* `lockToPortrait()`
+* `lockToLandscape()`
+* `lockToLandscapeLeft()`  this will lock to camera left home button right
+* `lockToLandscapeRight()` this will lock to camera right home button left
+* `lockToPortraitUpsideDown` only support android and Windows
+* `lockToAllOrientationsButUpsideDown` only ios
+* `unlockAllOrientations()`
+* `getOrientation(function(orientation))`
+* `getDeviceOrientation(function(deviceOrientation))`
+* `getAutoRotateState(function(state))` (android only)
+* `isLocked()` (lock status by this library)
 
 orientation can return one of:
 
-- `PORTRAIT`
-- `LANDSCAPE-LEFT` camera left home button right
-- `LANDSCAPE-RIGHT` camera right home button left
-- `PORTRAIT-UPSIDEDOWN`
-- `FACE-UP`
-- `FACE-DOWN`
-- `UNKNOWN`
+* `PORTRAIT`
+* `LANDSCAPE-LEFT` camera left home button right
+* `LANDSCAPE-RIGHT` camera right home button left
+* `PORTRAIT-UPSIDEDOWN`
+* `FACE-UP`
+* `FACE-DOWN`
+* `UNKNOWN`
 
 Notice: PORTRAIT-UPSIDEDOWN is currently not supported on iOS at the moment. FACE-UP and FACE-DOWN are only supported on iOS and Windows.
