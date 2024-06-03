@@ -60,8 +60,8 @@ static UIInterfaceOrientationMask _orientationMask = UIInterfaceOrientationMaskA
 {
     if(@available(iOS 13, *)) {
         UIInterfaceOrientation orientation = UIInterfaceOrientationUnknown;
-        UIScene *activeScene = [[UIApplication sharedApplication] connectedScenes].allObjects.firstObject;
-        if ([activeScene isKindOfClass:[UIWindowScene class]]) {
+        UIWindowScene *activeScene = [self getWindowScene];
+        if (activeScene != nil && [activeScene isKindOfClass:[UIWindowScene class]]) {
             UIWindowScene *windowScene = (UIWindowScene *)activeScene;
             orientation = windowScene.interfaceOrientation;
         }
@@ -111,6 +111,16 @@ static UIInterfaceOrientationMask _orientationMask = UIInterfaceOrientationMaskA
     }
 }
 
+- (UIWindowScene *)getWindowScene {
+    NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+    for (id connectedScene in array) {
+      if ([connectedScene isKindOfClass:[UIWindowScene class]]) {
+        return connectedScene;
+      }
+    }
+    return nil;
+}
+
 - (NSString *)getOrientationStr: (UIInterfaceOrientation)orientation {
     
     NSString *orientationStr;
@@ -154,17 +164,17 @@ static UIInterfaceOrientationMask _orientationMask = UIInterfaceOrientationMaskA
     [Orientation setOrientation:mask];
     
     if (@available(iOS 16.0, *)) {
-        UIWindowScene *windowScene = (UIWindowScene *)[UIApplication sharedApplication].connectedScenes.allObjects.firstObject;
-        
-        UIWindowSceneGeometryPreferencesIOS *geometryPreferences = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:mask];
-        [windowScene requestGeometryUpdateWithPreferences:geometryPreferences errorHandler:^(NSError * _Nonnull error) {
+        UIWindowScene *windowScene = [self getWindowScene];
+        if (windowScene != nil) {
+            UIWindowSceneGeometryPreferencesIOS *geometryPreferences = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:mask];
+            [windowScene requestGeometryUpdateWithPreferences:geometryPreferences errorHandler:^(NSError * _Nonnull error) {
 #if DEBUG
-            if (error) {
-                NSLog(@"Failed to update geometry with UIInterfaceOrientationMask: %@", error);
-            }
+                if (error) {
+                    NSLog(@"Failed to update geometry with UIInterfaceOrientationMask: %@", error);
+                }
 #endif
-        }];
-        
+            }];
+        }
     } else {
         UIDevice* currentDevice = [UIDevice currentDevice];
         
