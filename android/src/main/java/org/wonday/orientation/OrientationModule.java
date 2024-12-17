@@ -173,7 +173,7 @@ public class OrientationModule extends ReactContextBaseJavaModule implements Ori
     public void lockToPortrait() {
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
-        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         isLocked = true;
 
         // force send an UI orientation event
