@@ -167,6 +167,32 @@ Run ```pod install``` in the ios directory. Linking is not required in React Nat
 
 #### iOS
 
+##### AppDelegate.swift + Bridging Header (RN 0.77 and and above)
+
+Add the following to your project's `AppDelegate.swift`:
+```diff
+// ...
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+  // ...
+
++  // required for react-native-orientation-locker
++  func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
++    return Orientation.getOrientation()
++  }
+}
+// ...
+```
+
+Add the following to your project's Bridging Header file:
+```diff
+// ...
++#import "Orientation.h"
+// ...
+```
+
+##### AppDelegate.m (RN 0.76 and below)
+
 Add the following to your project's `AppDelegate.m`:
 
 ```diff
@@ -182,6 +208,8 @@ Add the following to your project's `AppDelegate.m`:
 
 @end
 ```
+
+
 
 #### Android
 
