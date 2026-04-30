@@ -53,7 +53,12 @@ static UIInterfaceOrientationMask _orientationMask = UIInterfaceOrientationMaskA
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self removeListeners:1];
+    // Do not call `[self removeListeners:1]` here. The bridge tears down
+    // JS-side subscriptions before module dealloc, decrementing
+    // RCTEventEmitter's listener counter to 0. An additional removeListeners:1
+    // here drives the counter negative on every reload, producing
+    // "Attempted to remove more Orientation listeners than added" and (under
+    // the New Architecture) destabilizing the Fabric scheduler teardown.
 }
 
 - (UIInterfaceOrientation)getInterfaceOrientation
