@@ -26,12 +26,20 @@
     "bugs": {
         "url": "https://github.com/wonday/react-native-orientation-locker/issues"
     },
+    "codegenConfig": {
+        "name": "RNOrientationLockerSpec",
+        "type": "modules",
+        "jsSrcsDir": "src",
+        "android": {
+            "javaPackageName": "org.wonday.orientation"
+        }
+    },
     "dependencies": {
     },
     "peerDependencies": {
-        "react": ">=16.13.1",
-        "react-native": ">=0.63.2",
-        "react-native-windows": ">=0.63.3"
+        "react": ">=17.0.1",
+        "react-native": ">=0.71.0",
+        "react-native-windows": ">=0.71.0"
     },
     "peerDependenciesMeta": {
         "react-native-windows": {
@@ -39,8 +47,8 @@
         }
     },
     "devDependencies": {
-        "react": "16.13.1",
-        "react-native": "0.69.12",
-        "react-native-windows": "^0.63.3"
+        "react": "18.3.1",
+        "react-native": "0.76.1",
+        "react-native-windows": "^0.71.0"
     }
 }

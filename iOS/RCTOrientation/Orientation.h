@@ -9,10 +9,20 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+#ifdef RCT_NEW_ARCH_ENABLED
+#import <RNOrientationLockerSpec/RNOrientationLockerSpec.h>
+#else
 #import <React/RCTBridgeModule.h>
+#endif
 #import <React/RCTEventEmitter.h>
 
-@interface Orientation : RCTEventEmitter <RCTBridgeModule>
+@interface Orientation : RCTEventEmitter
+#ifdef RCT_NEW_ARCH_ENABLED
+    <NativeOrientationSpec>
+#else
+    <RCTBridgeModule>
+#endif
 #if (!TARGET_OS_TV)
 + (void)setOrientation: (UIInterfaceOrientationMask)orientation;
 + (UIInterfaceOrientationMask)getOrientation;

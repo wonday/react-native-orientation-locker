@@ -1,24 +1,53 @@
-apply plugin: 'com.android.library'
-
 def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
+def isNewArchitectureEnabled() {
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
+
+apply plugin: 'com.android.library'
+
+// The react plugin wires up library-level codegen under the New Architecture
+// (it generates the Native*Spec sources into this library's sourceSets).
+// It is provided by the app's composite build of @react-native/gradle-plugin.
+if (isNewArchitectureEnabled()) {
+  apply plugin: 'com.facebook.react'
+}
+
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 27)
-    buildToolsVersion safeExtGet('buildToolsVersion', '27.0.3')
+    compileSdkVersion safeExtGet('compileSdkVersion', 35)
+
+    def agpMajorVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0].toInteger()
+
+    // namespace replaces the manifest package attribute on AGP 7+
+    if (agpMajorVersion >= 7) {
+        namespace "org.wonday.orientation"
+    }
 
     defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 16)
-        targetSdkVersion safeExtGet('targetSdkVersion', 26)
+        minSdkVersion safeExtGet('minSdkVersion', 21)
+        targetSdkVersion safeExtGet('targetSdkVersion', 35)
         versionCode 1
         versionName "1.0"
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
+        buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+    }
+
+    // buildConfig as a build feature only exists (and defaults to false)
+    // since AGP 8; declaring it on older AGP versions is a configuration error.
+    if (agpMajorVersion >= 8) {
+        buildFeatures {
+            buildConfig true
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
+    // noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:${safeExtGet('reactNative', '+')}"
 }
