@@ -9,6 +9,21 @@ A react-native module that can listen on orientation changing of device, get cur
 * listen on orientation changing of device
 * get the current orientation of device
 
+### New Architecture (TurboModule)
+
+This library is implemented as a **TurboModule** (spec-based, via React Native codegen):
+
+* The interface is defined in `src/NativeOrientation.ts` and consumed by codegen
+  (`codegenConfig` in `package.json`), generating `NativeOrientationSpec` for
+  Android (Java) and iOS (Objective-C++).
+* Works on both the **legacy architecture** and the **New Architecture**
+  (including bridgeless mode), for React Native **0.71 and newer**.
+* No manual native setup is required on Android anymore: the module manages
+  its own lifecycle (`LifecycleEventListener`) and listens to the system
+  `ACTION_CONFIGURATION_CHANGED` broadcast, so the steps previously required
+  in `MainActivity.java` / `MainApplication.java` are no longer needed
+  (keeping them is harmless for backward compatibility).
+
 ### ChangeLog
 <details>
   <summary>ChangeLog details</summary>
@@ -114,6 +129,12 @@ Just remove it from linked libraries and frameworks
 5. For Windows, getting information on device orientation and tracking its changes will only be possible on devices with an orientation sensor. If the device running your application does not have the appropriate hardware to support tracking device orientation, `getDeviceOrientation()` will return UNKNOWN.
 
 #### To run example on Windows Tablet (This will allow one to view modules full functionality)
+
+> The bundled `example/` app now targets the New Architecture (iOS/Android,
+> RN 0.76) and no longer contains a Windows project. To try the library on
+> Windows, create a react-native-windows app and link
+> `react-native-orientation-locker` manually following the steps above.
+
 1. Open example/windows/example.sln in Visual Studio. 
 2. Go to Project > Publish > Create App Packages.
 3. Certificate password is "password".
@@ -227,6 +248,13 @@ Add following to android/app/src/main/AndroidManifest.xml
 
 ```
 
+The steps below are **no longer required** since the module now manages its
+own lifecycle and listens to the system configuration-changed broadcast.
+They are kept for reference and remain harmless if you already have them.
+
+<details>
+<summary>Legacy manual setup (optional, not needed anymore)</summary>
+
 Implement onConfigurationChanged method (in `MainActivity.java`)
 
 ```diff
@@ -258,6 +286,8 @@ Add following to MainApplication.java
 +    registerActivityLifecycleCallbacks(OrientationActivityLifecycle.getInstance());
   }
 ```
+
+</details>
 
 ## Usage
 
